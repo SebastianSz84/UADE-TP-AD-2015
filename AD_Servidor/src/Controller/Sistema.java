@@ -16,6 +16,11 @@ package Controller;
 
 public class Sistema {
 
+	public void getListaRodamientos() {
+		
+		
+	}
+
 	public void solicitarCotizacion() {
 	
 	}
