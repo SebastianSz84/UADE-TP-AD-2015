@@ -13,21 +13,18 @@ import java.util.Vector;
 //
 //
 
-
-
-
 public class Cotizacion {
 	private Vector<ItemCotizacion> items;
 	private String estado;
-		
+
 	public void agregarItem(Rodamiento rod, int cant) {
-	
+
 	}
-	
+
 	public void aceptar() {
-	
+		this.estado = "Aceptada";
 	}
-	
+
 	public float getTotal() {
 		return 0;
 	}
