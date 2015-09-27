@@ -6,27 +6,15 @@ import Entities.*;
 public class ClienteDAO extends BaseDAO {
 
 	public static Cliente getCliente(int codigo) {
-		Transaction tx = getSession().beginTransaction();
-		try {
-			Cliente cliente = getSession().get(Cliente.class, codigo);
-			tx.commit();
-			return cliente;
-		}
-		catch (Exception ex) {
-			tx.rollback();
-		}
-		return null;
+		return getEntity(Cliente.class, codigo); 
 	}
 	
-	public static void saveCliente(Cliente cliente) {
-		Transaction tx = getSession().beginTransaction();
-		try {
-			getSession().save(cliente);
-			tx.commit();
-		}
-		catch (Exception ex) {
-			tx.rollback();
-		}
+	public static Cliente saveCliente(Cliente cliente) {
+		return saveEntity(cliente); 
+	}
+	
+	public static void deleteCliente(Cliente cliente) {
+		deleteEntity(cliente);
 	}
 	
 }
