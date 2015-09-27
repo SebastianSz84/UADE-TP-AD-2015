@@ -1,6 +1,5 @@
 package Dao;
 
-import org.hibernate.Transaction;
 import Entities.*;
 
 public class ClienteDAO extends BaseDAO {

@@ -1,20 +1,18 @@
 package Dao;
 
-import org.hibernate.Transaction;
 import Entities.*;
 
 public class OVentaDAO extends BaseDAO {
 
-	public static OVenta getOVenta(int id) {
-		Transaction tx = getSession().beginTransaction();
-		try {
-			OVenta ov = getSession().get(OVenta.class, id);
-			tx.commit();
-			return ov;
-		}
-		catch (Exception ex) {
-			tx.rollback();
-		}
-		return null;
+	public static OVenta getOVenta(int codigo) {
+		return getEntity(OVenta.class, codigo); 
+	}
+	
+	public static OVenta saveOVenta(OVenta ov) {
+		return saveEntity(ov); 
+	}
+	
+	public static void deleteOVenta(OVenta ov) {
+		deleteEntity(ov);
 	}
 }

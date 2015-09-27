@@ -12,27 +12,35 @@ public class AD_Servidor_Tests {
 	@Test
 	public void testSaveAndRetrieveCliente() {
         
-		OVenta ov = new OVenta();
-		ov.nombre = "TestOVName";
-		ov.direccion = "TestOVAddress";
+		OVenta ov = null;
+		Cliente cliente = null;
+		try
+		{
+			ov = new OVenta();
+			ov.nombre = "TestOVName";
+			ov.direccion = "TestOVAddress";
+			
+			cliente = new Cliente();
+			cliente.nombre = "TestName";
+			cliente.direccion = "TestAddress";
+			cliente.OficinaDeVenta = ov;
+			
+			ov.clientes.add(cliente);
 		
-		ov = OVentaDAO.saveEntity(ov);
-		
-		Cliente cliente = new Cliente();
-		cliente.nombre = "TestName";
-		cliente.direccion = "TestAddress";
-		cliente
-		
-		cliente = ClienteDAO.saveCliente(cliente);
-		
-		int id = cliente.codigo;
-				
-		cliente = ClienteDAO.getCliente(id);
-
-		assertNotNull(cliente);
-		assertEquals(cliente.nombre, "TestName");
-		
-		ClienteDAO.deleteCliente(cliente);
-		OVentaDAO.deleteEntity(ov);
+			ov = OVentaDAO.saveEntity(ov);
+			
+			int id = cliente.codigo;
+			
+			cliente = ClienteDAO.getCliente(id);
+	
+			assertNotNull(cliente);
+			assertEquals(cliente.nombre, "TestName");
+		}
+		finally
+		{
+			ov.clientes.remove(cliente);
+			ClienteDAO.deleteCliente(cliente);
+			OVentaDAO.deleteEntity(ov);
+		}
     }
 }

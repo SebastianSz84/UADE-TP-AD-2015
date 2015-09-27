@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import Dao.CotizacionDAO;
 import bean.CotizacionDTO;
@@ -21,6 +23,10 @@ public class Cliente {
 
 	@Column(nullable = false, length = 50)
 	public String direccion;
+
+	@ManyToOne
+	@JoinColumn(name = "idOVenta")
+	public OVenta OficinaDeVenta;
 
 	public void aceptarCotizacion(CotizacionDTO cotDTO) {
 		Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());

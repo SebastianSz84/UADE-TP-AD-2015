@@ -4,10 +4,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-
-import Entities.Cliente;
-
-import org.hibernate.cfg.Configuration;
+import Entities.*;
 
 public class BaseDAO {
 	
@@ -19,7 +16,8 @@ public class BaseDAO {
 			// Create session 
 			Configuration cfg = new Configuration();
 			cfg.addAnnotatedClass(Cliente.class);
-
+			cfg.addAnnotatedClass(OVenta.class);
+			
 			cfg.configure("hibernate.cfg.xml");  
 			SessionFactory factory = cfg.buildSessionFactory();  
 			_session = factory.openSession();  
@@ -43,7 +41,7 @@ public class BaseDAO {
 	public static <T> T saveEntity(T entity) {
 		Transaction tx = getSession().beginTransaction();
 		try {
-			getSession().save(entity);
+			getSession().saveOrUpdate(entity);
 			tx.commit();
 		}
 		catch (Exception ex) {
