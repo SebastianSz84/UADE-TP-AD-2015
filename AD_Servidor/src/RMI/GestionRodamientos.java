@@ -1,8 +1,10 @@
 package RMI;
 
 import interfaz.InterfazGestionRodamientos;
-import Dao.OVentaDAO;
-import Entities.OVenta;
+import Dao.ClienteDAO;
+import Entities.Cliente;
+import Server.HelperXML;
+import bean.ClienteDTO;
 import bean.CotizacionDTO;
 
 //
@@ -50,11 +52,12 @@ public class GestionRodamientos implements InterfazGestionRodamientos {
 
 	}
 
-	public void aceptarCotizacion(CotizacionDTO cot, ClienteDTO cli, OVentaDTO ovDTO) {
-		OVenta ov = OVentaDAO.getEntity(ovDTO.getID());
+	public void aceptarCotizacion(CotizacionDTO cotDTO, ClienteDTO cliDTO) {
+		Cliente cli = ClienteDAO.getCliente(cliDTO.getId());
 
-		if (ov != null) {
-			ov.aceptarCotizacion(cot);
+		if (cli != null) {
+			cli.aceptarCotizacion(cotDTO);
+			HelperXML.generarXMLCotizacion(cotDTO);
 		}
 	}
 

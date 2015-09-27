@@ -1,5 +1,7 @@
 package bean;
 
+import java.util.Vector;
+
 
 //
 //
@@ -14,8 +16,9 @@ package bean;
 
 public class CotizacionDTO {
 	private int id;
-//	private Vector<ItemCotizacionDTO> items;
 	private String estado;
+	private Vector<ItemCotizacionDTO> items;
+
 	public int getId() {
 		return id;
 	}
@@ -27,5 +30,11 @@ public class CotizacionDTO {
 	}
 	public void setEstado(String estado) {
 		this.estado = estado;
-	}	
+	}
+	public Vector<ItemCotizacionDTO> getItems() {
+		return items;
+	}
+	public void setItems(Vector<ItemCotizacionDTO> items) {
+		this.items = items;
+	}
 }

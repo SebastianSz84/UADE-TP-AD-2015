@@ -12,8 +12,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import bean.CotizacionDTO;
-
 @Entity
 public class OVenta {
 
@@ -35,17 +33,7 @@ public class OVenta {
 
 	}
 
-	public void aceptarCotizacion(CotizacionDTO cotDTO) {
-		// Cotizacion cot = CotizacionDAO.getEntidad(cotDTO.getId(),
-		// Cotizacion.class.toString());
-
-		// if (cot != null) {
-		// cot.aceptar();
-		// }
-	}
-
 	public PedVenta getPedidosVenta() {
-
 		return null;
 	}
 
