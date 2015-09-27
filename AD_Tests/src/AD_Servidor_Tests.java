@@ -29,7 +29,7 @@ public class AD_Servidor_Tests {
 		
 			ov = OVentaDAO.saveEntity(ov);
 			
-			int id = cliente.codigo;
+			int id = cliente.id;
 			
 			cliente = ClienteDAO.getCliente(id);
 	

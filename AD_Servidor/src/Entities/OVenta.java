@@ -17,9 +17,6 @@ public class OVenta {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public String codigo;
-
-	@Column(nullable = false, length = 50)
 	public int id;
 
 	@Column(nullable = false, length = 50)
