@@ -15,5 +15,7 @@ public class Cliente {
 	@Column (nullable=false, length=50)
 	public String direccion;
 	
-	
+	@ManyToOne
+	@JoinColumn(name="idOVenta")
+	public OVenta OficinaDeVenta;
 }
