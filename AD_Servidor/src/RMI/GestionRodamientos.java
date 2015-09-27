@@ -1,6 +1,7 @@
 package RMI;
 
 import interfaz.InterfazGestionRodamientos;
+import Dao.OVentaDAO;
 import Entities.OVenta;
 import bean.CotizacionDTO;
 
