@@ -2,7 +2,9 @@ package RMI;
 
 import interfaz.InterfazGestionRodamientos;
 import Dao.ClienteDAO;
+import Dao.OVentaDAO;
 import Entities.Cliente;
+import Entities.OVenta;
 import Server.HelperXML;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
@@ -18,88 +20,90 @@ import bean.CotizacionDTO;
 //
 //
 
-public class GestionRodamientos implements InterfazGestionRodamientos {
-
-	public void getListaRodamientos() {
-
+public class GestionRodamientos implements InterfazGestionRodamientos
+{
+	
+	public void getListaRodamientos()
+	{
+		
 	}
-
-	public void solicitarCotizacion() {
-
+	
+	public void solicitarCotizacion()
+	{
+		
 	}
-
-	public void grabarNuevaCotizacion() {
-
+	
+	public void grabarNuevaCotizacion()
+	{
+		
 	}
-
-	public void buscarRodamento() {
-
+	
+	public void buscarRodamento()
+	{
+		
 	}
-
-	public void agregarItem() {
-
+	
+	public void agregarItem()
+	{
+		
 	}
-
-	public void leerXMLCotizacion() {
-
+	
+	public void armarCotizacones()
+	{
+		while (hayCotizacionesParaArmar())
+		{
+			CotizacionDTO cotDTO = HelperXML.leerXMLCotizacion();
+			OVenta ov = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
+			
+			ov.generarCotizacion(cotDTO);
+		}
 	}
-
-	public void armarCotizacones() {
-
+	
+	private boolean hayCotizacionesParaArmar()
+	{
+		// TODO Codificar lectura de archivos XML en carpeta de cotizaciones para armar
+		return false;
 	}
-
-	public void buscarOV() {
-
+	
+	public void buscarOV()
+	{
+		
 	}
-
-	public void aceptarCotizacion(CotizacionDTO cotDTO, ClienteDTO cliDTO) {
+	
+	public void aceptarCotizacion(CotizacionDTO cotDTO, ClienteDTO cliDTO)
+	{
 		Cliente cli = ClienteDAO.getCliente(cliDTO.getId());
-
-		if (cli != null) {
+		
+		if (cli != null)
+		{
 			cli.aceptarCotizacion(cotDTO);
 			HelperXML.generarXMLCotizacion(cotDTO);
 		}
 	}
-
+	
 	/*
-	 * public XML leerXMLCotAceptadas() {
-	 * 
-	 * }
-	 * 
-	 * public XML leerXMLBultosAEnviar() {
-	 * 
-	 * }
-	 * 
-	 * public void borrarXMLPedidoCotizacion(XML xml) {
-	 * 
-	 * }
-	 * 
-	 * public void borrarXMLDeBultoAEnviar( XML xml) {
-	 * 
-	 * }
+	 * public XML leerXMLCotAceptadas() { } public XML leerXMLBultosAEnviar() { } public void borrarXMLPedidoCotizacion(XML xml) { } public void borrarXMLDeBultoAEnviar( XML xml) { }
 	 */
-
-	public void ActualizarStock(String codigoSKF, int cantidad, float precio) {
-
+	
+	public void ActualizarStock(String codigoSKF, int cantidad, float precio)
+	{
+		
 	}
-
+	
 	/*
-	 * public listasXML generarOrdenesDeCompra() {
-	 * 
-	 * }
+	 * public listasXML generarOrdenesDeCompra() { }
 	 */
-
-	public void PublicarListaDePreciosFinal() {
-
+	
+	public void PublicarListaDePreciosFinal()
+	{
+		
 	}
-
+	
 	/*
-	 * public void generarListaDePrecioProveedorAutomatica( XML
-	 * archivoProveedor, int codigoProveedor) {
-	 * 
-	 * }
+	 * public void generarListaDePrecioProveedorAutomatica( XML archivoProveedor, int codigoProveedor) { }
 	 */
-	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo) {
-
+	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo)
+	{
+		
 	}
 }

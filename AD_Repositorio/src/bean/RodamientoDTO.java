@@ -8,6 +8,7 @@ package bean;
 //  @ Author : 
 
 public class RodamientoDTO {
+	private int id;
 	private String codigoSKF;
 	private String tipo;
 
@@ -22,5 +23,11 @@ public class RodamientoDTO {
 	}
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 }

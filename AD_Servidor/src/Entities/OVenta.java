@@ -12,56 +12,77 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-@Entity
-public class OVenta {
+import Server.HelperXML;
+import bean.CotizacionDTO;
+import bean.ItemCotizacionDTO;
 
+@Entity
+public class OVenta
+{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public int id;
-
+	
 	@Column(nullable = false, length = 50)
 	public String nombre;
-
+	
 	@Column(nullable = false, length = 50)
 	public String direccion;
-
+	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idOVenta")
 	public List<Cliente> clientes;
-
-	public OVenta() {
+	
+	public OVenta()
+	{
 		clientes = new ArrayList<Cliente>();
 	}
-
-	public void generarCotizacion() {
-
+	
+	public void generarCotizacion(CotizacionDTO cotDTO)
+	{
+		Cotizacion cot = new Cotizacion();
+		cot.setEstado(cotDTO.getEstado());
+		while (cotDTO.tenesItems())
+		{
+			ItemCotizacionDTO itCotDTO = cotDTO.dameItem();
+			cot.agregarItem(itCotDTO, ComparativaPrecios.getInstancia().getMejorPrecio().getDTO());
+		}
+		HelperXML.generarXMLCotizacion(cot);
 	}
-
-	public void generarXMLCotizacion() {
-
+	
+	public void generarXMLCotizacion()
+	{
+		
 	}
-
-	public PedVenta getPedidosVenta() {
+	
+	public PedVenta getPedidosVenta()
+	{
 		return null;
 	}
-
-	public void crearEnvio() {
-
+	
+	public void crearEnvio()
+	{
+		
 	}
-
-	public void buscarCliente() {
-
+	
+	public void buscarCliente()
+	{
+		
 	}
-
-	public void buscarRodamiento(String codSKF) {
-
+	
+	public void buscarRodamiento(String codSKF)
+	{
+		
 	}
-
-	public void addRodamiento(Rodamiento rod) {
-
+	
+	public void addRodamiento(Rodamiento rod)
+	{
+		
 	}
-
-	public void generarFactura(Cliente cli, PedVenta ped) {
-
+	
+	public void generarFactura(Cliente cli, PedVenta ped)
+	{
+		
 	}
 }

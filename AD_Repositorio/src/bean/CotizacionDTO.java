@@ -18,6 +18,7 @@ public class CotizacionDTO {
 	private int id;
 	private String estado;
 	private Vector<ItemCotizacionDTO> items;
+	private int idOVenta;
 
 	public int getId() {
 		return id;
@@ -36,5 +37,17 @@ public class CotizacionDTO {
 	}
 	public void setItems(Vector<ItemCotizacionDTO> items) {
 		this.items = items;
+	}
+	public int getIdOVenta() {
+		return idOVenta;
+	}
+	public void setIdOVenta(int idOVenta) {
+		this.idOVenta = idOVenta;
+	}
+	public boolean tenesItems() {
+		return !this.items.isEmpty();
+	}
+	public ItemCotizacionDTO dameItem() {
+		return this.items.remove(0);
 	}
 }

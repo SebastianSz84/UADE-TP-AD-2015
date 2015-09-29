@@ -11,14 +11,44 @@ package Entities;
 //
 //
 
-
-
-
-public class ItemCotizacion {
+public class ItemCotizacion
+{
 	public int cantidad;
 	public Rodamiento rod;
 	public float precio;
-	public float getSubtotal() {
-		return 0;
+	
+	public float getSubtotal()
+	{
+		return this.cantidad * this.precio;
+	}
+	
+	public int getCantidad()
+	{
+		return cantidad;
+	}
+	
+	public void setCantidad(int cantidad)
+	{
+		this.cantidad = cantidad;
+	}
+	
+	public Rodamiento getRod()
+	{
+		return rod;
+	}
+	
+	public void setRod(Rodamiento rod)
+	{
+		this.rod = rod;
+	}
+	
+	public float getPrecio()
+	{
+		return precio;
+	}
+	
+	public void setPrecio(float precio)
+	{
+		this.precio = precio;
 	}
 }
