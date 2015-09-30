@@ -21,8 +21,8 @@ public class ProveedorListaPreciosXML
 		{
 			File file = new File(root, path);
 			final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-			dbf.setNamespaceAware(true);
-			dbf.setValidating(true);
+			dbf.setNamespaceAware(false);
+			dbf.setValidating(false);
 			dbf.setIgnoringComments(true);
 			final DocumentBuilder db = dbf.newDocumentBuilder();
 			Document xmlDoc = db.parse(file);
