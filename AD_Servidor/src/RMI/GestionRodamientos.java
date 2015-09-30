@@ -7,13 +7,16 @@ import java.util.Vector;
 import Dao.ClienteDAO;
 import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
+import Entities.CCentral;
 import Entities.Cliente;
+import Entities.Cotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import Server.HelperXML;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
+import bean.PedVentaDTO;
 
 //
 //
@@ -90,8 +93,19 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 		}
 	}
 	
+	public void leerXMLCotAceptadas()
+	{
+		while (HelperXML.hayXMLCotizacionesAceptadas())
+		{
+			Cotizacion cot = HelperXML.leerXMLCotizacionAceptada();
+			OVenta ov = cot.getOventa();
+			PedVentaDTO pedVta = ov.crearPedidoVenta(cot);
+			CCentral.getInstancia().crearOC(pedVta);
+		}
+	}
+	
 	/*
-	 * public XML leerXMLCotAceptadas() { } public XML leerXMLBultosAEnviar() { } public void borrarXMLPedidoCotizacion(XML xml) { } public void borrarXMLDeBultoAEnviar( XML xml) { }
+	 * public XML leerXMLBultosAEnviar() { } public void borrarXMLPedidoCotizacion(XML xml) { } public void borrarXMLDeBultoAEnviar( XML xml) { }
 	 */
 	
 	public void ActualizarStock(String codigoSKF, int cantidad, float precio)

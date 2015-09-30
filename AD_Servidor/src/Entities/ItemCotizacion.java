@@ -31,6 +31,9 @@ public class ItemCotizacion
 	@OneToOne(cascade = CascadeType.ALL)
 	@PrimaryKeyJoinColumn
 	private Rodamiento rod;
+	@OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
+	private Proveedor proveedor;
 	private float precio;
 	
 	public float getSubtotal()
@@ -66,5 +69,25 @@ public class ItemCotizacion
 	public void setPrecio(float precio)
 	{
 		this.precio = precio;
+	}
+	
+	public int getId()
+	{
+		return id;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
+	public Proveedor getProveedor()
+	{
+		return proveedor;
+	}
+	
+	public void setProveedor(Proveedor proveedor)
+	{
+		this.proveedor = proveedor;
 	}
 }

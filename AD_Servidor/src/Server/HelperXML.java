@@ -2,6 +2,7 @@ package Server;
 
 import java.util.Vector;
 
+import Entities.Cotizacion;
 import Entities.Rodamiento;
 import bean.CotizacionDTO;
 
@@ -21,12 +22,24 @@ public class HelperXML
 	
 	public static boolean hayXMLCotizacionParaArmar()
 	{
-		// TODO Codificar lectura de archivos XML en la carpeta de Cotizaciones a armar
+		// TODO Codificar validación de existencia de archivos XML en la carpeta de Cotizaciones para Armar
 		return false;
 	}
 	
 	public static void generarXMLSolicitudCotizacion(Vector<Rodamiento> listaItems)
 	{
 		// TODO Agregar código para generar XML lista de Rodamientos
+	}
+	
+	public static boolean hayXMLCotizacionesAceptadas()
+	{
+		// TODO Codificar validación de existencia de archivos XML en la carpeta de Cotizaciones Aceptadas
+		return false;
+	}
+	
+	public static Cotizacion leerXMLCotizacionAceptada()
+	{
+		// TODO Codificar lectura
+		return null;
 	}
 }
