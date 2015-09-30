@@ -1,13 +1,19 @@
 package RMI;
 
 import interfaz.InterfazGestionRodamientos;
+
+import java.util.Vector;
+
 import Dao.ClienteDAO;
 import Dao.OVentaDAO;
+import Dao.RodamientoDAO;
 import Entities.Cliente;
 import Entities.OVenta;
+import Entities.Rodamiento;
 import Server.HelperXML;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
+import bean.ItemCotizacionDTO;
 
 //
 //
@@ -28,9 +34,18 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 		
 	}
 	
-	public void solicitarCotizacion()
+	public void solicitarCotizacion(Vector<ItemCotizacionDTO> items)
 	{
-		
+		Vector<Rodamiento> listaItems = new Vector<>();
+		for (int i = 0; i < items.size(); i++)
+		{
+			Rodamiento rod = buscarRodamiento(items.elementAt(i).getRod().getId());
+			if (rod != null)
+			{
+				listaItems.add(rod);
+			}
+		}
+		HelperXML.generarXMLSolicitudCotizacion(listaItems);
 	}
 	
 	public void grabarNuevaCotizacion()
@@ -38,9 +53,9 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 		
 	}
 	
-	public void buscarRodamento()
+	private Rodamiento buscarRodamiento(int id)
 	{
-		
+		return RodamientoDAO.getRodamiento(id);
 	}
 	
 	public void agregarItem()
@@ -50,19 +65,13 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 	
 	public void armarCotizacones()
 	{
-		while (hayCotizacionesParaArmar())
+		while (HelperXML.hayXMLCotizacionParaArmar())
 		{
 			CotizacionDTO cotDTO = HelperXML.leerXMLCotizacion();
 			OVenta ov = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
 			
 			ov.generarCotizacion(cotDTO);
 		}
-	}
-	
-	private boolean hayCotizacionesParaArmar()
-	{
-		// TODO Codificar lectura de archivos XML en carpeta de cotizaciones para armar
-		return false;
 	}
 	
 	public void buscarOV()

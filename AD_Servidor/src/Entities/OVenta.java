@@ -46,7 +46,7 @@ public class OVenta
 		while (cotDTO.tenesItems())
 		{
 			ItemCotizacionDTO itCotDTO = cotDTO.dameItem();
-			cot.agregarItem(itCotDTO, ComparativaPrecios.getInstancia().getMejorPrecio().getDTO());
+			cot.agregarItem(itCotDTO, ComparativaPrecios.getInstancia().getMejorPrecio(itCotDTO).getDTO());
 		}
 		HelperXML.generarXMLCotizacion(cot);
 	}

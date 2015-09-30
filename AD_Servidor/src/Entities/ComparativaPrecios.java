@@ -2,13 +2,22 @@ package Entities;
 
 import java.util.Vector;
 
+import bean.ItemCotizacionDTO;
+
 public class ComparativaPrecios
 {
-	private static ComparativaPrecios instancia; // Se le pone el singleton en algun lado? singleton;
+	private static ComparativaPrecios instancia;
 	private Vector<ItemPrecios> items;
 	
-	public ItemPrecios getMejorPrecio()
+	public ItemPrecios getMejorPrecio(ItemCotizacionDTO itCotDTO)
 	{
+		for (int i = 0; i < this.items.size(); i++)
+		{
+			if (this.items.elementAt(i).equals(itCotDTO))
+			{
+				return this.items.elementAt(i);
+			}
+		}
 		return null;
 	}
 	
