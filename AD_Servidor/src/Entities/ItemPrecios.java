@@ -9,9 +9,14 @@ public class ItemPrecios
 	private Proveedor proveedor;
 	private float precio;
 	
+	ItemPrecios(Proveedor proveedor, ItemProveedor itemProveedor)
+	{
+		this.proveedor = proveedor;
+	}
+	
 	public void actualizar(Proveedor proveedor, ItemProveedor itemProveedor)
 	{
-		
+	
 	}
 	
 	public ItemPreciosDTO getDTO()

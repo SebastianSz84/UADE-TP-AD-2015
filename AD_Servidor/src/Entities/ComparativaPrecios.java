@@ -28,7 +28,15 @@ public class ComparativaPrecios
 	
 	public void ActualizarPrecio(Proveedor proveedor, ItemProveedor itemProveedorFinal)
 	{
-		
+		ItemPrecios item = buscarRodamiento(itemProveedorFinal.getRodamiento().getCodigoSKF());
+		if (item != null)
+		{
+			item.actualizar(proveedor, itemProveedorFinal);
+		}
+		else
+		{
+			items.addElement(new ItemPrecios(proveedor, itemProveedorFinal));
+		}
 	}
 	
 	public static ComparativaPrecios getInstancia()

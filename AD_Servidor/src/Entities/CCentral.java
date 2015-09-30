@@ -1,5 +1,6 @@
 package Entities;
 
+import java.io.File;
 import java.util.Vector;
 
 import Dao.OCProveedorDAO;
@@ -14,6 +15,7 @@ public class CCentral
 	private Vector<Proveedor> proveedores;
 	private Vector<Bulto> bultos;
 	private Vector<OCProveedor> ordenesCompra;
+	private Vector<Rodamiento> rodamientos;
 	
 	/*
 	 * public void altaProveedor( ProveedorDTO) { } public void bajaProveedor( ProveedorDTO) { } public void modificacionProveedor( ProveedorDTO) { } public CotizacionDTO crearCotizacion() { return null; }
@@ -33,7 +35,6 @@ public class CCentral
 	
 	public void ActualizarStock(String codigoSKF, int cantidad, float precio)
 	{
-		
 	}
 	
 	private Rodamiento buscarRodamiento(String codigoSKF)
@@ -44,14 +45,32 @@ public class CCentral
 	/*
 	 * public void GenerarBultosDeRodamiento( ListasRemitos remitosOV, ListaRodamientos rodamientosComprados) { } public listasXML generarOrdenesDeCompra( PedVenta pedidos) { }
 	 */
+	
 	public void PublicarListaDePreciosFinal()
 	{
-		
+		for (Rodamiento rod : rodamientos)
+		{
+			ItemProveedor menorPrecio = null;
+			for (Proveedor prov : proveedores)
+			{
+				ItemProveedor itemProv = prov.getItemProveedor(rod);
+				if (itemProv != null && (menorPrecio == null || menorPrecio.getPrecio() < itemProv.getPrecio()))
+				{
+					menorPrecio = itemProv;
+				}
+			}
+			
+			if (menorPrecio != null)
+			{
+				ComparativaPrecios.getInstancia().ActualizarPrecio(proveedor, menorPrecio);
+			}
+		}
 	}
 	
-	/*
-	 * public void generarListaDePrecioProveedorAutomatica( XML archivoProveedor, int codigoProveedor) { }
-	 */
+	public void generarListaDePrecioProveedorAutomatica(File archivoProveedor, int codigoProveedor)
+	{
+	
+	}
 	
 	public Proveedor buscarProveedor(int codigoProveedor)
 	{
