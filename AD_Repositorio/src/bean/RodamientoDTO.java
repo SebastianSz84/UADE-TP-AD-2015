@@ -11,7 +11,7 @@ public class RodamientoDTO {
 	private int id;
 	private String codigoSKF;
 	private String tipo;
-
+	
 	public String getCodigoSKF() {
 		return codigoSKF;
 	}

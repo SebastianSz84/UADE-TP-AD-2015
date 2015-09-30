@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
-import Server.HelperXML;
+import Helper.HelperXML;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.PedVentaDTO;

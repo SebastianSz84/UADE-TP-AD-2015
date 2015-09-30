@@ -50,19 +50,21 @@ public class CCentral
 	{
 		for (Rodamiento rod : rodamientos)
 		{
-			ItemProveedor menorPrecio = null;
+			ItemProveedor mejorPrecio = null;
+			Proveedor mejorProveedor = null;
 			for (Proveedor prov : proveedores)
 			{
 				ItemProveedor itemProv = prov.getItemProveedor(rod);
-				if (itemProv != null && (menorPrecio == null || menorPrecio.getPrecio() < itemProv.getPrecio()))
+				if (itemProv != null && (mejorPrecio == null || mejorPrecio.getPrecio() < itemProv.getPrecio()))
 				{
-					menorPrecio = itemProv;
+					mejorPrecio = itemProv;
+					mejorProveedor = prov;
 				}
 			}
 			
-			if (menorPrecio != null)
+			if (mejorPrecio != null && mejorProveedor != null)
 			{
-				ComparativaPrecios.getInstancia().ActualizarPrecio(proveedor, menorPrecio);
+				ComparativaPrecios.getInstancia().ActualizarPrecio(mejorProveedor, mejorPrecio);
 			}
 		}
 	}

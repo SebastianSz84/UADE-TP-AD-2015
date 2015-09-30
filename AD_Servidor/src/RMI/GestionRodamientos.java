@@ -12,7 +12,7 @@ import Entities.Cliente;
 import Entities.Cotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
-import Server.HelperXML;
+import Helper.HelperXML;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
