@@ -6,6 +6,7 @@ import java.io.File;
 import java.util.Vector;
 
 import Dao.ClienteDAO;
+import Dao.CotizacionDAO;
 import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
 import Entities.CCentral;
@@ -96,12 +97,16 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 	
 	public void leerXMLCotAceptadas()
 	{
-		while (CotizacionesXML.hayXMLCotizacionesAceptadas())
+		File[] files = CotizacionesXML.obtenerXMLCotizacionesAceptadas();
+		for (int i = 0; i < files.length; i++)
 		{
-			Cotizacion cot = CotizacionesXML.leerXMLCotizacionAceptada();
-			OVenta ov = cot.getOventa();
+			CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionAceptada(files[i]);
+			Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
+			cot.actualizarDesdeDTO(cotDTO);
+			OVenta ov = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
 			PedVentaDTO pedVta = ov.crearPedidoVenta(cot);
 			CCentral.getInstancia().crearOC(pedVta);
+			files[i].delete();
 		}
 	}
 	

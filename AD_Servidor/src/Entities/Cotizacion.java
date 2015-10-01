@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import Dao.CotizacionDAO;
+import Dao.OVentaDAO;
+import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
@@ -106,5 +108,21 @@ public class Cotizacion
 		}
 		cotDTO.setItems(itemsDTO);
 		return cotDTO;
+	}
+	
+	public void actualizarDesdeDTO(CotizacionDTO cotDTO)
+	{
+		this.estado = cotDTO.getEstado();
+		this.oventa = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
+		this.items.clear();
+		for (int i = 0; i < cotDTO.getItems().size(); i++)
+		{
+			ItemCotizacion item = new ItemCotizacion();
+			item.setCantidad(cotDTO.getItems().elementAt(i).getCantidad());
+			item.setPrecio(cotDTO.getItems().elementAt(i).getPrecio());
+			item.setProveedor(ProveedorDAO.getProveedor(cotDTO.getItems().elementAt(i).getProveedor().getCodigoProveedor()));
+			item.setRod(RodamientoDAO.getRodamiento(cotDTO.getItems().elementAt(i).getRod().getId()));
+			items.add(item);
+		}
 	}
 }

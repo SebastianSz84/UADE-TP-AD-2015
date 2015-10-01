@@ -4,6 +4,7 @@ public class ItemCotizacionDTO {
 	public int cantidad;
 	public RodamientoDTO rod;
 	public float precio;
+	private ProveedorDTO proveedor;
 
 	public int getCantidad() {
 		return cantidad;
@@ -27,6 +28,14 @@ public class ItemCotizacionDTO {
 
 	public void setPrecio(float precio) {
 		this.precio = precio;
+	}
+
+	public ProveedorDTO getProveedor() {
+		return proveedor;
+	}
+
+	public void setProveedor(ProveedorDTO proveedor) {
+		this.proveedor = proveedor;
 	}
 
 }
