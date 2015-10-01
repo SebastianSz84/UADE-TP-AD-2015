@@ -21,7 +21,7 @@ public class Server extends Thread
 		iniciar();
 	}
 	
-	public void iniciar()
+	private void iniciar()
 	{
 		try
 		{

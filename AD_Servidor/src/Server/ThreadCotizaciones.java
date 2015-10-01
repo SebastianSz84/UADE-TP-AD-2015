@@ -13,6 +13,9 @@ public class ThreadCotizaciones extends Thread
 			{
 				GestionRodamientos.getInstancia().armarCotizacones();
 				Thread.sleep(1000 * 60 * 5); // Esperar 5 minutos
+				
+				GestionRodamientos.getInstancia().leerXMLCotAceptadas();
+				Thread.sleep(1000 * 60 * 5); // Esperar 5 minutos
 			}
 		}
 		catch (InterruptedException e)

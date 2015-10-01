@@ -13,6 +13,7 @@ import Entities.Cotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import Helper.HelperXML;
+import Server.ThreadCotizaciones;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
@@ -24,7 +25,8 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 	
 	private GestionRodamientos()
 	{
-		
+		ThreadCotizaciones thCot = new ThreadCotizaciones();
+		thCot.start();
 	}
 	
 	public void getListaRodamientos()
