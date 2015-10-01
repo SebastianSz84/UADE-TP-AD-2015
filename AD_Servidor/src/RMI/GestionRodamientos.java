@@ -2,6 +2,7 @@ package RMI;
 
 import interfaz.InterfazGestionRodamientos;
 
+import java.io.File;
 import java.util.Vector;
 
 import Dao.ClienteDAO;
@@ -12,7 +13,7 @@ import Entities.Cliente;
 import Entities.Cotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
-import Helper.HelperXML;
+import Helper.CotizacionesXML;
 import Server.ThreadCotizaciones;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
@@ -45,7 +46,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 				listaItems.add(rod);
 			}
 		}
-		HelperXML.generarXMLSolicitudCotizacion(listaItems);
+		CotizacionesXML.generarXMLSolicitudCotizacion(listaItems);
 	}
 	
 	public void grabarNuevaCotizacion()
@@ -65,12 +66,15 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 	
 	public void armarCotizacones()
 	{
-		while (HelperXML.hayXMLCotizacionParaArmar())
+		File[] files = CotizacionesXML.obtenerXMLCotizacionParaArmar();
+		for (int i = 0; i < files.length; i++)
 		{
-			CotizacionDTO cotDTO = HelperXML.leerXMLCotizacion();
+			CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionParaArmar(files[i]);
 			OVenta ov = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
 			
 			ov.generarCotizacion(cotDTO);
+			
+			files[i].delete();
 		}
 	}
 	
@@ -86,15 +90,15 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 		if (cli != null)
 		{
 			cli.aceptarCotizacion(cotDTO);
-			HelperXML.generarXMLCotizacion(cotDTO);
+			CotizacionesXML.generarXMLCotizacion(cotDTO);
 		}
 	}
 	
 	public void leerXMLCotAceptadas()
 	{
-		while (HelperXML.hayXMLCotizacionesAceptadas())
+		while (CotizacionesXML.hayXMLCotizacionesAceptadas())
 		{
-			Cotizacion cot = HelperXML.leerXMLCotizacionAceptada();
+			Cotizacion cot = CotizacionesXML.leerXMLCotizacionAceptada();
 			OVenta ov = cot.getOventa();
 			PedVentaDTO pedVta = ov.crearPedidoVenta(cot);
 			CCentral.getInstancia().crearOC(pedVta);
