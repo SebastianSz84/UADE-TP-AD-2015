@@ -1,13 +1,39 @@
 package Server;
 
+import interfaz.InterfazGestionRodamientos;
 
-public class Server {
+import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
 
-	public static void main(String[] args){
+import RMI.GestionRodamientos;
+
+public class Server extends Thread
+{
+	InterfazGestionRodamientos objetoRemoto;
+	
+	public static void main(String[] args)
+	{
 		new Server();
 	}
-
-	public Server() {
-
+	
+	public Server()
+	{
+		iniciar();
+	}
+	
+	private void iniciar()
+	{
+		try
+		{
+			LocateRegistry.createRegistry(1099);
+			objetoRemoto = GestionRodamientos.getInstancia();
+			// Vincula el objeto con un nombre en el registry
+			Naming.rebind(InterfazGestionRodamientos.url, objetoRemoto);
+			System.out.println("Servidor inicializado correctamente...");
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }
