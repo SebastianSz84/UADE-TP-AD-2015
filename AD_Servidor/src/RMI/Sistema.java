@@ -22,11 +22,11 @@ import bean.RodamientoDTO;
 
 public class Sistema
 {
-	private CCentral cc;
+	private CCentral cc; // VA ESTO NO ?
 	private Vector<RodamientoDTO> rodamientosDTO;
 	private Vector<Rodamiento> rodamientos;
 	private Vector<PedVenta> pedidos;
-	private Vector<OVenta> oventas;
+	private Vector<OVenta> oventas; // VA ESTO NO ?
 	
 	public Sistema()
 	{

@@ -67,8 +67,8 @@ public class CCentral
 				}
 				
 			}
-			
 		}
+		
 	}
 	
 	public void PublicarListaDePreciosFinal()
