@@ -11,11 +11,12 @@ import bean.PedVentaDTO;
 public class CCentral
 {
 	private static CCentral instancia;
-	
+	private ComparativaPrecios comparativa;
 	private Vector<Proveedor> proveedores;
 	private Vector<Bulto> bultos;
 	private Vector<OCProveedor> ordenesCompra;
 	private Vector<Rodamiento> rodamientos;
+	private Vector<ItemPedVenta> itemsPedidos;
 	
 	/*
 	 * public void altaProveedor( ProveedorDTO) { } public void bajaProveedor( ProveedorDTO) { } public void modificacionProveedor( ProveedorDTO) { } public CotizacionDTO crearCotizacion() { return null; }
@@ -43,8 +44,32 @@ public class CCentral
 	}
 	
 	/*
-	 * public void GenerarBultosDeRodamiento( ListasRemitos remitosOV, ListaRodamientos rodamientosComprados) { } public listasXML generarOrdenesDeCompra( PedVenta pedidos) { }
+	 * public void GenerarBultosDeRodamiento( ListasRemitos remitosOV, ListaRodamientos rodamientosComprados) { }
 	 */
+	
+	public void generarOrdenesDeCompra(Vector<PedVenta> pedidos) // ACA TMB VA listasXML
+	{
+		for (PedVenta pedido : pedidos)
+		{
+			itemsPedidos.addAll(pedido.getItems());
+		}
+		
+		for (ItemPedVenta item : itemsPedidos)
+		{
+			if (comparativa.buscarRodamiento(item.getRodamiento().getCodigoSKF()) != null)
+			{
+				for (OCProveedor ocprov : ordenesCompra)
+				{
+					if (ocprov.getProveedor().getCodigoProveedor() == item.getProveedor().getCodigoProveedor())
+					{
+						ocprov.agregarAOC(item.getRodamiento(), item.getCantidad());
+					}
+				}
+				
+			}
+			
+		}
+	}
 	
 	public void PublicarListaDePreciosFinal()
 	{

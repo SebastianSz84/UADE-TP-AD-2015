@@ -24,4 +24,9 @@ public class ItemOCProveedor
 	{
 		this.cantidad = cantidad;
 	}
+	
+	public void actualizarCantidad(int cantidad)
+	{
+		this.cantidad += cantidad;
+	}
 }

@@ -1,8 +1,10 @@
 package RMI;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Vector;
 
+import Entities.CCentral;
+import Entities.OVenta;
+import Entities.PedVenta;
 import Entities.Rodamiento;
 import bean.RodamientoDTO;
 
@@ -20,20 +22,25 @@ import bean.RodamientoDTO;
 
 public class Sistema
 {
-	private List<RodamientoDTO> rodamientosDTO;
-	private List<Rodamiento> rodamientos;
+	private CCentral cc;
+	private Vector<RodamientoDTO> rodamientosDTO;
+	private Vector<Rodamiento> rodamientos;
+	private Vector<PedVenta> pedidos;
+	private Vector<OVenta> oventas;
 	
 	public Sistema()
 	{
-		rodamientosDTO = new ArrayList<RodamientoDTO>();
-		rodamientos = new ArrayList<Rodamiento>();
+		rodamientosDTO = new Vector<RodamientoDTO>();
+		rodamientos = new Vector<Rodamiento>();
+		pedidos = new Vector<PedVenta>();
+		oventas = new Vector<OVenta>();
 	}
 	
-	public List<RodamientoDTO> getListaRodamientos()
+	public Vector<RodamientoDTO> getListaRodamientos()
 	{
-		for (int i = 0; i < rodamientos.size(); i++)
+		for (Rodamiento rodamiento : rodamientos)
 		{
-			rodamientosDTO.add(rodamientos.get(i).getDTO());
+			rodamientosDTO.add(rodamiento.getDTO());
 		}
 		return rodamientosDTO;
 	}
@@ -86,9 +93,15 @@ public class Sistema
 	{
 	
 	}
-	/*
-	 * public listasXML generarOrdenesDeCompra() { }
-	 */
+	
+	public void GenerarOrdenesDeCompra()// ACA VA listaXMLs
+	{
+		for (OVenta oventa : oventas)
+		{
+			pedidos.add(oventa.getPedidosVenta());
+		}
+		CCentral.getInstancia().generarOrdenesDeCompra(pedidos); // ESTO VA ASI????
+	}
 	
 	public void PublicarListaDePreciosFinal()
 	{

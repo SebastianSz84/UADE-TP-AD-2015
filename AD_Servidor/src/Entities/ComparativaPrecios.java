@@ -23,6 +23,13 @@ public class ComparativaPrecios
 	
 	public ItemPrecios buscarRodamiento(String codigoSKF)
 	{
+		for (ItemPrecios item : items)
+		{
+			if (item.getRodamiento().getCodigoSKF().equals(codigoSKF))
+			{
+				return item;
+			}
+		}
 		return null;
 	}
 	

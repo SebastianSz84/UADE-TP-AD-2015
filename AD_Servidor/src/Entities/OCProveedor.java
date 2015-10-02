@@ -10,15 +10,29 @@ public class OCProveedor
 	
 	public void agregarAOC(Rodamiento rodamiento, int cantidad)
 	{
-		ItemOCProveedor item = new ItemOCProveedor();
-		item.setCantidad(cantidad);
-		item.setRodamiento(rodamiento);
-		items.add(item);
+		ItemOCProveedor item = buscarRodamientoEnOC(rodamiento.getCodigoSKF());
+		if (item == null)
+		{
+			item = new ItemOCProveedor();
+			item.setCantidad(cantidad);
+			item.setRodamiento(rodamiento);
+			items.add(item);
+		}
+		else
+		{
+			item.actualizarCantidad(cantidad);
+		}
 	}
 	
-	public Rodamiento buscarRodamientoEnOC(String SKF)
+	public ItemOCProveedor buscarRodamientoEnOC(String SKF)
 	{
-		
+		for (ItemOCProveedor item : items)
+		{
+			if (item.getRodamiento().getCodigoSKF().equals(SKF))
+			{
+				return item;
+			}
+		}
 		return null;
 	}
 	

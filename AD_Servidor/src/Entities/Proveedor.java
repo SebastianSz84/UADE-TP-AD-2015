@@ -7,6 +7,27 @@ import bean.ProveedorDTO;
 public class Proveedor
 {
 	private int codigoProveedor;
+	
+	public int getCodigoProveedor()
+	{
+		return codigoProveedor;
+	}
+	
+	public void setCodigoProveedor(int codigoProveedor)
+	{
+		this.codigoProveedor = codigoProveedor;
+	}
+	
+	public ArrayList<ItemProveedor> getItems()
+	{
+		return items;
+	}
+	
+	public void setItems(ArrayList<ItemProveedor> items)
+	{
+		this.items = items;
+	}
+	
 	private ArrayList<ItemProveedor> items = new ArrayList<>();
 	
 	public ItemProveedor getItemProveedor(Rodamiento rodamiento)
