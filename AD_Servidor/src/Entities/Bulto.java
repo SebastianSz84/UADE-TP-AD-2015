@@ -1,4 +1,6 @@
 package Entities;
+import java.util.*;
+import javax.persistence.*;
 
 //
 //
@@ -15,8 +17,30 @@ package Entities;
 
 
 public class Bulto {
-	public String codigo;
-	public void agregarRodamientoComprado(Rodamiento rodamientoComprado) {
+
+	public int id;
 	
+
+	public OVenta OficinaDeVenta;
+	
+
+	public List<ItemBulto> items;
+	
+	public Bulto(){
+		this.items = new ArrayList<ItemBulto>();
+	}
+	
+
+	
+	public void agregarRodamientoComprado(Rodamiento rodamientoComprado) {
+		
+	}
+
+	public List<ItemBulto> getItems() {
+		return items;
+	}
+
+	public void setItems(List<ItemBulto> items) {
+		this.items = items;
 	}
 }
