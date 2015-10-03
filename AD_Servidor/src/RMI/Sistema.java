@@ -1,6 +1,7 @@
 package RMI;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import Entities.CCentral;
 import Entities.OVenta;
@@ -23,20 +24,20 @@ import bean.RodamientoDTO;
 public class Sistema
 {
 	private CCentral cc; // VA ESTO NO ?
-	private Vector<RodamientoDTO> rodamientosDTO;
-	private Vector<Rodamiento> rodamientos;
-	private Vector<PedVenta> pedidos;
-	private Vector<OVenta> oventas; // VA ESTO NO ?
+	private List<RodamientoDTO> rodamientosDTO;
+	private List<Rodamiento> rodamientos;
+	private List<PedVenta> pedidos;
+	private List<OVenta> oventas; // VA ESTO NO ?
 	
 	public Sistema()
 	{
-		rodamientosDTO = new Vector<RodamientoDTO>();
-		rodamientos = new Vector<Rodamiento>();
-		pedidos = new Vector<PedVenta>();
-		oventas = new Vector<OVenta>();
+		rodamientosDTO = new ArrayList<RodamientoDTO>();
+		rodamientos = new ArrayList<Rodamiento>();
+		pedidos = new ArrayList<PedVenta>();
+		oventas = new ArrayList<OVenta>();
 	}
 	
-	public Vector<RodamientoDTO> getListaRodamientos()
+	public List<RodamientoDTO> getListaRodamientos()
 	{
 		for (Rodamiento rodamiento : rodamientos)
 		{
@@ -100,7 +101,7 @@ public class Sistema
 		{
 			pedidos.add(oventa.getPedidosVenta());
 		}
-		CCentral.getInstancia().generarOrdenesDeCompra(pedidos); // ESTO VA ASI????
+		CCentral.getInstancia().GenerarOrdenesDeCompra(pedidos); // ESTO VA ASI????
 	}
 	
 	public void PublicarListaDePreciosFinal()

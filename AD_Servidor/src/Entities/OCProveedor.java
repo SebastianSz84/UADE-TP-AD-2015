@@ -8,20 +8,21 @@ public class OCProveedor
 	private String codigo;
 	private Vector<ItemOCProveedor> items;
 	
+	public OCProveedor()
+	{
+		items = new Vector<ItemOCProveedor>();
+	}
+	
 	public void agregarAOC(Rodamiento rodamiento, int cantidad)
 	{
-		ItemOCProveedor item = buscarRodamientoEnOC(rodamiento.getCodigoSKF());
-		if (item == null)
-		{
-			item = new ItemOCProveedor();
-			item.setCantidad(cantidad);
-			item.setRodamiento(rodamiento);
-			items.add(item);
-		}
-		else
-		{
-			item.actualizarCantidad(cantidad);
-		}
+		/*
+		 * ItemOCProveedor item = buscarRodamientoEnOC(rodamiento.getCodigoSKF()); if (item == null) { item = new ItemOCProveedor(); item.setCantidad(cantidad); item.setRodamiento(rodamiento); items.add(item); } else { item.actualizarCantidad(cantidad); }
+		 */
+		
+		ItemOCProveedor item = new ItemOCProveedor();
+		item.setCantidad(cantidad);
+		item.setRodamiento(rodamiento);
+		items.addElement(item);
 	}
 	
 	public ItemOCProveedor buscarRodamientoEnOC(String SKF)

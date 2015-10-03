@@ -1,6 +1,6 @@
 package Entities;
 
-import java.util.ArrayList;
+import java.util.Vector;
 
 import bean.ProveedorDTO;
 
@@ -18,17 +18,17 @@ public class Proveedor
 		this.codigoProveedor = codigoProveedor;
 	}
 	
-	public ArrayList<ItemProveedor> getItems()
+	public Vector<ItemProveedor> getItems()
 	{
 		return items;
 	}
 	
-	public void setItems(ArrayList<ItemProveedor> items)
+	public void setItems(Vector<ItemProveedor> items)
 	{
 		this.items = items;
 	}
 	
-	private ArrayList<ItemProveedor> items = new ArrayList<>();
+	private Vector<ItemProveedor> items = new Vector<ItemProveedor>();
 	
 	public ItemProveedor getItemProveedor(Rodamiento rodamiento)
 	{
