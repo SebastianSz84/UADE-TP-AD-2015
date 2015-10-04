@@ -7,17 +7,18 @@ import java.util.Vector;
 import Dao.OCProveedorDAO;
 import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
+import Helper.OCProveedorXML;
 import bean.PedVentaDTO;
 
 public class CCentral
 {
 	private static CCentral instancia;
 	private ComparativaPrecios comparativa;
-	private Vector<Proveedor> proveedores;
+	private List<Proveedor> proveedores;
 	private List<Bulto> bultos;
-	private Vector<OCProveedor> ordenesCompra;
+	private List<OCProveedor> ordenesCompra;
 	private List<Rodamiento> rodamientos;
-	private Vector<ItemPedVenta> itemsPedidos;
+	private List<ItemPedVenta> itemsPedidos;
 	
 	/*
 	 * public void altaProveedor( ProveedorDTO) { } public void bajaProveedor( ProveedorDTO) { } public void modificacionProveedor( ProveedorDTO) { } public CotizacionDTO crearCotizacion() { return null; }
@@ -68,7 +69,7 @@ public class CCentral
 		}
 	}
 	
-	public void generarOrdenesDeCompra(Vector<PedVenta> pedidos) // ACA TMB VA listasXML
+	public void GenerarOrdenesDeCompra(List<PedVenta> pedidos) // ACA TMB VA listasXML
 	{
 		for (PedVenta pedido : pedidos)
 		{
@@ -89,6 +90,7 @@ public class CCentral
 				
 			}
 		}
+		OCProveedorXML.GenerarXMLOrdenesDeCompra(ordenesCompra);
 		
 	}
 	
@@ -140,7 +142,7 @@ public class CCentral
 		CCentral.instancia = instancia;
 	}
 	
-	public Vector<Proveedor> getProveedores()
+	public List<Proveedor> getProveedores()
 	{
 		return proveedores;
 	}
@@ -150,7 +152,7 @@ public class CCentral
 		this.proveedores = proveedores;
 	}
 	
-	public Vector<Bulto> getBultos()
+	public List<Bulto> getBultos()
 	{
 		return bultos;
 	}

@@ -1,11 +1,18 @@
 import static org.junit.Assert.*;
 
+import java.util.Vector;
+
 import org.junit.Test;
 
 import Dao.ClienteDAO;
 import Dao.OVentaDAO;
 import Entities.Cliente;
+import Entities.ItemProveedor;
+import Entities.OCProveedor;
 import Entities.OVenta;
+import Entities.Proveedor;
+import Entities.Rodamiento;
+import Helper.OCProveedorXML;
 
 public class AD_Servidor_Tests {
 	
@@ -43,4 +50,29 @@ public class AD_Servidor_Tests {
 			OVentaDAO.deleteEntity(ov);
 		}
     }
+	
+	@Test
+	public void testXMLGenerate()
+	{
+		OCProveedor oc = new OCProveedor();
+		oc.setCodigo("1");
+		Rodamiento r = new Rodamiento();
+		r.setCodigoSKF("pepe");
+		Rodamiento r2 = new Rodamiento();
+		r.setCodigoSKF("pepe2");
+		Proveedor pr = new Proveedor();
+		pr.setCodigoProveedor(1);
+		ItemProveedor item = new ItemProveedor();
+		item.setCodigo("1");
+		item.setRodamiento(r);
+		Vector <ItemProveedor> items = new Vector<ItemProveedor>();
+		items.add(item);
+		pr.setItems(items);
+		oc.agregarAOC(r, 5);
+		oc.agregarAOC(r2, 15);
+		Vector<OCProveedor> prov = new Vector<OCProveedor>();
+		prov.add(oc);
+		OCProveedorXML.GenerarXMLOrdenesDeCompra(prov);
+		
+	}
 }

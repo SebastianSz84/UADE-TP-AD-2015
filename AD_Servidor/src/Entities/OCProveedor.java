@@ -1,12 +1,28 @@
 package Entities;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OCProveedor
 {
 	private Proveedor proveedor;
 	private String codigo;
-	private Vector<ItemOCProveedor> items;
+	private List<ItemOCProveedor> items;
+	
+	public List<ItemOCProveedor> getItems()
+	{
+		return items;
+	}
+	
+	public void setItems(List<ItemOCProveedor> items)
+	{
+		this.items = items;
+	}
+	
+	public OCProveedor()
+	{
+		items = new ArrayList<ItemOCProveedor>();
+	}
 	
 	public void agregarAOC(Rodamiento rodamiento, int cantidad)
 	{
@@ -22,6 +38,11 @@ public class OCProveedor
 		{
 			item.actualizarCantidad(cantidad);
 		}
+		
+		/*
+		 * ItemOCProveedor item = new ItemOCProveedor(); item.setCantidad(cantidad); item.setRodamiento(rodamiento); items.add(item);
+		 */
+		
 	}
 	
 	public ItemOCProveedor buscarRodamientoEnOC(String SKF)

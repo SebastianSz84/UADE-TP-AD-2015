@@ -37,4 +37,39 @@ public class ItemProveedor
 	{
 		return rodamiento;
 	}
+	
+	public void setRodamiento(Rodamiento r)
+	{
+		this.rodamiento = r;
+	}
+	
+	public String getCodigo()
+	{
+		return codigo;
+	}
+	
+	public void setCodigo(String codigo)
+	{
+		this.codigo = codigo;
+	}
+	
+	public String getCondiciones()
+	{
+		return condiciones;
+	}
+	
+	public void setCondiciones(String condiciones)
+	{
+		this.condiciones = condiciones;
+	}
+	
+	public boolean isDisponible()
+	{
+		return disponible;
+	}
+	
+	public void setDisponible(boolean disponible)
+	{
+		this.disponible = disponible;
+	}
 }
