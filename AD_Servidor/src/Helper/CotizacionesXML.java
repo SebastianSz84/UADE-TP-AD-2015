@@ -1,6 +1,7 @@
 package Helper;
 
 import java.io.File;
+import java.util.Calendar;
 import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -26,10 +27,10 @@ import bean.RodamientoDTO;
 
 public class CotizacionesXML
 {
-	private static String root = "C:\\gestionRodamientos\\cotizaciones";
-	private static String paraArmar = "\\paraArmar";
-	private static String armadas = "\\armadas";
-	private static String aceptadas = "\\aceptadas";
+	private static String root = "C:\\gestionRodamientos\\OV\\";
+	private static String paraArmar = "\\cotizaciones\\paraArmar";
+	private static String armadas = "\\cotizaciones\\armadas";
+	private static String aceptadas = "\\cotizaciones\\aceptadas";
 	
 	public static void generarXMLArmarCotizacion(Cotizacion cot)
 	{
@@ -74,13 +75,8 @@ public class CotizacionesXML
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(xmlDoc);
-			File[] files = obtenerXMLCotizacionArmadas();
-			int cantArmadas = 0;
-			if (files != null)
-			{
-				cantArmadas = obtenerXMLCotizacionArmadas().length;
-			}
-			StreamResult result = new StreamResult(new File(root + armadas, Integer.toString(cantArmadas) + ".xml"));
+			long timestamp = Calendar.getInstance().getTimeInMillis();
+			StreamResult result = new StreamResult(new File(root + Integer.toString(cot.getOventa().getId()) + armadas, Long.toString(timestamp) + ".xml"));
 			transformer.transform(source, result);
 		}
 		catch (Exception e)
@@ -203,15 +199,8 @@ public class CotizacionesXML
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(xmlDoc);
-			
-			File[] files = obtenerXMLCotizacionArmadas();
-			int cantParaArmar = 0;
-			if (files != null)
-			{
-				cantParaArmar = obtenerXMLCotizacionArmadas().length;
-			}
-			
-			StreamResult result = new StreamResult(new File(root + paraArmar, Integer.toString(cantParaArmar) + ".xml"));
+			long timestamp = Calendar.getInstance().getTimeInMillis();
+			StreamResult result = new StreamResult(new File(root + Integer.toString(ov.getId()) + paraArmar, Float.toString(timestamp) + ".xml"));
 			transformer.transform(source, result);
 		}
 		catch (Exception e)
