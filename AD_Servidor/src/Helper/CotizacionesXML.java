@@ -19,7 +19,6 @@ import org.w3c.dom.Node;
 import Dao.RodamientoDAO;
 import Entities.Cotizacion;
 import Entities.ItemCotizacion;
-import Entities.ItemPrecios;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import bean.CotizacionDTO;
@@ -161,7 +160,7 @@ public class CotizacionesXML
 		return null;
 	}
 	
-	public static void generarXMLSolicitudCotizacion(Vector<ItemPrecios> listaItems, OVenta ov)
+	public static void generarXMLSolicitudCotizacion(Vector<Rodamiento> listaItems, OVenta ov)
 	{
 		try
 		{
@@ -196,7 +195,7 @@ public class CotizacionesXML
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("precio");
-				attribute.setValue(Float.toString());
+				attribute.setValue("0");
 				item.setAttributeNode(attribute);
 				
 				raiz.appendChild(item);
@@ -204,13 +203,15 @@ public class CotizacionesXML
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(xmlDoc);
+			
 			File[] files = obtenerXMLCotizacionArmadas();
-			int cantArmadas = 0;
+			int cantParaArmar = 0;
 			if (files != null)
 			{
-				cantArmadas = obtenerXMLCotizacionArmadas().length;
+				cantParaArmar = obtenerXMLCotizacionArmadas().length;
 			}
-			StreamResult result = new StreamResult(new File(root + armadas, Integer.toString(cantArmadas) + ".xml"));
+			
+			StreamResult result = new StreamResult(new File(root + paraArmar, Integer.toString(cantParaArmar) + ".xml"));
 			transformer.transform(source, result);
 		}
 		catch (Exception e)
@@ -274,5 +275,10 @@ public class CotizacionesXML
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static void generarXMLAceptarCotizacion(CotizacionDTO cotDTO)
+	{
+		
 	}
 }

@@ -69,4 +69,16 @@ public class ComparativaPrecios
 	{
 		this.items = items;
 	}
+	
+	public ItemPrecios getItemSKF(String codigoSKF)
+	{
+		for (ItemPrecios itPr : items)
+		{
+			if (itPr.getRodamiento().getCodigoSKF().equals(codigoSKF))
+			{
+				return itPr;
+			}
+		}
+		return null;
+	}
 }

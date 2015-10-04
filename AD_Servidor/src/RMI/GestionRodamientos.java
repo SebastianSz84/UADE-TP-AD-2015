@@ -12,7 +12,6 @@ import Dao.RodamientoDAO;
 import Entities.CCentral;
 import Entities.Cliente;
 import Entities.Cotizacion;
-import Entities.ItemPrecios;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import Helper.CotizacionesXML;
@@ -40,11 +39,10 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 	
 	public void solicitarCotizacion(Vector<ItemCotizacionDTO> items, OVentaDTO ovDTO)
 	{
-		Vector<ItemPrecios> listaItems = new Vector<>();
-		for (ItemCotizacionDTO itCot : items)
+		Vector<Rodamiento> listaItems = new Vector<>();
+		for (ItemCotizacionDTO itCotDTO : items)
 		{
-			ItemPrecios itPr = ComparativaPreciosDAO;
-			Rodamiento rod = buscarRodamiento(itCot.getRod().getId());
+			Rodamiento rod = RodamientoDAO.getRodamiento(itCotDTO.getRod().getId());
 			if (rod != null)
 			{
 				listaItems.add(rod);
@@ -57,11 +55,6 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 	public void grabarNuevaCotizacion()
 	{
 		
-	}
-	
-	private Rodamiento buscarRodamiento(int id)
-	{
-		return RodamientoDAO.getRodamiento(id);
 	}
 	
 	public void agregarItem()
