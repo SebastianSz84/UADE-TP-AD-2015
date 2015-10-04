@@ -1,6 +1,7 @@
 package Entities;
 
 import java.io.File;
+import java.util.List;
 import java.util.Vector;
 
 import Dao.OCProveedorDAO;
@@ -13,9 +14,9 @@ public class CCentral
 	private static CCentral instancia;
 	private ComparativaPrecios comparativa;
 	private Vector<Proveedor> proveedores;
-	private Vector<Bulto> bultos;
+	private List<Bulto> bultos;
 	private Vector<OCProveedor> ordenesCompra;
-	private Vector<Rodamiento> rodamientos;
+	private List<Rodamiento> rodamientos;
 	private Vector<ItemPedVenta> itemsPedidos;
 	
 	/*
@@ -36,16 +37,36 @@ public class CCentral
 	
 	public void ActualizarStock(String codigoSKF, int cantidad, float precio)
 	{
+		buscarRodamiento(codigoSKF).ActualizarStock(cantidad, precio);
 	}
 	
 	private Rodamiento buscarRodamiento(String codigoSKF)
 	{
+		for (Rodamiento rod : rodamientos)
+		{
+			if (rod.sosRodamiento(codigoSKF))
+				return rod;
+		}
+		
 		return null;
 	}
 	
-	/*
-	 * public void GenerarBultosDeRodamiento( ListasRemitos remitosOV, ListaRodamientos rodamientosComprados) { }
-	 */
+	public void GenerarBultosDeRodamiento(List<Remito> remitosOV, List<Rodamiento> rodamientosComprados)
+	{
+		for (Remito remito : remitosOV)
+		{
+			Bulto bulto = new Bulto();
+			for (Rodamiento rodamiento : rodamientosComprados)
+			{
+				if (remito.contieneRodamiento(rodamiento))
+				{
+					rodamientosComprados.remove(rodamiento);
+					bulto.agregarRodamientoComprado(rodamiento);
+				}
+			}
+			bultos.add(bulto);
+		}
+	}
 	
 	public void generarOrdenesDeCompra(Vector<PedVenta> pedidos) // ACA TMB VA listasXML
 	{
@@ -96,7 +117,7 @@ public class CCentral
 	
 	public void generarListaDePrecioProveedorAutomatica(File archivoProveedor, int codigoProveedor)
 	{
-	
+		
 	}
 	
 	public Proveedor buscarProveedor(int codigoProveedor)

@@ -26,19 +26,22 @@ public class Rodamiento
 	@Column(nullable = false, length = 50)
 	private String tipo;
 	
+	private Stock stock;
+	
 	public boolean sosRodamiento(String codigoSKF)
 	{
-		return true;
+		return (codigoSKF == this.codigoSKF);
 	}
 	
 	public boolean sosRodamiento(String codigo, String tipo)
 	{
-		return true;
+		return ((codigoSKF == this.codigoSKF) && (tipo == this.tipo));
 	}
 	
 	public void ActualizarStock(int cantidad, float precio)
 	{
-		
+		stock.setCantidad(cantidad);
+		stock.setPrecio(precio);
 	}
 	
 	public int getId()

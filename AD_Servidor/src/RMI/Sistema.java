@@ -47,42 +47,42 @@ public class Sistema
 	
 	public void solicitarCotizacion()
 	{
-	
+		
 	}
 	
 	public void grabarNuevaCotizacion()
 	{
-	
+		
 	}
 	
 	public void buscarRodamento()
 	{
-	
+		
 	}
 	
 	public void agregarItem()
 	{
-	
+		
 	}
 	
 	public void leerXMLCotizacion()
 	{
-	
+		
 	}
 	
 	public void armarCotizacones()
 	{
-	
+		
 	}
 	
 	public void buscarOV()
 	{
-	
+		
 	}
 	
 	public void aceptarCotizacion()
 	{
-	
+		
 	}
 	
 	/*
@@ -91,7 +91,7 @@ public class Sistema
 	
 	public void ActualizarStock(String codigoSKF, int cantidad, float precio)
 	{
-	
+		CCentral.getInstancia().ActualizarStock(codigoSKF, cantidad, precio);
 	}
 	
 	public void GenerarOrdenesDeCompra()// ACA VA listaXMLs
@@ -105,7 +105,7 @@ public class Sistema
 	
 	public void PublicarListaDePreciosFinal()
 	{
-	
+		
 	}
 	
 	/*
@@ -113,6 +113,6 @@ public class Sistema
 	 */
 	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo)
 	{
-	
+		
 	}
 }
