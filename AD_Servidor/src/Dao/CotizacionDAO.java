@@ -4,16 +4,26 @@ import org.hibernate.Transaction;
 
 import Entities.Cotizacion;
 
-public class CotizacionDAO extends BaseDAO {
-	public static Cotizacion getCotizacion(int id) {
+public class CotizacionDAO extends BaseDAO
+{
+	public static Cotizacion getCotizacion(int id)
+	{
 		Transaction tx = getSession().beginTransaction();
-		try {
+		try
+		{
 			Cotizacion cot = getSession().get(Cotizacion.class, id);
 			tx.commit();
 			return cot;
-		} catch (Exception ex) {
+		}
+		catch (Exception ex)
+		{
 			tx.rollback();
 		}
 		return null;
+	}
+	
+	public static Cotizacion saveCotizacion(Cotizacion cot)
+	{
+		return saveEntity(cot);
 	}
 }

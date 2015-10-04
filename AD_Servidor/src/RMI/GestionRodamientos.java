@@ -12,6 +12,7 @@ import Dao.RodamientoDAO;
 import Entities.CCentral;
 import Entities.Cliente;
 import Entities.Cotizacion;
+import Entities.ItemPrecios;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import Helper.CotizacionesXML;
@@ -19,6 +20,7 @@ import Server.ThreadCotizaciones;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
+import bean.OVentaDTO;
 import bean.PedVentaDTO;
 
 public class GestionRodamientos implements InterfazGestionRodamientos
@@ -36,18 +38,20 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 		
 	}
 	
-	public void solicitarCotizacion(Vector<ItemCotizacionDTO> items)
+	public void solicitarCotizacion(Vector<ItemCotizacionDTO> items, OVentaDTO ovDTO)
 	{
-		Vector<Rodamiento> listaItems = new Vector<>();
-		for (int i = 0; i < items.size(); i++)
+		Vector<ItemPrecios> listaItems = new Vector<>();
+		for (ItemCotizacionDTO itCot : items)
 		{
-			Rodamiento rod = buscarRodamiento(items.elementAt(i).getRod().getId());
+			ItemPrecios itPr = ComparativaPreciosDAO;
+			Rodamiento rod = buscarRodamiento(itCot.getRod().getId());
 			if (rod != null)
 			{
 				listaItems.add(rod);
 			}
 		}
-		CotizacionesXML.generarXMLSolicitudCotizacion(listaItems);
+		OVenta ov = OVentaDAO.getOVenta(ovDTO.getId());
+		CotizacionesXML.generarXMLSolicitudCotizacion(listaItems, ov);
 	}
 	
 	public void grabarNuevaCotizacion()
@@ -91,7 +95,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 		if (cli != null)
 		{
 			cli.aceptarCotizacion(cotDTO);
-			CotizacionesXML.generarXMLCotizacion(cotDTO);
+			CotizacionesXML.generarXMLAceptarCotizacion(cotDTO);
 		}
 	}
 	

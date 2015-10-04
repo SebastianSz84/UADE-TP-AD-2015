@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import Dao.CotizacionDAO;
 import Helper.CotizacionesXML;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
@@ -53,7 +54,7 @@ public class OVenta
 			ItemCotizacionDTO itCotDTO = cotDTO.dameItem();
 			cot.agregarItem(itCotDTO, ComparativaPrecios.getInstancia().getMejorPrecio(itCotDTO).getDTO());
 		}
-		CotizacionesXML.generarXMLCotizacion(cot);
+		CotizacionesXML.generarXMLArmarCotizacion(CotizacionDAO.saveCotizacion(cot));
 	}
 	
 	public void generarXMLCotizacion()
