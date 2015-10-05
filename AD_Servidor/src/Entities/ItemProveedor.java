@@ -8,6 +8,15 @@ public class ItemProveedor
 	private boolean disponible;
 	private Rodamiento rodamiento;
 	
+	public ItemProveedor(String codigo, float precio, String condiciones, boolean disponible, Rodamiento rodamiento)
+	{
+		this.codigo = codigo;
+		this.precio = precio;
+		this.condiciones = condiciones;
+		this.disponible = disponible;
+		this.rodamiento = rodamiento;
+	}
+	
 	public boolean existeRodamiento(String codigoSKF)
 	{
 		return true;

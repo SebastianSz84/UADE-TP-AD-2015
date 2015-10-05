@@ -14,7 +14,11 @@ public class ProveedorDTO {
 		this.codigoProveedor = codigoProveedor;
 	}
 
-	public void agregarItem(String skf, String codRodProv, float precio) {
-		rodamientos.add(new ItemProveedorDTO(skf, codRodProv, precio));
+	public void agregarItem(String skf, String codRodProv, float precio, boolean disponible, String condiciones) {
+		rodamientos.add(new ItemProveedorDTO(skf, codRodProv, precio, disponible, condiciones));
+	}
+
+	public ArrayList<ItemProveedorDTO> getRodamientos() {
+		return rodamientos;
 	}
 }

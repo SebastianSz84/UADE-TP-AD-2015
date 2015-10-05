@@ -13,9 +13,9 @@ import bean.ProveedorDTO;
 
 public class ProveedorListaPreciosXML
 {
-	private String root = ".";
+	private static String root = ".";
 	
-	public ProveedorDTO leerArchivoListaPrecios(String path)
+	public static ProveedorDTO leerArchivoListaPrecios(String path)
 	{
 		try
 		{
@@ -42,8 +42,10 @@ public class ProveedorListaPreciosXML
 						attrs = d.getAttributes();
 						String skf = attrs.getNamedItem("skf").getNodeValue();
 						String codRodProv = attrs.getNamedItem("cod").getNodeValue();
+						boolean disponible = Boolean.parseBoolean(attrs.getNamedItem("disp").getNodeValue());
 						float precio = Float.valueOf(attrs.getNamedItem("precio").getNodeValue());
-						proveedorDTO.agregarItem(skf, codRodProv, precio);
+						String condiciones = attrs.getNamedItem("cond").getNodeValue();
+						proveedorDTO.agregarItem(skf, codRodProv, precio, disponible, condiciones);
 					}
 				}
 				return proveedorDTO;

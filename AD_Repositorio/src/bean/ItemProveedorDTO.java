@@ -1,13 +1,37 @@
 package bean;
 
 public class ItemProveedorDTO {
-	private String sku;
+	private String skf;
 	private String codRodProv;
 	private float precio;
-	
-	public ItemProveedorDTO(String sku,String codRodProve,float precio){
-		this.sku = sku;
+	private boolean disponible;
+	private String condiciones;
+
+	public ItemProveedorDTO(String skf, String codRodProv, float precio, boolean disponible, String condiciones) {
+		this.skf = skf;
 		this.codRodProv = codRodProv;
 		this.precio = precio;
+		this.disponible = disponible;
+		this.condiciones = condiciones;
+	}
+
+	public String getSKF() {
+		return skf;
+	}
+
+	public String getCodRodProv() {
+		return codRodProv;
+	}
+
+	public float getPrecion() {
+		return precio;
+	}
+
+	public boolean getDisponible() {
+		return disponible;
+	}
+
+	public String getCondciones() {
+		return condiciones;
 	}
 }

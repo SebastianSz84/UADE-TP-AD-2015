@@ -8,7 +8,10 @@ import Dao.OCProveedorDAO;
 import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
 import Helper.OCProveedorXML;
+import Helper.ProveedorListaPreciosXML;
+import bean.ItemProveedorDTO;
 import bean.PedVentaDTO;
+import bean.ProveedorDTO;
 
 public class CCentral
 {
@@ -119,7 +122,22 @@ public class CCentral
 	
 	public void generarListaDePrecioProveedorAutomatica(File archivoProveedor, int codigoProveedor)
 	{
-		
+		Proveedor proveedor = buscarProveedor(codigoProveedor);
+		if (proveedor != null)
+		{
+			ProveedorDTO dto = ProveedorListaPreciosXML.leerArchivoListaPrecios("");
+			Vector<ItemProveedor> items = new Vector<>();
+			for (ItemProveedorDTO itemDTO : dto.getRodamientos())
+			{
+				Rodamiento rod = buscarRodamiento(itemDTO.getSKF());
+				if (rod != null)
+				{
+					items.addElement(new ItemProveedor(itemDTO.getCodRodProv(), itemDTO.getPrecion(), itemDTO.getCondciones(), itemDTO.getDisponible(), rod));
+				}
+			}
+			
+			proveedor.setItems(items);
+		}
 	}
 	
 	public Proveedor buscarProveedor(int codigoProveedor)

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <proveedor codigo="1">
-	<item skf="RR0" cod="COD1" precio="12.3" />
-	<item skf="RR1" cod="COD2" precio="12.3" />
-	<item skf="RR2" cod="COD3" precio="12.3" />
-	<item skf="RR3" cod="COD4" precio="12.3" />
-	<item skf="RR4" cod="COD5" precio="12.3" />
+	<item skf="RR0" cod="COD1" precio="12.3" condiciones="" disponible="true" />
+	<item skf="RR1" cod="COD2" precio="12.3" condiciones="" disponible="true" />
+	<item skf="RR2" cod="COD3" precio="12.3" condiciones="" disponible="true" />
+	<item skf="RR3" cod="COD4" precio="12.3" condiciones="" disponible="true" />
+	<item skf="RR4" cod="COD5" precio="12.3" condiciones="" disponible="true" />
 </proveedor>
