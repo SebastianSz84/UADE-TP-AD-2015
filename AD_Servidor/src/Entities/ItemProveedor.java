@@ -34,7 +34,10 @@ public class ItemProveedor
 	
 	public void actualizar(float precio, String condiciones, boolean disponible, Rodamiento rodamiento)
 	{
-	
+		this.setCondiciones(condiciones);
+		this.setDisponible(disponible);
+		this.setRodamiento(rodamiento);
+		this.setPrecio(precio);
 	}
 	
 	public float getPrecio()
@@ -50,6 +53,11 @@ public class ItemProveedor
 	public void setRodamiento(Rodamiento r)
 	{
 		this.rodamiento = r;
+	}
+	
+	public void setPrecio(float precio)
+	{
+		this.precio = precio;
 	}
 	
 	public String getCodigo()

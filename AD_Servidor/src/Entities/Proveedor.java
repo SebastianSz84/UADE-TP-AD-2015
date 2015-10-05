@@ -1,12 +1,19 @@
 package Entities;
 
-import java.util.Vector;
+import java.util.ArrayList;
+import java.util.List;
 
 import bean.ProveedorDTO;
 
 public class Proveedor
 {
 	private int codigoProveedor;
+	private List<ItemProveedor> items;
+	
+	public Proveedor()
+	{
+		items = new ArrayList<ItemProveedor>();
+	}
 	
 	public int getCodigoProveedor()
 	{
@@ -18,17 +25,15 @@ public class Proveedor
 		this.codigoProveedor = codigoProveedor;
 	}
 	
-	public Vector<ItemProveedor> getItems()
+	public List<ItemProveedor> getItems()
 	{
-		return items;
+		return this.items;
 	}
 	
-	public void setItems(Vector<ItemProveedor> items)
+	public void setItems(List<ItemProveedor> items)
 	{
 		this.items = items;
 	}
-	
-	private Vector<ItemProveedor> items = new Vector<ItemProveedor>();
 	
 	public ItemProveedor getItemProveedor(Rodamiento rodamiento)
 	{
@@ -56,11 +61,27 @@ public class Proveedor
 	
 	public void agregarItem(String codigoItem, float precio, String condiciones, boolean disponible, Rodamiento rodamiento)
 	{
-	
+		ItemProveedor item = buscarItem(codigoItem);
+		if (item != null)
+		{
+			item.actualizar(precio, condiciones, disponible, rodamiento);
+		}
+		else
+		{
+			items.add(new ItemProveedor(codigoItem, precio, condiciones, disponible, rodamiento));
+		}
+		
 	}
 	
 	public ItemProveedor buscarItem(String codigoItem)
 	{
+		for (ItemProveedor item : items)
+		{
+			if (item.getCodigo().equals(codigoItem))
+			{
+				return item;
+			}
+		}
 		return null;
 	}
 	

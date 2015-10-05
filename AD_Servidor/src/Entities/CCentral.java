@@ -142,7 +142,13 @@ public class CCentral
 	
 	public Proveedor buscarProveedor(int codigoProveedor)
 	{
-		
+		for (Proveedor prov : proveedores)
+		{
+			if (prov.getCodigoProveedor() == codigoProveedor)
+			{
+				return prov;
+			}
+		}
 		return null;
 	}
 	
@@ -178,5 +184,19 @@ public class CCentral
 	public void setBultos(Vector<Bulto> bultos)
 	{
 		this.bultos = bultos;
+	}
+	
+	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String tipo)
+	{
+		Proveedor proveedor = buscarProveedor(codigoProveedor);
+		if (proveedor != null)
+		{
+			Rodamiento rod = buscarRodamiento(codigoSKF);
+			if (rod != null)
+			{
+				proveedor.agregarItem(codigoItem, precio, condiciones, disponible, rod);
+			}
+		}
+		
 	}
 }
