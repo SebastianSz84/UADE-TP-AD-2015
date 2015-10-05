@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 
 import Dao.CotizacionDAO;
 import Helper.CotizacionesXML;
+import bean.BultoDTO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.PedVentaDTO;
@@ -59,7 +60,7 @@ public class OVenta
 	
 	public void generarXMLCotizacion()
 	{
-		
+	
 	}
 	
 	public PedVenta getPedidosVenta()
@@ -67,29 +68,36 @@ public class OVenta
 		return null;
 	}
 	
-	public void crearEnvio()
+	public void crearEnvio(BultoDTO bultoAEnviarDTO)
 	{
-		
+	
 	}
 	
-	public void buscarCliente()
+	public Cliente buscarCliente(int idCliente)
 	{
-		
+		for (Cliente cli : clientes)
+		{
+			if (cli.getId() == idCliente)
+			{
+				return cli;
+			}
+		}
+		return null;
 	}
 	
 	public void buscarRodamiento(String codSKF)
 	{
-		
+	
 	}
 	
 	public void addRodamiento(Rodamiento rod)
 	{
-		
+	
 	}
 	
 	public void generarFactura(Cliente cli, PedVenta ped)
 	{
-		
+	
 	}
 	
 	public PedVentaDTO crearPedidoVenta(Cotizacion cot)

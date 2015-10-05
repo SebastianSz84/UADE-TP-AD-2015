@@ -7,6 +7,7 @@ import Entities.CCentral;
 import Entities.OVenta;
 import Entities.PedVenta;
 import Entities.Rodamiento;
+import bean.BultoDTO;
 import bean.RodamientoDTO;
 
 //
@@ -23,11 +24,10 @@ import bean.RodamientoDTO;
 
 public class Sistema
 {
-	private CCentral cc; // VA ESTO NO ?
 	private List<RodamientoDTO> rodamientosDTO;
 	private List<Rodamiento> rodamientos;
 	private List<PedVenta> pedidos;
-	private List<OVenta> oventas; // VA ESTO NO ?
+	private List<OVenta> oventas;
 	
 	public Sistema()
 	{
@@ -48,47 +48,61 @@ public class Sistema
 	
 	public void solicitarCotizacion()
 	{
-		
+	
 	}
 	
 	public void grabarNuevaCotizacion()
 	{
-		
+	
 	}
 	
 	public void buscarRodamento()
 	{
-		
+	
 	}
 	
 	public void agregarItem()
 	{
-		
+	
 	}
 	
 	public void leerXMLCotizacion()
 	{
-		
+	
 	}
 	
 	public void armarCotizacones()
 	{
-		
+	
 	}
 	
-	public void buscarOV()
+	public OVenta buscarOV(int codigoOV)
 	{
-		
+		for (OVenta ov : oventas)
+		{
+			if (ov.getId() == codigoOV)
+			{
+				return ov;
+			}
+		}
+		return null;
 	}
 	
 	public void aceptarCotizacion()
 	{
-		
+	
 	}
 	
 	/*
-	 * public XML leerXMLCotAceptadas() { } public XML leerXMLBultosAEnviar() { } public void borrarXMLPedidoCotizacion(XML xml) { } public void borrarXMLDeBultoAEnviar( XML xml) { }
+	 * public XML leerXMLCotAceptadas() { } * public void borrarXMLPedidoCotizacion(XML xml) { } public void borrarXMLDeBultoAEnviar( XML xml) { }
 	 */
+	
+	public void leerXMLBultosAEnviar() // aca va XML
+	{
+		BultoDTO bultoAEnviarDTO = new BultoDTO();
+		OVenta ov = new OVenta();
+		ov.crearEnvio(bultoAEnviarDTO);
+	}
 	
 	public void ActualizarStock(String codigoSKF, int cantidad, float precio)
 	{
@@ -106,7 +120,7 @@ public class Sistema
 	
 	public void PublicarListaDePreciosFinal()
 	{
-		
+	
 	}
 	
 	/*
@@ -114,6 +128,6 @@ public class Sistema
 	 */
 	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo)
 	{
-		
+	
 	}
 }
