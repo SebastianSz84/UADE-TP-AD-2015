@@ -109,7 +109,7 @@ public class Sistema
 		CCentral.getInstancia().ActualizarStock(codigoSKF, cantidad, precio);
 	}
 	
-	public void GenerarOrdenesDeCompra()// ACA VA listaXMLs
+	public void GenerarOrdenesDeCompra()
 	{
 		for (OVenta oventa : oventas)
 		{

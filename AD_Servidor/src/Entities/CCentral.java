@@ -6,11 +6,9 @@ import java.util.Vector;
 
 import Dao.OCProveedorDAO;
 import Dao.ProveedorDAO;
-import Dao.RodamientoDAO;
 import Helper.OCProveedorXML;
 import Helper.ProveedorListaPreciosXML;
 import bean.ItemProveedorDTO;
-import bean.PedVentaDTO;
 import bean.ProveedorDTO;
 
 public class CCentral
@@ -26,16 +24,13 @@ public class CCentral
 	 * public void altaProveedor( ProveedorDTO) { } public void bajaProveedor( ProveedorDTO) { } public void modificacionProveedor( ProveedorDTO) { } public CotizacionDTO crearCotizacion() { return null; }
 	 */
 	
-	public void crearOC(PedVentaDTO pedVta)
+	public void crearOC(ItemPedVenta item)
 	{
-		for (int i = 0; i < pedVta.getItems().size(); i++)
-		{
-			OCProveedor oc = new OCProveedor();
-			oc.setProveedor(ProveedorDAO.getProveedor(pedVta.getItems().elementAt(i).getProveedor().getCodigoProveedor()));
-			oc.agregarAOC(RodamientoDAO.getRodamiento(pedVta.getItems().elementAt(i).getRodamiento().getId()), pedVta.getItems().elementAt(i).getCantidad());
-			ordenesCompra.add(oc);
-			OCProveedorDAO.saveEntity(oc);
-		}
+		OCProveedor oc = new OCProveedor();
+		oc.agregarAOC(item.getRodamiento(), item.getCantidad());
+		oc.setProveedor(ProveedorDAO.getProveedor(item.getProveedor().getCodigoProveedor()));
+		ordenesCompra.add(oc);
+		OCProveedorDAO.saveEntity(oc);
 	}
 	
 	public void ActualizarStock(String codigoSKF, int cantidad, float precio)
@@ -71,7 +66,7 @@ public class CCentral
 		}
 	}
 	
-	public void GenerarOrdenesDeCompra(List<PedVenta> pedidos) // ACA TMB VA listasXML
+	public void GenerarOrdenesDeCompra(List<PedVenta> pedidos)
 	{
 		for (PedVenta pedido : pedidos)
 		{
@@ -84,7 +79,7 @@ public class CCentral
 				}
 				else
 				{
-					crearOC(pedido.getDTO());
+					crearOC(item);
 				}
 			}
 		}
