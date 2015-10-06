@@ -9,7 +9,6 @@ import Dao.ClienteDAO;
 import Dao.CotizacionDAO;
 import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
-import Entities.CCentral;
 import Entities.Cliente;
 import Entities.Cotizacion;
 import Entities.OVenta;
@@ -20,7 +19,6 @@ import bean.ClienteDTO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.OVentaDTO;
-import bean.PedVentaDTO;
 
 public class GestionRodamientos implements InterfazGestionRodamientos
 {
@@ -101,8 +99,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 			Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
 			cot.actualizarDesdeDTO(cotDTO);
 			OVenta ov = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
-			PedVentaDTO pedVta = ov.crearPedidoVenta(cot);
-			CCentral.getInstancia().crearOC(pedVta);
+			ov.crearPedidoVenta(cot);
 			files[i].delete();
 		}
 	}

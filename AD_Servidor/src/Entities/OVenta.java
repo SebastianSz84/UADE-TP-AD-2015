@@ -60,17 +60,12 @@ public class OVenta
 	
 	public void generarXMLCotizacion()
 	{
-	
-	}
-	
-	public PedVenta getPedidosVenta()
-	{
-		return null;
+		
 	}
 	
 	public void crearEnvio(BultoDTO bultoAEnviarDTO)
 	{
-	
+		
 	}
 	
 	public Cliente buscarCliente(int idCliente)
@@ -87,17 +82,17 @@ public class OVenta
 	
 	public void buscarRodamiento(String codSKF)
 	{
-	
+		
 	}
 	
 	public void addRodamiento(Rodamiento rod)
 	{
-	
+		
 	}
 	
 	public void generarFactura(Cliente cli, PedVenta ped)
 	{
-	
+		
 	}
 	
 	public PedVentaDTO crearPedidoVenta(Cotizacion cot)

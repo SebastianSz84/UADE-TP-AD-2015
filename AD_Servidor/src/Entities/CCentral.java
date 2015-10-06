@@ -21,7 +21,6 @@ public class CCentral
 	private List<Bulto> bultos;
 	private List<OCProveedor> ordenesCompra;
 	private List<Rodamiento> rodamientos;
-	private List<ItemPedVenta> itemsPedidos;
 	
 	/*
 	 * public void altaProveedor( ProveedorDTO) { } public void bajaProveedor( ProveedorDTO) { } public void modificacionProveedor( ProveedorDTO) { } public CotizacionDTO crearCotizacion() { return null; }
@@ -76,25 +75,33 @@ public class CCentral
 	{
 		for (PedVenta pedido : pedidos)
 		{
-			itemsPedidos.addAll(pedido.getItems());
-		}
-		
-		for (ItemPedVenta item : itemsPedidos)
-		{
-			if (comparativa.buscarRodamiento(item.getRodamiento().getCodigoSKF()) != null)
+			for (ItemPedVenta item : pedido.getItems())
 			{
-				for (OCProveedor ocprov : ordenesCompra)
+				OCProveedor ocProv = buscarOC(item.getProveedor().getCodigoProveedor());
+				if (ocProv != null)
 				{
-					if (ocprov.getProveedor().getCodigoProveedor() == item.getProveedor().getCodigoProveedor())
-					{
-						ocprov.agregarAOC(item.getRodamiento(), item.getCantidad());
-					}
+					ocProv.agregarAOC(item.getRodamiento(), item.getCantidad());
 				}
-				
+				else
+				{
+					crearOC(pedido.getDTO());
+				}
 			}
 		}
 		OCProveedorXML.GenerarXMLOrdenesDeCompra(ordenesCompra);
 		
+	}
+	
+	private OCProveedor buscarOC(int codigoProveedor)
+	{
+		for (OCProveedor ocprov : ordenesCompra)
+		{
+			if (ocprov.getProveedor().getCodigoProveedor() == codigoProveedor)
+			{
+				return ocprov;
+			}
+		}
+		return null;
 	}
 	
 	public void PublicarListaDePreciosFinal()

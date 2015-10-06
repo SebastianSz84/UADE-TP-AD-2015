@@ -48,32 +48,32 @@ public class Sistema
 	
 	public void solicitarCotizacion()
 	{
-	
+		
 	}
 	
 	public void grabarNuevaCotizacion()
 	{
-	
+		
 	}
 	
 	public void buscarRodamento()
 	{
-	
+		
 	}
 	
 	public void agregarItem()
 	{
-	
+		
 	}
 	
 	public void leerXMLCotizacion()
 	{
-	
+		
 	}
 	
 	public void armarCotizacones()
 	{
-	
+		
 	}
 	
 	public OVenta buscarOV(int codigoOV)
@@ -90,7 +90,7 @@ public class Sistema
 	
 	public void aceptarCotizacion()
 	{
-	
+		
 	}
 	
 	/*
@@ -113,14 +113,14 @@ public class Sistema
 	{
 		for (OVenta oventa : oventas)
 		{
-			pedidos.add(oventa.getPedidosVenta());
+			pedidos.addAll(oventa.getPedidos());
 		}
-		CCentral.getInstancia().GenerarOrdenesDeCompra(pedidos); // ESTO VA ASI????
+		CCentral.getInstancia().GenerarOrdenesDeCompra(pedidos);
 	}
 	
 	public void PublicarListaDePreciosFinal()
 	{
-	
+		
 	}
 	
 	/*
