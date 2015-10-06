@@ -23,6 +23,7 @@ import Entities.ItemCotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import bean.CotizacionDTO;
+import bean.ItemCotizacionDTO;
 import bean.RodamientoDTO;
 
 public class CotizacionesXML
@@ -128,11 +129,11 @@ public class CotizacionesXML
 		return null;
 	}
 	
-	public static File[] obtenerXMLCotizacionParaArmar()
+	public static File[] obtenerXMLCotizacionParaArmar(OVenta ov)
 	{
 		try
 		{
-			File dir = new File(root, paraArmar);
+			File dir = new File(root + Integer.toString(ov.getId()), paraArmar);
 			return dir.listFiles(new XMLFilter());
 		}
 		catch (Exception e)
@@ -268,6 +269,54 @@ public class CotizacionesXML
 	
 	public static void generarXMLAceptarCotizacion(CotizacionDTO cotDTO)
 	{
-		
+		try
+		{
+			final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			dbf.setNamespaceAware(false);
+			dbf.setValidating(false);
+			dbf.setIgnoringComments(true);
+			final DocumentBuilder db = dbf.newDocumentBuilder();
+			Document xmlDoc = db.newDocument();
+			
+			Element raiz = xmlDoc.createElement("Cotizacion");
+			xmlDoc.appendChild(raiz);
+			
+			Attr attribute = xmlDoc.createAttribute("estado");
+			attribute.setValue(cotDTO.getEstado());
+			raiz.setAttributeNode(attribute);
+			
+			attribute = xmlDoc.createAttribute("idOVenta");
+			attribute.setValue(Integer.toString(cotDTO.getIdOVenta()));
+			raiz.setAttributeNode(attribute);
+			
+			for (ItemCotizacionDTO itCot : cotDTO.getItems())
+			{
+				Element item = xmlDoc.createElement("item");
+				
+				attribute = xmlDoc.createAttribute("cantidad");
+				attribute.setValue(Integer.toString(itCot.getCantidad()));
+				item.setAttributeNode(attribute);
+				
+				attribute = xmlDoc.createAttribute("idRod");
+				attribute.setValue(Integer.toString(itCot.getRod().getId()));
+				item.setAttributeNode(attribute);
+				
+				attribute = xmlDoc.createAttribute("precio");
+				attribute.setValue(Float.toString(itCot.getPrecio()));
+				item.setAttributeNode(attribute);
+				
+				raiz.appendChild(item);
+			}
+			TransformerFactory transformerFactory = TransformerFactory.newInstance();
+			Transformer transformer = transformerFactory.newTransformer();
+			DOMSource source = new DOMSource(xmlDoc);
+			long timestamp = Calendar.getInstance().getTimeInMillis();
+			StreamResult result = new StreamResult(new File(root + Integer.toString(cotDTO.getIdOVenta()) + aceptadas, Long.toString(timestamp) + ".xml"));
+			transformer.transform(source, result);
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

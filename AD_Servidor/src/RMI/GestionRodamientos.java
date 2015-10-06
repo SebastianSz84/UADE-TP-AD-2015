@@ -3,19 +3,17 @@ package RMI;
 import interfaz.InterfazGestionRodamientos;
 
 import java.io.File;
+import java.util.List;
 import java.util.Vector;
 
-import Dao.ClienteDAO;
 import Dao.CotizacionDAO;
 import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
-import Entities.Cliente;
 import Entities.Cotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import Helper.CotizacionesXML;
 import Server.ThreadCotizaciones;
-import bean.ClienteDTO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.OVentaDTO;
@@ -23,6 +21,7 @@ import bean.OVentaDTO;
 public class GestionRodamientos implements InterfazGestionRodamientos
 {
 	private static GestionRodamientos instancia;
+	private List<OVenta> oventas;
 	
 	private GestionRodamientos()
 	{
@@ -46,7 +45,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 				listaItems.add(rod);
 			}
 		}
-		OVenta ov = OVentaDAO.getOVenta(ovDTO.getId());
+		OVenta ov = buscarOV(ovDTO.getId());
 		CotizacionesXML.generarXMLSolicitudCotizacion(listaItems, ov);
 	}
 	
@@ -62,31 +61,32 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 	
 	public void armarCotizacones()
 	{
-		File[] files = CotizacionesXML.obtenerXMLCotizacionParaArmar();
-		for (int i = 0; i < files.length; i++)
+		oventas = OVentaDAO.getAll();
+		for (OVenta ov : oventas)
 		{
-			CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionParaArmar(files[i]);
-			OVenta ov = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
-			
-			ov.generarCotizacion(cotDTO);
-			
-			files[i].delete();
+			File[] files = CotizacionesXML.obtenerXMLCotizacionParaArmar(ov);
+			for (int i = 0; i < files.length; i++)
+			{
+				CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionParaArmar(files[i]);
+				ov.generarCotizacion(cotDTO);
+				
+				files[i].delete();
+			}
 		}
 	}
 	
-	public void buscarOV()
+	private OVenta buscarOV(int idOVenta)
 	{
-		
+		return OVentaDAO.getOVenta(idOVenta);
 	}
 	
-	public void aceptarCotizacion(CotizacionDTO cotDTO, ClienteDTO cliDTO)
+	public void aceptarCotizacion(CotizacionDTO cotDTO)
 	{
-		Cliente cli = ClienteDAO.getCliente(cliDTO.getId());
+		OVenta ov = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
 		
-		if (cli != null)
+		if (ov != null)
 		{
-			cli.aceptarCotizacion(cotDTO);
-			CotizacionesXML.generarXMLAceptarCotizacion(cotDTO);
+			CotizacionesXML.generarXMLAceptarCotizacion(ov.aceptarCotizacion(cotDTO));
 		}
 	}
 	

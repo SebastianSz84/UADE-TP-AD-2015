@@ -25,21 +25,21 @@ public class OVenta
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int id;
+	private int id;
 	
 	@Column(nullable = false, length = 50)
-	public String nombre;
+	private String nombre;
 	
 	@Column(nullable = false, length = 50)
-	public String direccion;
+	private String direccion;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idOVenta")
-	public List<Cliente> clientes;
+	private List<Cliente> clientes;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idOVenta")
-	public List<PedVenta> pedidos;
+	private List<PedVenta> pedidos;
 	
 	public OVenta()
 	{
@@ -56,6 +56,18 @@ public class OVenta
 			cot.agregarItem(itCotDTO, ComparativaPrecios.getInstancia().getMejorPrecio(itCotDTO).getDTO());
 		}
 		CotizacionesXML.generarXMLArmarCotizacion(CotizacionDAO.saveCotizacion(cot));
+	}
+	
+	public CotizacionDTO aceptarCotizacion(CotizacionDTO cotDTO)
+	{
+		Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
+		
+		if (cot != null)
+		{
+			cot.aceptar();
+			return cot.getDTO();
+		}
+		return null;
 	}
 	
 	public void generarXMLCotizacion()

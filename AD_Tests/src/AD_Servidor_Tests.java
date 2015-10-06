@@ -27,28 +27,28 @@ public class AD_Servidor_Tests
 		try
 		{
 			ov = new OVenta();
-			ov.nombre = "TestOVName";
-			ov.direccion = "TestOVAddress";
+			ov.setNombre("TestOVName");
+			ov.setDireccion("TestOVAddress");
 			
 			cliente = new Cliente();
-			cliente.nombre = "TestName";
-			cliente.direccion = "TestAddress";
-			cliente.OficinaDeVenta = ov;
+			cliente.setNombre("TestName");
+			cliente.setDireccion("TestAddress");
+			cliente.setOficinaDeVenta(ov);
 			
-			ov.clientes.add(cliente);
+			ov.getClientes().add(cliente);
 			
 			ov = OVentaDAO.saveEntity(ov);
 			
-			int id = cliente.id;
+			int id = cliente.getId();
 			
 			cliente = ClienteDAO.getCliente(id);
 			
 			assertNotNull(cliente);
-			assertEquals(cliente.nombre, "TestName");
+			assertEquals(cliente.getNombre(), "TestName");
 		}
 		finally
 		{
-			ov.clientes.remove(cliente);
+			ov.getClientes().remove(cliente);
 			ClienteDAO.deleteCliente(cliente);
 			OVentaDAO.deleteEntity(ov);
 		}

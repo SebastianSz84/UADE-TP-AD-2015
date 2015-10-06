@@ -8,55 +8,61 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import Dao.CotizacionDAO;
-import bean.CotizacionDTO;
-
 @Entity
-public class Cliente {
-
+public class Cliente
+{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int id;
-
+	private int id;
+	
 	@Column(nullable = false, length = 50)
-	public String nombre;
-
+	private String nombre;
+	
 	@Column(nullable = false, length = 50)
-	public String direccion;
-
+	private String direccion;
+	
 	@ManyToOne
 	@JoinColumn(name = "idOVenta")
-	public OVenta OficinaDeVenta;
-
-	public void aceptarCotizacion(CotizacionDTO cotDTO) {
-		Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
-
-		if (cot != null) {
-			cot.aceptar();
-		}
-	}
-
-	public int getId() {
+	private OVenta OficinaDeVenta;
+	
+	public int getId()
+	{
 		return id;
 	}
-
-	public void setId(int id) {
+	
+	public void setId(int id)
+	{
 		this.id = id;
 	}
-
-	public String getNombre() {
+	
+	public String getNombre()
+	{
 		return nombre;
 	}
-
-	public void setNombre(String nombre) {
+	
+	public void setNombre(String nombre)
+	{
 		this.nombre = nombre;
 	}
-
-	public String getDireccion() {
+	
+	public String getDireccion()
+	{
 		return direccion;
 	}
-
-	public void setDireccion(String direccion) {
+	
+	public void setDireccion(String direccion)
+	{
 		this.direccion = direccion;
+	}
+	
+	public OVenta getOficinaDeVenta()
+	{
+		return OficinaDeVenta;
+	}
+	
+	public void setOficinaDeVenta(OVenta oficinaDeVenta)
+	{
+		OficinaDeVenta = oficinaDeVenta;
 	}
 }
