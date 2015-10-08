@@ -1,11 +1,34 @@
 package Entities;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+
+@Entity
 public class ItemProveedor
 {
+	@Id
 	private String codigo;
+	
+	@Column
 	private float precio;
+	
+	@Column
 	private String condiciones;
+	
+	@Column
 	private boolean disponible;
+	
+	@ManyToOne
+	@JoinColumn(name = "codigoProveedor")
+	private Proveedor proveedor;
+	
+	@OneToOne
+	@PrimaryKeyJoinColumn
 	private Rodamiento rodamiento;
 	
 	public ItemProveedor(String codigo, float precio, String condiciones, boolean disponible, Rodamiento rodamiento)
@@ -24,7 +47,7 @@ public class ItemProveedor
 	
 	public void actualizarCantidad(Rodamiento rodamiento, int cantidad)
 	{
-	
+		
 	}
 	
 	public boolean sosElRodamiento(String codigoSKF)

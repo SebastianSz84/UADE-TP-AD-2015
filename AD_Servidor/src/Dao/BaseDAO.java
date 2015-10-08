@@ -7,8 +7,29 @@ import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
+import Entities.Bulto;
 import Entities.Cliente;
+import Entities.CondCompra;
+import Entities.Cotizacion;
+import Entities.Envio;
+import Entities.Factura;
+import Entities.FormaPago;
+import Entities.ItemBulto;
+import Entities.ItemCotizacion;
+import Entities.ItemEnvio;
+import Entities.ItemOCProveedor;
+import Entities.ItemPedVenta;
+import Entities.ItemPrecios;
+import Entities.ItemProveedor;
+import Entities.ItemRemito;
+import Entities.ListaPrecios;
+import Entities.OCProveedor;
 import Entities.OVenta;
+import Entities.PedVenta;
+import Entities.Proveedor;
+import Entities.Remito;
+import Entities.Rodamiento;
+import Entities.Stock;
 
 public class BaseDAO
 {
@@ -21,8 +42,29 @@ public class BaseDAO
 		{
 			// Create session
 			Configuration cfg = new Configuration();
+			cfg.addAnnotatedClass(Bulto.class);
 			cfg.addAnnotatedClass(Cliente.class);
+			cfg.addAnnotatedClass(CondCompra.class);
+			cfg.addAnnotatedClass(Cotizacion.class);
+			cfg.addAnnotatedClass(Envio.class);
+			cfg.addAnnotatedClass(Factura.class);
+			cfg.addAnnotatedClass(FormaPago.class);
+			cfg.addAnnotatedClass(ItemBulto.class);
+			cfg.addAnnotatedClass(ItemCotizacion.class);
+			cfg.addAnnotatedClass(ItemEnvio.class);
+			cfg.addAnnotatedClass(ItemOCProveedor.class);
+			cfg.addAnnotatedClass(ItemPedVenta.class);
+			cfg.addAnnotatedClass(ItemPrecios.class);
+			cfg.addAnnotatedClass(ItemProveedor.class);
+			cfg.addAnnotatedClass(ItemRemito.class);
+			cfg.addAnnotatedClass(ListaPrecios.class);
+			cfg.addAnnotatedClass(OCProveedor.class);
 			cfg.addAnnotatedClass(OVenta.class);
+			cfg.addAnnotatedClass(PedVenta.class);
+			cfg.addAnnotatedClass(Proveedor.class);
+			cfg.addAnnotatedClass(Remito.class);
+			cfg.addAnnotatedClass(Rodamiento.class);
+			cfg.addAnnotatedClass(Stock.class);
 			
 			cfg.configure("hibernate.cfg.xml");
 			SessionFactory factory = cfg.buildSessionFactory();

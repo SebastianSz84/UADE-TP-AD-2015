@@ -1,14 +1,40 @@
 package Entities;
 
+import java.util.List;
 import java.util.Vector;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 
 import bean.ItemPedVentaDTO;
 import bean.PedVentaDTO;
 
+@Entity
 public class PedVenta
 {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@ManyToOne
+	@JoinColumn(name = "idOVenta")
+	private OVenta OficinaDeVenta;
+	
+	@OneToOne(cascade = CascadeType.ALL)
+	@PrimaryKeyJoinColumn
 	private Cotizacion cotizacion;
-	private Vector<ItemPedVenta> items;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idPedidoVenta")
+	private List<ItemPedVenta> items;
 	
 	public float getTotal()
 	{
@@ -25,12 +51,12 @@ public class PedVenta
 		this.cotizacion = cotizacion;
 	}
 	
-	public Vector<ItemPedVenta> getItems()
+	public List<ItemPedVenta> getItems()
 	{
 		return items;
 	}
 	
-	public void setItems(Vector<ItemPedVenta> items)
+	public void setItems(List<ItemPedVenta> items)
 	{
 		this.items = items;
 	}
@@ -40,10 +66,10 @@ public class PedVenta
 		for (int i = 0; i < cotizacion.getItems().size(); i++)
 		{
 			ItemPedVenta itPedVta = new ItemPedVenta();
-			itPedVta.setCantidad(cotizacion.getItems().elementAt(i).getCantidad());
-			itPedVta.setPrecio(cotizacion.getItems().elementAt(i).getPrecio());
-			itPedVta.setRodamiento(cotizacion.getItems().elementAt(i).getRod());
-			itPedVta.setProveedor(cotizacion.getItems().elementAt(i).getProveedor());
+			itPedVta.setCantidad(cotizacion.getItems().get(i).getCantidad());
+			itPedVta.setPrecio(cotizacion.getItems().get(i).getPrecio());
+			itPedVta.setRodamiento(cotizacion.getItems().get(i).getRod());
+			itPedVta.setProveedor(cotizacion.getItems().get(i).getProveedor());
 			items.add(itPedVta);
 		}
 	}
@@ -55,7 +81,7 @@ public class PedVenta
 		Vector<ItemPedVentaDTO> itemsDTO = new Vector<>();
 		for (int i = 0; i < items.size(); i++)
 		{
-			itemsDTO.add(items.elementAt(i).getDTO());
+			itemsDTO.add(items.get(i).getDTO());
 		}
 		pedVtaDTO.setItems(itemsDTO);
 		return pedVtaDTO;

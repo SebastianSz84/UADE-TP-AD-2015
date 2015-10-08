@@ -1,11 +1,14 @@
 package Entities;
 
+import java.util.List;
 import java.util.Vector;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -25,11 +28,17 @@ public class Cotizacion
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
+	@Column
 	private String estado;
-	@OneToOne(mappedBy = "id")
+	
+	@OneToOne
+	@JoinColumn(name = "idOVenta")
 	private OVenta oventa;
-	@OneToMany(mappedBy = "id")
-	private Vector<ItemCotizacion> items;
+	
+	@OneToMany
+	@JoinColumn(name = "idCotizacion")
+	private List<ItemCotizacion> items;
 	
 	public void agregarItem(ItemCotizacionDTO itCotDTO, ItemPreciosDTO itPrDTO)
 	{
@@ -51,7 +60,7 @@ public class Cotizacion
 		return 0;
 	}
 	
-	public Vector<ItemCotizacion> getItems()
+	public List<ItemCotizacion> getItems()
 	{
 		return items;
 	}
@@ -76,11 +85,6 @@ public class Cotizacion
 		return id;
 	}
 	
-	public void setId(int id)
-	{
-		this.id = id;
-	}
-	
 	public OVenta getOventa()
 	{
 		return oventa;
@@ -101,9 +105,9 @@ public class Cotizacion
 		for (int i = 0; i < items.size(); i++)
 		{
 			ItemCotizacionDTO itemDTO = new ItemCotizacionDTO();
-			itemDTO.setCantidad(items.elementAt(i).getCantidad());
-			itemDTO.setPrecio(items.elementAt(i).getPrecio());
-			itemDTO.setRod(items.elementAt(i).getRod().getDTO());
+			itemDTO.setCantidad(items.get(i).getCantidad());
+			itemDTO.setPrecio(items.get(i).getPrecio());
+			itemDTO.setRod(items.get(i).getRod().getDTO());
 			itemsDTO.add(itemDTO);
 		}
 		cotDTO.setItems(itemsDTO);

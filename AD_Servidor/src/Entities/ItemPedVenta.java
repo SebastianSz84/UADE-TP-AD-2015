@@ -1,28 +1,40 @@
 package Entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
 
 import bean.ItemPedVentaDTO;
 
 @Entity
-@Table(name = "ItemPedVenta")
 public class ItemPedVenta
 {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
+	
 	@OneToOne
 	@PrimaryKeyJoinColumn
 	private Rodamiento rodamiento;
+	
+	@OneToOne
 	@PrimaryKeyJoinColumn
 	private Proveedor proveedor;
+	
+	@ManyToOne
+	@JoinColumn(name = "idPedidoVenta")
+	private PedVenta PedidoVenta;
+	
+	@Column(nullable = false)
 	private int cantidad;
+	
+	@Column(nullable = false)
 	public float precio;
 	
 	public Rodamiento getRodamiento()
@@ -63,11 +75,6 @@ public class ItemPedVenta
 	public int getId()
 	{
 		return id;
-	}
-	
-	public void setId(int id)
-	{
-		this.id = id;
 	}
 	
 	public Proveedor getProveedor()
