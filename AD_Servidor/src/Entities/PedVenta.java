@@ -13,11 +13,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 import bean.ItemPedVentaDTO;
 import bean.PedVentaDTO;
 
 @Entity
+@Table(name = "PedidosVentas")
 public class PedVenta
 {
 	@Id

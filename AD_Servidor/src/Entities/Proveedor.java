@@ -10,10 +10,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import bean.ProveedorDTO;
 
 @Entity
+@Table(name = "Proveedores")
 public class Proveedor
 {
 	@Id

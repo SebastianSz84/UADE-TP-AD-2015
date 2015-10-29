@@ -9,10 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
 
 import bean.ItemPedVentaDTO;
 
 @Entity
+@Table(name = "ItemsPedidoVenta")
 public class ItemPedVenta
 {
 	@Id

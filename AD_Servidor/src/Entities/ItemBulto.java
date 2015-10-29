@@ -8,25 +8,34 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 @Entity
+@Table(name = "ItemsBulto")
 public class ItemBulto
 {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	public int id;
+	private int id;
 	
 	@Column
-	public int cantidad;
+	private int cantidad;
 	
 	@OneToOne
 	@JoinColumn(name = "idRodamiento")
-	public Rodamiento rodamiento;
+	private Rodamiento rodamiento;
 	
 	@ManyToOne
 	@JoinColumn(name = "idBulto")
-	public Bulto bulto;
+	private Bulto bulto;
+	
+	public ItemBulto(Bulto bulto, int cantidad, Rodamiento rodamientoComprado)
+	{
+		this.bulto = bulto;
+		this.cantidad = cantidad;
+		this.rodamiento = rodamientoComprado;
+	}
 	
 	public Rodamiento getRodamiento()
 	{
