@@ -1,4 +1,4 @@
-package Entities;
+package RMI;
 
 import java.io.File;
 import java.util.List;
@@ -6,6 +6,15 @@ import java.util.Vector;
 
 import Dao.OCProveedorDAO;
 import Dao.ProveedorDAO;
+import Entities.Bulto;
+import Entities.ComparativaPrecios;
+import Entities.ItemPedVenta;
+import Entities.ItemProveedor;
+import Entities.OCProveedor;
+import Entities.PedVenta;
+import Entities.Proveedor;
+import Entities.Remito;
+import Entities.Rodamiento;
 import Helper.OCProveedorXML;
 import Helper.ProveedorListaPreciosXML;
 import bean.ItemProveedorDTO;
@@ -58,8 +67,9 @@ public class CCentral
 			{
 				if (remito.contieneRodamiento(rodamiento))
 				{
+					/* agregar cantidad aca */
 					rodamientosComprados.remove(rodamiento);
-					bulto.agregarRodamientoComprado(rodamiento);
+					bulto.agregarRodamientoComprado(rodamiento, 0);
 				}
 			}
 			bultos.add(bulto);
@@ -117,7 +127,7 @@ public class CCentral
 			
 			if (mejorPrecio != null && mejorProveedor != null)
 			{
-				ComparativaPrecios.getInstancia().ActualizarPrecio(mejorProveedor, mejorPrecio);
+				ComparativaPrecios.getInstancia().ActualizarPrecio(mejorPrecio);
 			}
 		}
 	}
@@ -134,7 +144,7 @@ public class CCentral
 				Rodamiento rod = buscarRodamiento(itemDTO.getSKF());
 				if (rod != null)
 				{
-					items.addElement(new ItemProveedor(itemDTO.getCodRodProv(), itemDTO.getPrecion(), itemDTO.getCondciones(), itemDTO.getDisponible(), rod));
+					items.addElement(new ItemProveedor(itemDTO.getCodRodProv(), itemDTO.getPrecio(), itemDTO.getCondciones(), itemDTO.getDisponible(), rod));
 				}
 			}
 			

@@ -3,7 +3,6 @@ package RMI;
 import java.util.ArrayList;
 import java.util.List;
 
-import Entities.CCentral;
 import Entities.OVenta;
 import Entities.PedVenta;
 import Entities.Rodamiento;

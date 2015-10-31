@@ -64,7 +64,7 @@ public class CotizacionesXML
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("idRod");
-				attribute.setValue(Integer.toString(itCot.getRod().getId()));
+				attribute.setValue(itCot.getRod().getCodigoSKF());
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("precio");
@@ -114,7 +114,7 @@ public class CotizacionesXML
 					{
 						attrs = d.getAttributes();
 						int cantidad = Integer.valueOf(attrs.getNamedItem("cantidad").getNodeValue());
-						RodamientoDTO rodDTO = RodamientoDAO.getRodamiento(Integer.valueOf(attrs.getNamedItem("idRod").getNodeValue())).getDTO();
+						RodamientoDTO rodDTO = RodamientoDAO.getRodamiento(attrs.getNamedItem("idRod").getNodeValue()).getDTO();
 						float precio = Float.valueOf(attrs.getNamedItem("precio").getNodeValue());
 						cotDTO.agregarItem(cantidad, rodDTO, precio);
 					}
@@ -188,7 +188,7 @@ public class CotizacionesXML
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("idRod");
-				attribute.setValue(Integer.toString(rod.getId()));
+				attribute.setValue(rod.getCodigoSKF());
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("precio");
@@ -252,7 +252,7 @@ public class CotizacionesXML
 					{
 						attrs = d.getAttributes();
 						int cantidad = Integer.valueOf(attrs.getNamedItem("cantidad").getNodeValue());
-						RodamientoDTO rodDTO = RodamientoDAO.getRodamiento(Integer.valueOf(attrs.getNamedItem("idRod").getNodeValue())).getDTO();
+						RodamientoDTO rodDTO = RodamientoDAO.getRodamiento(attrs.getNamedItem("idRod").getNodeValue()).getDTO();
 						float precio = Float.valueOf(attrs.getNamedItem("precio").getNodeValue());
 						cotDTO.agregarItem(cantidad, rodDTO, precio);
 					}
@@ -298,7 +298,7 @@ public class CotizacionesXML
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("idRod");
-				attribute.setValue(Integer.toString(itCot.getRod().getId()));
+				attribute.setValue(itCot.getRod().getCodigoSKF());
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("precio");

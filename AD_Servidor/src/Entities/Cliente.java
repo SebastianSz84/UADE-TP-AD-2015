@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -23,10 +21,6 @@ public class Cliente
 	
 	@Column(nullable = false, length = 50)
 	private String direccion;
-	
-	@ManyToOne
-	@JoinColumn(name = "idOVenta")
-	private OVenta OficinaDeVenta;
 	
 	public int getId()
 	{
@@ -58,13 +52,4 @@ public class Cliente
 		this.direccion = direccion;
 	}
 	
-	public OVenta getOficinaDeVenta()
-	{
-		return OficinaDeVenta;
-	}
-	
-	public void setOficinaDeVenta(OVenta oficinaDeVenta)
-	{
-		OficinaDeVenta = oficinaDeVenta;
-	}
 }

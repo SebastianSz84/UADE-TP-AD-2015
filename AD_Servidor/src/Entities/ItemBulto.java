@@ -1,13 +1,8 @@
 package Entities;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -15,36 +10,18 @@ import javax.persistence.Table;
 public class ItemBulto
 {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
 	@Column
 	private int cantidad;
 	
-	@OneToOne
-	@JoinColumn(name = "idRodamiento")
-	private Rodamiento rodamiento;
-	
-	@ManyToOne
-	@JoinColumn(name = "idBulto")
-	private Bulto bulto;
+	@EmbeddedId
+	private ItemBultoId itemBultoId;
 	
 	public ItemBulto(Bulto bulto, int cantidad, Rodamiento rodamientoComprado)
 	{
-		this.bulto = bulto;
+		this.itemBultoId = new ItemBultoId();
 		this.cantidad = cantidad;
-		this.rodamiento = rodamientoComprado;
-	}
-	
-	public Rodamiento getRodamiento()
-	{
-		return rodamiento;
-	}
-	
-	public void setRodamiento(Rodamiento rodamiento)
-	{
-		this.rodamiento = rodamiento;
+		this.itemBultoId.setBulto(bulto);
+		this.itemBultoId.setRodamiento(rodamientoComprado);
 	}
 	
 	public int getCantidad()

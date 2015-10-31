@@ -19,7 +19,7 @@ import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
-import bean.ItemPreciosDTO;
+import bean.ItemProveedorDTO;
 
 @Entity
 @Table(name = "Cotizaciones")
@@ -40,12 +40,12 @@ public class Cotizacion
 	@JoinColumn(name = "idCotizacion")
 	private List<ItemCotizacion> items;
 	
-	public void agregarItem(ItemCotizacionDTO itCotDTO, ItemPreciosDTO itPrDTO)
+	public void agregarItem(ItemCotizacionDTO itCotDTO, ItemProveedorDTO itPrDTO)
 	{
 		ItemCotizacion itCot = new ItemCotizacion();
 		itCot.setCantidad(itCotDTO.getCantidad());
 		itCot.setPrecio(itPrDTO.getPrecio());
-		itCot.setRod(RodamientoDAO.getRodamiento(itPrDTO.getRodamientoDTO().getId()));
+		itCot.setRod(RodamientoDAO.getRodamiento(itPrDTO.getSKF()));
 		this.items.add(itCot);
 	}
 	
@@ -125,7 +125,7 @@ public class Cotizacion
 			item.setCantidad(cotDTO.getItems().elementAt(i).getCantidad());
 			item.setPrecio(cotDTO.getItems().elementAt(i).getPrecio());
 			item.setProveedor(ProveedorDAO.getProveedor(cotDTO.getItems().elementAt(i).getProveedor().getCodigoProveedor()));
-			item.setRod(RodamientoDAO.getRodamiento(cotDTO.getItems().elementAt(i).getRod().getId()));
+			item.setRod(RodamientoDAO.getRodamiento(cotDTO.getItems().elementAt(i).getRod().getCodigoSKF()));
 			items.add(item);
 		}
 	}

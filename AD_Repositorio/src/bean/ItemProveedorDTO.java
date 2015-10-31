@@ -23,7 +23,7 @@ public class ItemProveedorDTO {
 		return codRodProv;
 	}
 
-	public float getPrecion() {
+	public float getPrecio() {
 		return precio;
 	}
 

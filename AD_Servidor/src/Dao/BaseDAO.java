@@ -19,7 +19,6 @@ import Entities.ItemCotizacion;
 import Entities.ItemEnvio;
 import Entities.ItemOCProveedor;
 import Entities.ItemPedVenta;
-import Entities.ItemPrecios;
 import Entities.ItemProveedor;
 import Entities.ItemRemito;
 import Entities.ListaPrecios;
@@ -54,7 +53,6 @@ public class BaseDAO
 			cfg.addAnnotatedClass(ItemEnvio.class);
 			cfg.addAnnotatedClass(ItemOCProveedor.class);
 			cfg.addAnnotatedClass(ItemPedVenta.class);
-			cfg.addAnnotatedClass(ItemPrecios.class);
 			cfg.addAnnotatedClass(ItemProveedor.class);
 			cfg.addAnnotatedClass(ItemRemito.class);
 			cfg.addAnnotatedClass(ListaPrecios.class);

@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -26,7 +27,7 @@ public class Bulto
 	private OVenta OficinaDeVenta;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idBulto")
+	@JoinTable(name = "ItemsBulto", joinColumns = @JoinColumn(name = "idBulto") )
 	private List<ItemBulto> items;
 	
 	public Bulto()

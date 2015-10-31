@@ -2,14 +2,29 @@ package Entities;
 
 import java.util.Vector;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
 import bean.ItemCotizacionDTO;
 
+@Entity
 public class ComparativaPrecios
 {
-	private static ComparativaPrecios instancia;
-	private Vector<ItemPrecios> items;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	
-	public ItemPrecios getMejorPrecio(ItemCotizacionDTO itCotDTO)
+	@OneToMany
+	@JoinColumn(name = "idComparativa")
+	private Vector<ItemProveedor> items;
+	
+	private static ComparativaPrecios instancia;
+	
+	public ItemProveedor getMejorPrecio(ItemCotizacionDTO itCotDTO)
 	{
 		for (int i = 0; i < this.items.size(); i++)
 		{
@@ -21,9 +36,9 @@ public class ComparativaPrecios
 		return null;
 	}
 	
-	public ItemPrecios buscarRodamiento(String codigoSKF)
+	public ItemProveedor buscarRodamiento(String codigoSKF)
 	{
-		for (ItemPrecios item : items)
+		for (ItemProveedor item : items)
 		{
 			if (item.getRodamiento().getCodigoSKF().equals(codigoSKF))
 			{
@@ -33,16 +48,17 @@ public class ComparativaPrecios
 		return null;
 	}
 	
-	public void ActualizarPrecio(Proveedor proveedor, ItemProveedor itemProveedorFinal)
+	public void ActualizarPrecio(ItemProveedor itemProveedorFinal)
 	{
-		ItemPrecios item = buscarRodamiento(itemProveedorFinal.getRodamiento().getCodigoSKF());
+		ItemProveedor item = buscarRodamiento(itemProveedorFinal.getRodamiento().getCodigoSKF());
 		if (item != null)
 		{
-			item.actualizar(proveedor, itemProveedorFinal);
+			items.remove(item);
+			items.add(itemProveedorFinal);
 		}
 		else
 		{
-			items.addElement(new ItemPrecios(proveedor, itemProveedorFinal));
+			items.addElement(itemProveedorFinal);
 		}
 	}
 	
@@ -60,19 +76,19 @@ public class ComparativaPrecios
 		ComparativaPrecios.instancia = instancia;
 	}
 	
-	public Vector<ItemPrecios> getItems()
+	public Vector<ItemProveedor> getItems()
 	{
 		return items;
 	}
 	
-	public void setItems(Vector<ItemPrecios> items)
+	public void setItems(Vector<ItemProveedor> items)
 	{
 		this.items = items;
 	}
 	
-	public ItemPrecios getItemSKF(String codigoSKF)
+	public ItemProveedor getItemSKF(String codigoSKF)
 	{
-		for (ItemPrecios itPr : items)
+		for (ItemProveedor itPr : items)
 		{
 			if (itPr.getRodamiento().getCodigoSKF().equals(codigoSKF))
 			{

@@ -9,6 +9,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
+import bean.ItemProveedorDTO;
+
 @Entity
 @Table(name = "ItemsProveedor")
 public class ItemProveedor
@@ -49,7 +51,7 @@ public class ItemProveedor
 	
 	public void actualizarCantidad(Rodamiento rodamiento, int cantidad)
 	{
-		
+	
 	}
 	
 	public boolean sosElRodamiento(String codigoSKF)
@@ -113,5 +115,21 @@ public class ItemProveedor
 	public void setDisponible(boolean disponible)
 	{
 		this.disponible = disponible;
+	}
+	
+	public Proveedor getProveedor()
+	{
+		return proveedor;
+	}
+	
+	public void setProveedor(Proveedor proveedor)
+	{
+		this.proveedor = proveedor;
+	}
+	
+	public ItemProveedorDTO getDTO()
+	{
+		ItemProveedorDTO itPrDTO = new ItemProveedorDTO(this.getRodamiento().getCodigoSKF(), this.codigo, this.getPrecio(), this.isDisponible(), this.getCondiciones());
+		return itPrDTO;
 	}
 }
