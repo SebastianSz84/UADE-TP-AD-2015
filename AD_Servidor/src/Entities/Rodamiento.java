@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import bean.RodamientoDTO;
 
 @Entity
-@Table(name = "Rodamientos")
+@Table(name = "Rodamiento")
 public class Rodamiento
 {
 	@Id
@@ -22,7 +22,7 @@ public class Rodamiento
 	private String tipo;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idRodamiento")
+	@JoinColumn(name = "codigoSKF")
 	private Stock stock;
 	
 	public boolean sosRodamiento(String codigoSKF)

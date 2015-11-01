@@ -21,7 +21,7 @@ public class ItemBultoId implements Serializable
 	private Bulto bulto;
 	
 	@ManyToOne
-	@JoinColumns(@JoinColumn(name = "idRodamiento"))
+	@JoinColumns(@JoinColumn(name = "codigoSKF"))
 	private Rodamiento rodamiento;
 	
 	public Bulto getBulto()

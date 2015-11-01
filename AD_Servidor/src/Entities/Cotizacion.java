@@ -1,5 +1,6 @@
 package Entities;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -39,6 +40,9 @@ public class Cotizacion
 	@OneToMany
 	@JoinColumn(name = "idCotizacion")
 	private List<ItemCotizacion> items;
+	
+	@Column
+	private Date fecha;
 	
 	public void agregarItem(ItemCotizacionDTO itCotDTO, ItemProveedorDTO itPrDTO)
 	{
@@ -128,5 +132,15 @@ public class Cotizacion
 			item.setRod(RodamientoDAO.getRodamiento(cotDTO.getItems().elementAt(i).getRod().getCodigoSKF()));
 			items.add(item);
 		}
+	}
+	
+	public Date getFecha()
+	{
+		return fecha;
+	}
+	
+	public void setFecha(Date fecha)
+	{
+		this.fecha = fecha;
 	}
 }

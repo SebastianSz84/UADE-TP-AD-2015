@@ -24,7 +24,7 @@ public class Stock
 	private float precio;
 	
 	@OneToOne
-	@JoinColumn(name = "idRodamiento")
+	@JoinColumn(name = "codigoSKF")
 	private Rodamiento rodamiento;
 	
 	public int getCantidad()
