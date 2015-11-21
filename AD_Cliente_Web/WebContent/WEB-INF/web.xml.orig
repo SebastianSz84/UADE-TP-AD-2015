@@ -2,6 +2,17 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>AD_Cliente_Web</display-name>
   <servlet>
+<<<<<<< HEAD
+    <description>Servlet para trabajar con cotizaciones</description>
+    <display-name>ServletMostrarCot</display-name>
+    <servlet-name>ServletMostrarCot</servlet-name>
+    <servlet-class>cotizaciones.ServletMostrarCot</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletMostrarCot</servlet-name>
+    <url-pattern>/ServletMostrarCot</url-pattern>
+  </servlet-mapping>
+=======
 		<description>
 		</description>
 		<display-name>servletLogin</display-name>
@@ -31,4 +42,5 @@
     <welcome-file>Login.jsp</welcome-file>
   </welcome-file-list>
   
+>>>>>>> ce6b8365f77efafce79f4f0a95fbe68b401541c7
 </web-app>
