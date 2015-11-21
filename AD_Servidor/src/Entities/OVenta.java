@@ -72,12 +72,12 @@ public class OVenta
 	
 	public void generarXMLCotizacion()
 	{
-	
+		
 	}
 	
 	public void crearEnvio(BultoDTO bultoAEnviarDTO)
 	{
-	
+		
 	}
 	
 	public Cliente buscarCliente(int idCliente)
@@ -94,17 +94,17 @@ public class OVenta
 	
 	public void buscarRodamiento(String codSKF)
 	{
-	
+		
 	}
 	
 	public void addRodamiento(Rodamiento rod)
 	{
-	
+		
 	}
 	
 	public void generarFactura(Cliente cli, PedVenta ped)
 	{
-	
+		
 	}
 	
 	public PedVentaDTO crearPedidoVenta(Cotizacion cot)
@@ -164,5 +164,10 @@ public class OVenta
 	public void setPedidos(List<PedVenta> pedidos)
 	{
 		this.pedidos = pedidos;
+	}
+	
+	public List<Cotizacion> listCotizacionesPorCliente(int nroCliente)
+	{
+		return CotizacionDAO.getAll(Cotizacion.class, "Cotizacion");
 	}
 }
