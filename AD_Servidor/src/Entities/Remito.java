@@ -89,4 +89,10 @@ public class Remito
 	 * rodamientosComprados.contains(rodamientoComprado); }
 	 */
 	
+	public boolean contieneRodamiento(Rodamiento rodamiento)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
 }
