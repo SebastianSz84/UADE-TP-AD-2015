@@ -8,7 +8,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -26,9 +28,13 @@ public class Cliente
 	@Column(nullable = false, length = 50)
 	private String direccion;
 	
-	@OneToMany
-	@JoinColumn(name = "idForma")
+	@ManyToMany
+	@JoinTable(name = "Clientes_Formas", joinColumns = @JoinColumn(name = "idCliente") , inverseJoinColumns = @JoinColumn(name = "idForma") )
 	private List<FormaPago> formas;
+	
+	@ManyToOne
+	@JoinColumn(name = "idOVenta")
+	private OVenta oventa;
 	
 	public int getId()
 	{

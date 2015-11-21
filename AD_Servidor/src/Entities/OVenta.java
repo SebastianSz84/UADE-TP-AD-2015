@@ -34,7 +34,7 @@ public class OVenta
 	private String direccion;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idOVenta")
+	@JoinColumn(name = "id")
 	private List<Cliente> clientes;
 	
 	@OneToMany(cascade = CascadeType.ALL)
@@ -72,12 +72,12 @@ public class OVenta
 	
 	public void generarXMLCotizacion()
 	{
-		
+	
 	}
 	
 	public void crearEnvio(BultoDTO bultoAEnviarDTO)
 	{
-		
+	
 	}
 	
 	public Cliente buscarCliente(int idCliente)
@@ -94,17 +94,17 @@ public class OVenta
 	
 	public void buscarRodamiento(String codSKF)
 	{
-		
+	
 	}
 	
 	public void addRodamiento(Rodamiento rod)
 	{
-		
+	
 	}
 	
 	public void generarFactura(Cliente cli, PedVenta ped)
 	{
-		
+	
 	}
 	
 	public PedVentaDTO crearPedidoVenta(Cotizacion cot)
