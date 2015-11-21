@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,12 +21,39 @@ public class Remito
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@Column
 	private String codigo;
+	
+	@Column
 	private Date fecha;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idRodamiento")
-	private List<Rodamiento> rodamientosComprados;
+	@JoinColumn(name = "id")
+	private List<ItemRemito> items;
+	
+	@Column
+	@JoinColumn(name = "idOVenta")
+	private OVenta oventa;
+	
+	public List<ItemRemito> getItems()
+	{
+		return items;
+	}
+	
+	public void setItems(List<ItemRemito> items)
+	{
+		this.items = items;
+	}
+	
+	public OVenta getOventa()
+	{
+		return oventa;
+	}
+	
+	public void setOventa(OVenta oventa)
+	{
+		this.oventa = oventa;
+	}
 	
 	public int getId()
 	{
@@ -56,20 +84,15 @@ public class Remito
 	{
 		this.fecha = fecha;
 	}
+	/*
+	 * public List<Rodamiento> getRodamientosComprados() { return rodamientosComprados; } public void setRodamientosComprados(List<Rodamiento> rodamientosComprados) { this.rodamientosComprados = rodamientosComprados; } public boolean contieneRodamiento(Rodamiento rodamientoComprado) { return
+	 * rodamientosComprados.contains(rodamientoComprado); }
+	 */
 	
-	public List<Rodamiento> getRodamientosComprados()
+	public boolean contieneRodamiento(Rodamiento rodamiento)
 	{
-		return rodamientosComprados;
-	}
-	
-	public void setRodamientosComprados(List<Rodamiento> rodamientosComprados)
-	{
-		this.rodamientosComprados = rodamientosComprados;
-	}
-	
-	public boolean contieneRodamiento(Rodamiento rodamientoComprado)
-	{
-		return rodamientosComprados.contains(rodamientoComprado);
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }
