@@ -34,7 +34,7 @@ public class OVenta
 	private String direccion;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idOVenta")
+	@JoinColumn(name = "id")
 	private List<Cliente> clientes;
 	
 	@OneToMany(cascade = CascadeType.ALL)
@@ -164,5 +164,10 @@ public class OVenta
 	public void setPedidos(List<PedVenta> pedidos)
 	{
 		this.pedidos = pedidos;
+	}
+	
+	public List<Cotizacion> listCotizacionesPorCliente(int nroCliente)
+	{
+		return CotizacionDAO.getAll(Cotizacion.class, "Cotizacion");
 	}
 }

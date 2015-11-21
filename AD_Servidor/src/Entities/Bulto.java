@@ -27,7 +27,7 @@ public class Bulto
 	private OVenta OficinaDeVenta;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "ItemsBulto", joinColumns = @JoinColumn(name = "idBulto") )
+	@JoinTable(name = "ItemsBulto", joinColumns = @JoinColumn(name = "id") )
 	private List<ItemBulto> items;
 	
 	public Bulto()

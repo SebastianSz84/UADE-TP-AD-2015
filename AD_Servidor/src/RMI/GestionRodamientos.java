@@ -1,6 +1,7 @@
 package RMI;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Vector;
 
@@ -15,12 +16,19 @@ import Server.ThreadCotizaciones;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.OVentaDTO;
+import bean.RodamientoDTO;
 import interfaz.InterfazGestionRodamientos;
 
-public class GestionRodamientos implements InterfazGestionRodamientos
+public class GestionRodamientos implements InterfazGestionRodamientos, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static GestionRodamientos instancia;
 	private List<OVenta> oventas;
+	private List<Rodamiento> rodamientos;
+	private List<RodamientoDTO> rodamientosDTO;
 	
 	private GestionRodamientos()
 	{
@@ -28,9 +36,13 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 		thCot.start();
 	}
 	
-	public void getListaRodamientos()
+	public List<RodamientoDTO> getListaRodamientos()
 	{
-	
+		for (Rodamiento rodamiento : rodamientos)
+		{
+			rodamientosDTO.add(rodamiento.getDTO());
+		}
+		return rodamientosDTO;
 	}
 	
 	public void solicitarCotizacion(Vector<ItemCotizacionDTO> items, OVentaDTO ovDTO)
@@ -141,5 +153,22 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 	public static void setInstancia(GestionRodamientos instancia)
 	{
 		GestionRodamientos.instancia = instancia;
+	}
+	
+	public List<CotizacionDTO> getSolicitudesConformadasPorCliente(int nroCliente)
+	{
+		List<CotizacionDTO> cotizacionesDTO = new Vector<CotizacionDTO>();
+		for (OVenta o : oventas)
+		{
+			List<Cotizacion> cotizaciones = o.listCotizacionesPorCliente(nroCliente);
+			
+			for (Cotizacion c : cotizaciones)
+			{
+				cotizacionesDTO.add(c.getDTO());
+			}
+		}
+		
+		return cotizacionesDTO;
+		
 	}
 }
