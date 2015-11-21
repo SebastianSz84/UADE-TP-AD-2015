@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,7 @@ import javax.persistence.Table;
 import bean.ProveedorDTO;
 
 @Entity
-@Table(name = "Proveedores")
+@Table(name = "Proveedor")
 public class Proveedor
 {
 	@Id
@@ -25,6 +26,9 @@ public class Proveedor
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "codigoProveedor")
 	private List<ItemProveedor> items;
+	
+	@Column
+	private String direccion;
 	
 	public Proveedor()
 	{
@@ -49,6 +53,16 @@ public class Proveedor
 	public void setItems(List<ItemProveedor> items)
 	{
 		this.items = items;
+	}
+	
+	public String getDireccion()
+	{
+		return direccion;
+	}
+	
+	public void setDireccion(String direccion)
+	{
+		this.direccion = direccion;
 	}
 	
 	public ItemProveedor getItemProveedor(Rodamiento rodamiento)

@@ -33,6 +33,7 @@ public class ItemProveedor
 	
 	@OneToOne
 	@PrimaryKeyJoinColumn
+	@JoinColumn(name = "codigoSKF")
 	private Rodamiento rodamiento;
 	
 	public ItemProveedor(String codigo, float precio, String condiciones, boolean disponible, Rodamiento rodamiento)
