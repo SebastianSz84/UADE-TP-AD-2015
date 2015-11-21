@@ -9,7 +9,7 @@
 <body>
 	<H2 ALIGN="CENTER">Ingrese Nro Cliente</H2>
 		
-		<form ACTION="/AD_Cliente_Web/servletLogin" METHOD="get">
+		<form ACTION="/AD_Cliente_Web/ServletLogin" METHOD="get">
 			<label> Nro Cliente : </label> <input type="text" name="nroCliente" id="txtNroCliente">
 			<center>
 				<input TYPE="submit" VALUE="Conectar" onclick="return checkNroCliente();"></input>

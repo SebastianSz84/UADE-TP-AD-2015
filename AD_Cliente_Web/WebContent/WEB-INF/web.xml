@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
   <display-name>AD_Cliente_Web</display-name>
-  <servlet>
-		<description>
-		</description>
-		<display-name>servletLogin</display-name>
-		<servlet-name>servletLogin</servlet-name>
-		<servlet-class>clientes.servletLogin</servlet-class>
-	</servlet>
-	
-	<servlet>
-		<description>
-		</description>
-		<display-name>servletListarCotizaciones</display-name>
-		<servlet-name>servletListarCotizaciones</servlet-name>
-		<servlet-class>clientes.servletListarCotizaciones</servlet-class>
-	</servlet>
-	
-	<servlet-mapping>
-		<servlet-name>servletLogin</servlet-name>
-		<url-pattern>/servletLogin</url-pattern>
-	</servlet-mapping>
-	
-		<servlet-mapping>
-		<servlet-name>servletListarCotizaciones</servlet-name>
-		<url-pattern>/servletListarCotizaciones</url-pattern>
-	</servlet-mapping>
-	
-<welcome-file-list>
+  <welcome-file-list>
     <welcome-file>Login.jsp</welcome-file>
   </welcome-file-list>
-  
+  <servlet>
+    <description></description>
+    <display-name>ServletLogin</display-name>
+    <servlet-name>ServletLogin</servlet-name>
+    <servlet-class>clientes.ServletLogin</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletLogin</servlet-name>
+    <url-pattern>/ServletLogin</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletListarCotizaciones</display-name>
+    <servlet-name>ServletListarCotizaciones</servlet-name>
+    <servlet-class>cotizaciones.ServletListarCotizaciones</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletListarCotizaciones</servlet-name>
+    <url-pattern>/ServletListarCotizaciones</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletMostrarCot</display-name>
+    <servlet-name>ServletMostrarCot</servlet-name>
+    <servlet-class>cotizaciones.ServletMostrarCot</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletMostrarCot</servlet-name>
+    <url-pattern>/ServletMostrarCot</url-pattern>
+  </servlet-mapping>
 </web-app>

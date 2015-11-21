@@ -11,7 +11,7 @@
 	
 	<label> Cotizaciones conformadas: </label> <br/>
 	
-	<form ACTION="/AD_Cliente_Web/servletListarCotizaciones" METHOD="get">
+	<form ACTION="/AD_Cliente_Web/ServletListarCotizaciones" METHOD="get">
 		<INPUT TYPE="submit" VALUE="Crear Cotizacion"></INPUT>
 	</form>
 </body>
