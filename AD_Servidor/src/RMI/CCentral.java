@@ -1,6 +1,5 @@
 package RMI;
 
-import java.io.File;
 import java.util.List;
 import java.util.Vector;
 
@@ -132,12 +131,12 @@ public class CCentral
 		}
 	}
 	
-	public void generarListaDePrecioProveedorAutomatica(File archivoProveedor, int codigoProveedor)
+	public void generarListaDePrecioProveedorAutomatica(String archivoProveedor, int codigoProveedor)
 	{
 		Proveedor proveedor = buscarProveedor(codigoProveedor);
 		if (proveedor != null)
 		{
-			ProveedorDTO dto = ProveedorListaPreciosXML.leerArchivoListaPrecios("");
+			ProveedorDTO dto = ProveedorListaPreciosXML.leerArchivoListaPrecios(archivoProveedor);
 			Vector<ItemProveedor> items = new Vector<>();
 			for (ItemProveedorDTO itemDTO : dto.getRodamientos())
 			{
@@ -198,7 +197,7 @@ public class CCentral
 		this.bultos = bultos;
 	}
 	
-	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String tipo)
+	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF)
 	{
 		Proveedor proveedor = buscarProveedor(codigoProveedor);
 		if (proveedor != null)
@@ -206,7 +205,15 @@ public class CCentral
 			Rodamiento rod = buscarRodamiento(codigoSKF);
 			if (rod != null)
 			{
-				proveedor.agregarItem(codigoItem, precio, condiciones, disponible, rod);
+				ItemProveedor item = proveedor.buscarItem(codigoItem);
+				if (item == null)
+				{
+					proveedor.agregarItem(codigoItem, precio, condiciones, disponible, rod);
+				}
+				else
+				{
+					item.actualizar(precio, condiciones, disponible, rod);
+				}
 			}
 		}
 		

@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="../lib/javassist-3.18.1-GA.jar"/>
 	<classpathentry kind="lib" path="../lib/jboss-logging-3.3.0.Final.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/AD_Repositorio"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AD_Servidor"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
