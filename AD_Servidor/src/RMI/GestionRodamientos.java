@@ -1,5 +1,7 @@
 package RMI;
 
+import interfaz.InterfazGestionRodamientos;
+
 import java.io.File;
 import java.util.List;
 import java.util.Vector;
@@ -15,7 +17,7 @@ import Server.ThreadCotizaciones;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.OVentaDTO;
-import interfaz.InterfazGestionRodamientos;
+import bean.RodamientoDTO;
 
 public class GestionRodamientos implements InterfazGestionRodamientos
 {
@@ -28,9 +30,10 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 		thCot.start();
 	}
 	
-	public void getListaRodamientos()
+	public List<RodamientoDTO> getListaRodamientos()
 	{
-	
+		Server.
+		return null;
 	}
 	
 	public void solicitarCotizacion(Vector<ItemCotizacionDTO> items, OVentaDTO ovDTO)
@@ -50,12 +53,12 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 	
 	public void grabarNuevaCotizacion()
 	{
-	
+		
 	}
 	
 	public void agregarItem()
 	{
-	
+		
 	}
 	
 	public void armarCotizacones()
@@ -109,7 +112,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 	
 	public void ActualizarStock(String codigoSKF, int cantidad, float precio)
 	{
-	
+		
 	}
 	
 	/*
@@ -118,7 +121,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 	
 	public void PublicarListaDePreciosFinal()
 	{
-	
+		
 	}
 	
 	/*
@@ -126,7 +129,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 	 */
 	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo)
 	{
-	
+		
 	}
 	
 	public static GestionRodamientos getInstancia()
