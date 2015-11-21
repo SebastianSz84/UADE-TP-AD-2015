@@ -24,6 +24,6 @@ public class OVentaDAO extends BaseDAO
 	
 	public static List<OVenta> getAll()
 	{
-		return getAll(OVenta.class, "OVentas");
+		return getAll(OVenta.class, "OVenta");
 	}
 }
