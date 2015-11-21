@@ -1,10 +1,7 @@
 package RMI;
 
-import interfaz.InterfazGestionRodamientos;
-
 import java.io.File;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -20,6 +17,7 @@ import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.OVentaDTO;
 import bean.RodamientoDTO;
+import interfaz.InterfazGestionRodamientos;
 
 public class GestionRodamientos implements InterfazGestionRodamientos, Serializable
 {
@@ -29,6 +27,8 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	private static final long serialVersionUID = 1L;
 	private static GestionRodamientos instancia;
 	private List<OVenta> oventas;
+	private List<Rodamiento> rodamientos;
+	private List<RodamientoDTO> rodamientosDTO;
 	
 	private GestionRodamientos()
 	{
@@ -38,12 +38,11 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	
 	public List<RodamientoDTO> getListaRodamientos()
 	{
-		List<RodamientoDTO> listaRods = new ArrayList<>();
-		RodamientoDTO rodDTO = new RodamientoDTO();
-		rodDTO.setTipo("tipo1");
-		rodDTO.setCodigoSKF("codigoSKF");
-		listaRods.add(rodDTO);
-		return listaRods;
+		for (Rodamiento rodamiento : rodamientos)
+		{
+			rodamientosDTO.add(rodamiento.getDTO());
+		}
+		return rodamientosDTO;
 	}
 	
 	public void solicitarCotizacion(Vector<ItemCotizacionDTO> items, OVentaDTO ovDTO)
@@ -63,12 +62,12 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	
 	public void grabarNuevaCotizacion()
 	{
-		
+	
 	}
 	
 	public void agregarItem()
 	{
-		
+	
 	}
 	
 	public void armarCotizacones()
@@ -122,7 +121,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	
 	public void ActualizarStock(String codigoSKF, int cantidad, float precio)
 	{
-		
+	
 	}
 	
 	/*
@@ -131,7 +130,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	
 	public void PublicarListaDePreciosFinal()
 	{
-		
+	
 	}
 	
 	/*
@@ -139,7 +138,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	 */
 	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo)
 	{
-		
+	
 	}
 	
 	public static GestionRodamientos getInstancia()
