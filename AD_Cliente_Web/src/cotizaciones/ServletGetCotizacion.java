@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import RMI.CCentral;
+import RMI.GestionRodamientos;
 import bean.CotizacionDTO;
 
 import com.google.gson.Gson;
@@ -33,7 +34,7 @@ public class ServletGetCotizacion extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int nroCliente = Integer.parseInt(request.getParameter("nroCliente"));
-		List<CotizacionDTO> lista = CCentral.getInstancia().getSolicitudesConformadasPorCliente(nroCliente);
+		List<CotizacionDTO> lista = GestionRodamientos.getInstancia().getSolicitudesConformadasPorCliente(nroCliente);
 		String listaGson = new Gson().toJson(lista);
 		PrintWriter out = response.getWriter();
 		response.setCharacterEncoding("utf8");
