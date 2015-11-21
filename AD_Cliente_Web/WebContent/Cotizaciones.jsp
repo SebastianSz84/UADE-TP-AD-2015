@@ -4,9 +4,15 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Cotizaciones</title>
 </head>
 <body>
-
+	<label> Nro Cliente : </label> <%= request.getParameter("nroCliente")  %> <br/>
+	
+	<label> Cotizaciones conformadas: </label> <br/>
+	
+	<form ACTION="/AD_Cliente_Web/ServletListarCotizaciones" METHOD="get">
+		<INPUT TYPE="submit" VALUE="Crear Cotizacion"></INPUT>
+	</form>
 </body>
 </html>
