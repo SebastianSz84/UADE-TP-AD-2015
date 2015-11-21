@@ -11,12 +11,12 @@
   </welcome-file-list>
   <servlet>
     <description>Servlet para trabajar con cotizaciones</description>
-    <display-name>servletCotizaciones</display-name>
-    <servlet-name>servletCotizaciones</servlet-name>
-    <servlet-class>cotizaciones.servletCotizaciones</servlet-class>
+    <display-name>ServletMostrarCot</display-name>
+    <servlet-name>ServletMostrarCot</servlet-name>
+    <servlet-class>cotizaciones.ServletMostrarCot</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>servletCotizaciones</servlet-name>
-    <url-pattern>/servletCotizaciones</url-pattern>
+    <servlet-name>ServletMostrarCot</servlet-name>
+    <url-pattern>/ServletMostrarCot</url-pattern>
   </servlet-mapping>
 </web-app>

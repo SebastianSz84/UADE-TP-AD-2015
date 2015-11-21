@@ -3,6 +3,8 @@ package RMI;
 import interfaz.InterfazGestionRodamientos;
 
 import java.io.File;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -19,8 +21,12 @@ import bean.ItemCotizacionDTO;
 import bean.OVentaDTO;
 import bean.RodamientoDTO;
 
-public class GestionRodamientos implements InterfazGestionRodamientos
+public class GestionRodamientos implements InterfazGestionRodamientos, Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static GestionRodamientos instancia;
 	private List<OVenta> oventas;
 	
@@ -32,8 +38,12 @@ public class GestionRodamientos implements InterfazGestionRodamientos
 	
 	public List<RodamientoDTO> getListaRodamientos()
 	{
-		Server.
-		return null;
+		List<RodamientoDTO> listaRods = new ArrayList<>();
+		RodamientoDTO rodDTO = new RodamientoDTO();
+		rodDTO.setTipo("tipo1");
+		rodDTO.setCodigoSKF("codigoSKF");
+		listaRods.add(rodDTO);
+		return listaRods;
 	}
 	
 	public void solicitarCotizacion(Vector<ItemCotizacionDTO> items, OVentaDTO ovDTO)
