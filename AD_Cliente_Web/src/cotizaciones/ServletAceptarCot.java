@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utils.ParserJson;
+import RMI.GestionRodamientos;
 
 import com.google.gson.JsonObject;
 
@@ -40,17 +41,8 @@ public class ServletAceptarCot extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		JsonObject jObj = ParserJson.parsearJsonObject(request);
 
-		String strTest = jObj.get("idCotizacion").getAsString();
+		String strCot = jObj.get("idCotizacion").getAsString();
 
-		System.out.print(strTest);
-
-		return;
-
-		// RodamientoDTO[] cosas = new
-		// Gson().fromJson(request.getReader().readLine(),
-		// RodamientoDTO[].class);
-		// for( RodamientoDTO rodDTO : cosas ){
-		// System.out.println(rodDTO.getTipo()+" "+rodDTO.getCodigoSKF());
-		// }
+		GestionRodamientos.getInstancia().aceptarCotizacion(Integer.parseInt(strCot));
 	}
 }

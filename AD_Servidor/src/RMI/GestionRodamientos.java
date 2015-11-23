@@ -93,13 +93,18 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		return OVentaDAO.getOVenta(idOVenta);
 	}
 	
-	public void aceptarCotizacion(CotizacionDTO cotDTO)
+	public void aceptarCotizacion(int nroCotizacion)
 	{
-		OVenta ov = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
-		
-		if (ov != null)
+		Cotizacion cot = CotizacionDAO.getCotizacion(nroCotizacion);
+		if (cot != null)
 		{
-			CotizacionesXML.generarXMLAceptarCotizacion(ov.aceptarCotizacion(cotDTO));
+			CotizacionDTO cotDTO = cot.getDTO();
+			OVenta ov = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
+			
+			if (ov != null)
+			{
+				CotizacionesXML.generarXMLAceptarCotizacion(ov.aceptarCotizacion(cotDTO));
+			}
 		}
 	}
 	

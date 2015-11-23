@@ -1,8 +1,13 @@
 package bean;
 
+import java.io.Serializable;
 import java.util.Vector;
 
-public class CotizacionDTO {
+public class CotizacionDTO implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String estado;
 	private Vector<ItemCotizacionDTO> items;
