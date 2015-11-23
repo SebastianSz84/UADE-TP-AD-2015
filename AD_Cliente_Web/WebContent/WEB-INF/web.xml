@@ -36,16 +36,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ServletGetCotizacion</display-name>
-    <servlet-name>ServletGetCotizacion</servlet-name>
-    <servlet-class>cotizaciones.ServletGetCotizacion</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ServletGetCotizacion</servlet-name>
-    <url-pattern>/ServletGetCotizacion</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>ServletAceptarCot</display-name>
     <servlet-name>ServletAceptarCot</servlet-name>
     <servlet-class>cotizaciones.ServletAceptarCot</servlet-class>
