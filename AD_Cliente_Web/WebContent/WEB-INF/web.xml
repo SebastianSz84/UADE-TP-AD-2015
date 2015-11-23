@@ -44,4 +44,14 @@
     <servlet-name>ServletGetCotizacion</servlet-name>
     <url-pattern>/ServletGetCotizacion</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletAceptarCot</display-name>
+    <servlet-name>ServletAceptarCot</servlet-name>
+    <servlet-class>cotizaciones.ServletAceptarCot</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletAceptarCot</servlet-name>
+    <url-pattern>/ServletAceptarCot</url-pattern>
+  </servlet-mapping>
 </web-app>

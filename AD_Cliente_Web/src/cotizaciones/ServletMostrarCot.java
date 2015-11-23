@@ -2,7 +2,6 @@ package cotizaciones;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -33,8 +32,8 @@ public class ServletMostrarCot extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		List<RodamientoDTO> lista = GestionRodamientos.getInstancia().getListaRodamientos();
-		List<RodamientoDTO> lista = new ArrayList<>();
+		List<RodamientoDTO> lista = GestionRodamientos.getInstancia().getListaRodamientos();
+//		List<RodamientoDTO> lista = new ArrayList<>();
 		String listaGson = new Gson().toJson(lista);
 		PrintWriter out = response.getWriter();
 		response.setCharacterEncoding("utf8");
