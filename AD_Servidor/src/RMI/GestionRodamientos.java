@@ -1,5 +1,7 @@
 package RMI;
 
+import interfaz.InterfazGestionRodamientos;
+
 import java.io.File;
 import java.io.Serializable;
 import java.util.List;
@@ -17,7 +19,6 @@ import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.OVentaDTO;
 import bean.RodamientoDTO;
-import interfaz.InterfazGestionRodamientos;
 
 public class GestionRodamientos implements InterfazGestionRodamientos, Serializable
 {
@@ -26,14 +27,15 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	 */
 	private static final long serialVersionUID = 1L;
 	private static GestionRodamientos instancia;
-	private List<OVenta> oventas;
-	private List<Rodamiento> rodamientos;
-	private List<RodamientoDTO> rodamientosDTO;
+	private List<OVenta> oventas = new Vector<OVenta>();
+	private List<Rodamiento> rodamientos = new Vector<Rodamiento>();
+	private List<RodamientoDTO> rodamientosDTO = new Vector<RodamientoDTO>();
 	
 	private GestionRodamientos()
 	{
 		ThreadCotizaciones thCot = new ThreadCotizaciones();
 		thCot.start();
+		
 	}
 	
 	public List<RodamientoDTO> getListaRodamientos()
@@ -62,12 +64,12 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	
 	public void grabarNuevaCotizacion()
 	{
-	
+		
 	}
 	
 	public void agregarItem()
 	{
-	
+		
 	}
 	
 	public void armarCotizacones()
@@ -121,7 +123,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	
 	public void ActualizarStock(String codigoSKF, int cantidad, float precio)
 	{
-	
+		
 	}
 	
 	/*
@@ -130,7 +132,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	
 	public void PublicarListaDePreciosFinal()
 	{
-	
+		
 	}
 	
 	/*
@@ -138,7 +140,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	 */
 	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo)
 	{
-	
+		
 	}
 	
 	public static GestionRodamientos getInstancia()
@@ -158,6 +160,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	public List<CotizacionDTO> getSolicitudesConformadasPorCliente(int nroCliente)
 	{
 		List<CotizacionDTO> cotizacionesDTO = new Vector<CotizacionDTO>();
+		oventas = OVentaDAO.getAll();
 		for (OVenta o : oventas)
 		{
 			List<Cotizacion> cotizaciones = o.listCotizacionesPorCliente(nroCliente);
