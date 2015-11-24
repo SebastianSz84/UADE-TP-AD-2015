@@ -1,3 +1,23 @@
-<div>
-    home
+<div class="row">
+    <div class="col-xs-12">
+        <button class="btn btn-default" type="submit" ng-click="verCotizaciones()">Ver cotizaciones</button>
+        <button class="btn btn-default" type="submit" ng-click="armarCotizacion()">Armar cotizacion</button>
+    </div>
+
+    <div class="col-xs-12">
+        <div ng-repeat="cot in cotizaciones" class="row">
+            <div class="col-xs-2">
+                {{cot.id}}
+            </div>
+            <div class="col-xs-2">
+                {{cot.estado}}
+            </div>
+            <div class="col-xs-2">
+                {{cot}}
+            </div>
+            <div class="col-xs-2">
+                {{cot}}
+            </div>
+        </div>
+    </div>
 </div>
