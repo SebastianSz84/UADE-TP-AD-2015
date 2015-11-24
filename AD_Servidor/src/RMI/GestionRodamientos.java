@@ -4,6 +4,8 @@ import interfaz.InterfazGestionRodamientos;
 
 import java.io.File;
 import java.io.Serializable;
+import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -13,6 +15,7 @@ import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
 import Entities.Cliente;
 import Entities.Cotizacion;
+import Entities.ItemCotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import Helper.CotizacionesXML;
@@ -39,7 +42,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		
 	}
 	
-	public List<RodamientoDTO> getListaRodamientos()
+	public List<RodamientoDTO> getListaRodamientos() throws RemoteException
 	{
 		for (Rodamiento rodamiento : rodamientos)
 		{
@@ -48,31 +51,37 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		return rodamientosDTO;
 	}
 	
-	public void solicitarCotizacion(int nroCliente, List<ItemCotizacionWeb> itemsCotLista)
+	public void solicitarCotizacion(int nroCliente, List<ItemCotizacionWeb> itemsCotLista) throws RemoteException
 	{
 		Cliente cli = ClienteDAO.getCliente(nroCliente);
 		if (cli != null)
 		{
-			Vector<Rodamiento> listaItems = new Vector<>();
+			List<ItemCotizacion> listaItems = new ArrayList<>();
 			for (ItemCotizacionWeb itCotWeb : itemsCotLista)
 			{
-				Rodamiento rod = RodamientoDAO.getRodamiento(itCotWeb.getCodigoSKF());
-				if (rod != null)
 				{
-					listaItems.add(rod);
+					Rodamiento rod = RodamientoDAO.getRodamiento(itCotWeb.getCodigoSKF());
+					if (rod != null)
+					{
+						ItemCotizacion itCot = new ItemCotizacion();
+						itCot.setCantidad(itCotWeb.getCantidad());
+						itCot.setRod(rod);
+						listaItems.add(itCot);
+					}
 				}
+				OVenta ov = buscarOV(cli.getOventa().getId());
+				// CotizacionesXML.generarXMLSolicitudCotizacion(listaItems, ov);
+				System.out.println("Pasó por el método en el servidor.");
 			}
-			OVenta ov = buscarOV(cli.getOventa().getId());
-			CotizacionesXML.generarXMLSolicitudCotizacion(listaItems, ov);
 		}
 	}
 	
-	public void grabarNuevaCotizacion()
+	public void grabarNuevaCotizacion() throws RemoteException
 	{
 		
 	}
 	
-	public void agregarItem()
+	public void agregarItem() throws RemoteException
 	{
 		
 	}
@@ -98,7 +107,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		return OVentaDAO.getOVenta(idOVenta);
 	}
 	
-	public void aceptarCotizacion(int nroCotizacion)
+	public void aceptarCotizacion(int nroCotizacion) throws RemoteException
 	{
 		Cotizacion cot = CotizacionDAO.getCotizacion(nroCotizacion);
 		if (cot != null)
@@ -131,7 +140,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	 * public XML leerXMLBultosAEnviar() { } public void borrarXMLPedidoCotizacion(XML xml) { } public void borrarXMLDeBultoAEnviar( XML xml) { }
 	 */
 	
-	public void ActualizarStock(String codigoSKF, int cantidad, float precio)
+	public void ActualizarStock(String codigoSKF, int cantidad, float precio) throws RemoteException
 	{
 		
 	}
@@ -140,7 +149,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	 * public listasXML generarOrdenesDeCompra() { }
 	 */
 	
-	public void PublicarListaDePreciosFinal()
+	public void PublicarListaDePreciosFinal() throws RemoteException
 	{
 		
 	}
@@ -148,7 +157,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	/*
 	 * public void generarListaDePrecioProveedorAutomatica( XML archivoProveedor, int codigoProveedor) { }
 	 */
-	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo)
+	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo) throws RemoteException
 	{
 		
 	}
@@ -167,7 +176,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		GestionRodamientos.instancia = instancia;
 	}
 	
-	public List<CotizacionDTO> getSolicitudesConformadasPorCliente(int nroCliente)
+	public List<CotizacionDTO> getSolicitudesConformadasPorCliente(int nroCliente) throws RemoteException
 	{
 		List<CotizacionDTO> cotizacionesDTO = new Vector<CotizacionDTO>();
 		oventas = OVentaDAO.getAll();
@@ -182,6 +191,20 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		}
 		
 		return cotizacionesDTO;
+		
+	}
+	
+	@Override
+	public void leerXMLCotizacion() throws RemoteException
+	{
+		// TODO Auto-generated method stub
+		
+	}
+	
+	@Override
+	public void aceptarCotizacion() throws RemoteException
+	{
+		// TODO Auto-generated method stub
 		
 	}
 }

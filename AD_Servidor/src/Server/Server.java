@@ -5,7 +5,7 @@ import interfaz.InterfazGestionRodamientos;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 
-import RMI.GestionRodamientos;
+import RMI.RecursosRMI;
 
 public class Server extends Thread
 {
@@ -26,7 +26,7 @@ public class Server extends Thread
 		try
 		{
 			LocateRegistry.createRegistry(1099);
-			objetoRemoto = GestionRodamientos.getInstancia();
+			objetoRemoto = new RecursosRMI();
 			// Vincula el objeto con un nombre en el registry
 			Naming.rebind(InterfazGestionRodamientos.url, objetoRemoto);
 			System.out.println("Servidor inicializado correctamente...");

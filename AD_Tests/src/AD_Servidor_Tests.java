@@ -33,7 +33,7 @@ public class AD_Servidor_Tests
 			cliente = new Cliente();
 			cliente.setNombre("TestName");
 			cliente.setDireccion("TestAddress");
-			cliente.setOficinaDeVenta(ov);
+			cliente.setOventa(ov);
 			
 			ov.getClientes().add(cliente);
 			

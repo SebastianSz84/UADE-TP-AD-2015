@@ -19,6 +19,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import controlador.BusinessDelegate;
+
 /**
  * Servlet implementation class servletCotizaciones
  */
@@ -55,15 +57,16 @@ public class ServletCrearCot extends HttpServlet {
 		int nroCliente = jObj.get("nroCliente").getAsInt();
 
 		JsonArray itemsCot = jObj.getAsJsonArray("items");
-		List<ItemCotizacionWeb> itemsCotLista = new ArrayList<>();
-		while (itemsCot.iterator().hasNext()) {
+		List<ItemCotizacionWeb> itemsCotLista = new ArrayList<ItemCotizacionWeb>();
+		for (int i = 0; i < itemsCot.size(); i++) {
+			// while (itemsCot.iterator().hasNext()) {
 			ItemCotizacionWeb itCot = new ItemCotizacionWeb();
-			itCot.setCantidad(itemsCot.iterator().next().getAsJsonObject().get("cantidad").getAsInt());
-			itCot.setCodigoSKF(itemsCot.iterator().next().getAsJsonObject().get("codigoSKF").getAsString());
-			itCot.setIdProveedor(itemsCot.iterator().next().getAsJsonObject().get("idProveedor").getAsInt());
-			itCot.setPrecio(itemsCot.iterator().next().getAsJsonObject().get("precio").getAsFloat());
+			itCot.setCantidad(itemsCot.get(i).getAsJsonObject().get("cantidad").getAsInt());
+			itCot.setCodigoSKF(itemsCot.get(i).getAsJsonObject().get("codigoSKF").getAsString());
+			// itCot.setCantidad(itemsCot.iterator().next().getAsJsonObject().get("cantidad").getAsInt());
+			// itCot.setCodigoSKF(itemsCot.iterator().next().getAsJsonObject().get("codigoSKF").getAsString());
 			itemsCotLista.add(itCot);
 		}
-		GestionRodamientos.getInstancia().solicitarCotizacion(nroCliente, itemsCotLista);
+		BusinessDelegate.getInstancia().solicitarCotizacion(nroCliente, itemsCotLista);
 	}
 }

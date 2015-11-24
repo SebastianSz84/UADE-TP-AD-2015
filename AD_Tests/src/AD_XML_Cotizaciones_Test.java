@@ -40,7 +40,7 @@ public class AD_XML_Cotizaciones_Test
 				itCot.setProveedor(pr);
 				
 				Rodamiento r = new Rodamiento();
-				r.setId(i);
+				r.setCodigoSKF("abc1");
 				
 				itCot.setRod(r);
 				

@@ -2,7 +2,7 @@ package Helper;
 
 import java.io.File;
 import java.util.Calendar;
-import java.util.Vector;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -21,7 +21,6 @@ import Dao.RodamientoDAO;
 import Entities.Cotizacion;
 import Entities.ItemCotizacion;
 import Entities.OVenta;
-import Entities.Rodamiento;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.RodamientoDTO;
@@ -157,7 +156,7 @@ public class CotizacionesXML
 		return null;
 	}
 	
-	public static void generarXMLSolicitudCotizacion(Vector<Rodamiento> listaItems, OVenta ov)
+	public static void generarXMLSolicitudCotizacion(List<ItemCotizacion> listaItems, OVenta ov)
 	{
 		try
 		{
@@ -179,16 +178,16 @@ public class CotizacionesXML
 			attribute.setValue(Integer.toString(ov.getId()));
 			raiz.setAttributeNode(attribute);
 			
-			for (Rodamiento rod : listaItems)
+			for (ItemCotizacion itCot : listaItems)
 			{
 				Element item = xmlDoc.createElement("item");
 				
 				attribute = xmlDoc.createAttribute("cantidad");
-				attribute.setValue("0");
+				attribute.setValue(Integer.toString(itCot.getCantidad()));
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("idRod");
-				attribute.setValue(rod.getCodigoSKF());
+				attribute.setValue(itCot.getRod().getCodigoSKF());
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("precio");
