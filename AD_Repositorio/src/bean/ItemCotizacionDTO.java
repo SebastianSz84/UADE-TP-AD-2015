@@ -1,9 +1,9 @@
 package bean;
 
 public class ItemCotizacionDTO {
-	public int cantidad;
-	public RodamientoDTO rod;
-	public float precio;
+	private int cantidad;
+	private RodamientoDTO rod;
+	private float precio;
 	private ProveedorDTO proveedor;
 
 	public int getCantidad() {

@@ -7,17 +7,18 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Vector;
 
+import Dao.ClienteDAO;
 import Dao.CotizacionDAO;
 import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
+import Entities.Cliente;
 import Entities.Cotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import Helper.CotizacionesXML;
 import Server.ThreadCotizaciones;
 import bean.CotizacionDTO;
-import bean.ItemCotizacionDTO;
-import bean.OVentaDTO;
+import bean.ItemCotizacionWeb;
 import bean.RodamientoDTO;
 
 public class GestionRodamientos implements InterfazGestionRodamientos, Serializable
@@ -47,19 +48,23 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		return rodamientosDTO;
 	}
 	
-	public void solicitarCotizacion(Vector<ItemCotizacionDTO> items, OVentaDTO ovDTO)
+	public void solicitarCotizacion(int nroCliente, List<ItemCotizacionWeb> itemsCotLista)
 	{
-		Vector<Rodamiento> listaItems = new Vector<>();
-		for (ItemCotizacionDTO itCotDTO : items)
+		Cliente cli = ClienteDAO.getCliente(nroCliente);
+		if (cli != null)
 		{
-			Rodamiento rod = RodamientoDAO.getRodamiento(itCotDTO.getRod().getCodigoSKF());
-			if (rod != null)
+			Vector<Rodamiento> listaItems = new Vector<>();
+			for (ItemCotizacionWeb itCotWeb : itemsCotLista)
 			{
-				listaItems.add(rod);
+				Rodamiento rod = RodamientoDAO.getRodamiento(itCotWeb.getCodigoSKF());
+				if (rod != null)
+				{
+					listaItems.add(rod);
+				}
 			}
+			OVenta ov = buscarOV(cli.getOventa().getId());
+			CotizacionesXML.generarXMLSolicitudCotizacion(listaItems, ov);
 		}
-		OVenta ov = buscarOV(ovDTO.getId());
-		CotizacionesXML.generarXMLSolicitudCotizacion(listaItems, ov);
 	}
 	
 	public void grabarNuevaCotizacion()

@@ -36,16 +36,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ServletGetCotizacion</display-name>
-    <servlet-name>ServletGetCotizacion</servlet-name>
-    <servlet-class>cotizaciones.ServletGetCotizacion</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ServletGetCotizacion</servlet-name>
-    <url-pattern>/ServletGetCotizacion</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>ServletAceptarCot</display-name>
     <servlet-name>ServletAceptarCot</servlet-name>
     <servlet-class>cotizaciones.ServletAceptarCot</servlet-class>
@@ -53,5 +43,15 @@
   <servlet-mapping>
     <servlet-name>ServletAceptarCot</servlet-name>
     <url-pattern>/ServletAceptarCot</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ServletCrearCot</display-name>
+    <servlet-name>ServletCrearCot</servlet-name>
+    <servlet-class>cotizaciones.ServletCrearCot</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ServletCrearCot</servlet-name>
+    <url-pattern>/ServletCrearCot</url-pattern>
   </servlet-mapping>
 </web-app>
