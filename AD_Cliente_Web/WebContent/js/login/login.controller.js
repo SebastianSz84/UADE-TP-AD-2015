@@ -6,5 +6,6 @@ angular.module('distribuidas')
     	$scope.checkNumber = function (){
     		alert($scope.number);
     		$rootScope.nroCliente = $scope.number;
+    		$state.go('home');
     	};
     });
