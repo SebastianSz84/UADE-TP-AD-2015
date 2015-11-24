@@ -4,8 +4,8 @@
 angular.module('distribuidas')
     .controller('LoginCtrl', function($scope, $rootScope, $state) {
     	$scope.checkNumber = function (){
-    		alert($scope.number);
-    		$rootScope.nroCliente = $scope.number;
+    		//VALIDAR SI EXISTE
+    		$rootScope.nroCliente = $scope.nroCliente;
     		$state.go('home');
     	};
     });
