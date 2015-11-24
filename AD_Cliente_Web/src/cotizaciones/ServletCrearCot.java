@@ -59,12 +59,9 @@ public class ServletCrearCot extends HttpServlet {
 		JsonArray itemsCot = jObj.getAsJsonArray("items");
 		List<ItemCotizacionWeb> itemsCotLista = new ArrayList<ItemCotizacionWeb>();
 		for (int i = 0; i < itemsCot.size(); i++) {
-			// while (itemsCot.iterator().hasNext()) {
 			ItemCotizacionWeb itCot = new ItemCotizacionWeb();
 			itCot.setCantidad(itemsCot.get(i).getAsJsonObject().get("cantidad").getAsInt());
 			itCot.setCodigoSKF(itemsCot.get(i).getAsJsonObject().get("codigoSKF").getAsString());
-			// itCot.setCantidad(itemsCot.iterator().next().getAsJsonObject().get("cantidad").getAsInt());
-			// itCot.setCodigoSKF(itemsCot.iterator().next().getAsJsonObject().get("codigoSKF").getAsString());
 			itemsCotLista.add(itCot);
 		}
 		BusinessDelegate.getInstancia().solicitarCotizacion(nroCliente, itemsCotLista);
