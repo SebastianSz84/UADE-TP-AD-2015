@@ -29,7 +29,7 @@ public class Cliente
 	private String direccion;
 	
 	@ManyToMany
-	@JoinTable(name = "Clientes_Formas", joinColumns = @JoinColumn(name = "idCliente") , inverseJoinColumns = @JoinColumn(name = "id") )
+	@JoinTable(name = "Clientes_Formas", joinColumns = @JoinColumn(name = "idCliente"), inverseJoinColumns = @JoinColumn(name = "id"))
 	private List<FormaPago> formas;
 	
 	@ManyToOne
@@ -64,6 +64,16 @@ public class Cliente
 	public void setDireccion(String direccion)
 	{
 		this.direccion = direccion;
+	}
+	
+	public OVenta getOventa()
+	{
+		return oventa;
+	}
+	
+	public void setOventa(OVenta oventa)
+	{
+		this.oventa = oventa;
 	}
 	
 }
