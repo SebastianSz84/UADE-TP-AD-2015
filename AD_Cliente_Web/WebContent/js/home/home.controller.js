@@ -4,6 +4,7 @@
 angular.module('distribuidas')
     .controller('HomeCtrl', function($scope, $http, $rootScope) {
         $scope.cotizaciones = [];
+        $scope.rodamientos = [];
         $scope.armandoCot = false;
 
         $scope.verCotizaciones = function(){

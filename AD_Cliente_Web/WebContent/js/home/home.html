@@ -4,20 +4,71 @@
         <button class="btn btn-default" type="submit" ng-click="armarCotizacion()">Armar cotizacion</button>
     </div>
 
-    <div class="col-xs-12">
+    <div class="col-xs-12" ng-show="!armandoCot">
         <div ng-repeat="cot in cotizaciones" class="row">
-            <div class="col-xs-2">
+            <div class="col-xs-6">
                 {{cot.id}}
             </div>
-            <div class="col-xs-2">
-                {{cot.estado}}
+            <div class="col-xs-6">
+                <span ng-click="cot.verItems = !cot.verItems">Ver Cotizacion</span>
             </div>
-            <div class="col-xs-2">
-                {{cot}}
+            <div ng-show="cot.verItems">
+                <table class="table table-hover">
+                    <tr>
+                        <td>SKF</td>
+                        <td>Tipo</td>
+                        <td>Precio</td>
+                        <td>Pedidos</td>
+                    </tr>
+
+                    <tr ng-repeat="rod in cot.items">
+                        <td>
+                            {{rod.rod.codigoSKF}}
+                        </td>
+                        <td>
+                            {{rod.rod.tipo}}
+                        </td>
+                        <td>
+                            {{rod.precio}}
+                        </td>
+                        <td>
+                            {{rod.cantidad}}
+                        </td>
+                    </tr>
+                </table>
             </div>
-            <div class="col-xs-2">
-                {{cot}}
-            </div>
+        </div>
+    </div>
+
+    <div class="col-xs-12" ng-show="armandoCot">
+        <div ng-show="rodamientos.length > 0">
+            <input ng-model="buscarRod" class="form-control" placeholder="Buscar Rodamiento">
+            <table class="table table-hover">
+                <tr>
+                    <td>SKF</td>
+                    <td>Nombre</td>
+                    <td>Precio</td>
+                    <td>Pedidos</td>
+                </tr>
+
+                <tr ng-repeat="rod in rodamientos">
+                    <td>
+                        {{rod.skf}}
+                    </td>
+                    <td>
+                        {{rod.nombre}}
+                    </td>
+                    <td>
+                        {{rod.precio}}
+                    </td>
+                    <td>
+                        Agregar Pedidos
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div ng-show="rodamientos.length == 0">
+            <span>No hay rodamientos disponibles.</span>
         </div>
     </div>
 </div>
