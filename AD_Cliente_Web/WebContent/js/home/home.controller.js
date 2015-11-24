@@ -2,11 +2,16 @@
  * Created by gusta on 23/11/2015.
  */
 angular.module('distribuidas')
-    .controller('HomeCtrl', function($scope, $http) {
+    .controller('HomeCtrl', function($scope, $http, $rootScope) {
         $scope.cotizaciones = [];
+        $scope.armandoCot = false;
 
         $scope.verCotizaciones = function(){
-            $http.post('http://localhost:8080/AD_Cliente_Web/ServletGetCotizacion')
+            $http({
+                'data': { 'nroCliente' : $rootScope.nroCliente},
+                'method':'post',
+                'url':'http://localhost:8080/AD_Cliente_Web/ServletGetCotizacion'
+            })
             .success(function (data) {
                 $scope.cotizaciones = data;
             }).
@@ -17,6 +22,6 @@ angular.module('distribuidas')
         };
 
         $scope.armarCotizacion = function(){
-
+            $scope.armandoCot = true;
         };
     });
