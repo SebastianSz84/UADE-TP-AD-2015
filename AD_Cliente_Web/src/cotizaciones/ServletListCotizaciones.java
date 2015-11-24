@@ -19,13 +19,13 @@ import com.google.gson.JsonObject;
 /**
  * Servlet implementation class ServletGetCotizacion
  */
-public class ServletGetCotizacion extends HttpServlet {
+public class ServletListCotizaciones extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ServletGetCotizacion() {
+	public ServletListCotizaciones() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
