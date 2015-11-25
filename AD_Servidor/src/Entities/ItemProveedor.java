@@ -12,7 +12,7 @@ import javax.persistence.Table;
 import bean.ItemProveedorDTO;
 
 @Entity
-@Table(name = "ItemsProveedor")
+@Table(name = "ItemProveedor")
 public class ItemProveedor
 {
 	@Id
@@ -52,7 +52,7 @@ public class ItemProveedor
 	
 	public void actualizarCantidad(Rodamiento rodamiento, int cantidad)
 	{
-	
+		
 	}
 	
 	public boolean sosElRodamiento(String codigoSKF)
