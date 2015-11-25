@@ -110,24 +110,29 @@ public class CCentral
 	
 	public void PublicarListaDePreciosFinal()
 	{
-		for (Rodamiento rod : rodamientos)
+		if (ComparativaPrecios.getInstancia().deleteAll("ComparativaPrecios"))
 		{
-			ItemProveedor mejorPrecio = null;
-			Proveedor mejorProveedor = null;
-			for (Proveedor prov : proveedores)
+			
+			for (Rodamiento rod : rodamientos)
 			{
-				ItemProveedor itemProv = prov.getItemProveedor(rod);
-				if (itemProv != null && (mejorPrecio == null || mejorPrecio.getPrecio() < itemProv.getPrecio()))
+				ItemProveedor mejorPrecio = null;
+				Proveedor mejorProveedor = null;
+				for (Proveedor prov : proveedores)
 				{
-					mejorPrecio = itemProv;
-					mejorProveedor = prov;
+					ItemProveedor itemProv = prov.getItemProveedor(rod);
+					if (itemProv != null && (mejorPrecio == null || mejorPrecio.getPrecio() < itemProv.getPrecio()))
+					{
+						mejorPrecio = itemProv;
+						mejorProveedor = prov;
+					}
+				}
+				
+				if (mejorPrecio != null && mejorProveedor != null)
+				{
+					ComparativaPrecios.getInstancia().ActualizarPrecio(mejorPrecio);
 				}
 			}
 			
-			if (mejorPrecio != null && mejorProveedor != null)
-			{
-				ComparativaPrecios.getInstancia().ActualizarPrecio(mejorPrecio);
-			}
 		}
 	}
 	

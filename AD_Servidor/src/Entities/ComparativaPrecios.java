@@ -20,7 +20,7 @@ public class ComparativaPrecios
 	private int id;
 	
 	@OneToMany
-	@JoinColumn(name = "idComparativa")
+	@JoinColumn(name = "codigoItemProveedor")
 	private Vector<ItemProveedor> items;
 	
 	private static ComparativaPrecios instancia;
@@ -101,5 +101,10 @@ public class ComparativaPrecios
 	
 	private ComparativaPrecios()
 	{
+	}
+	
+	public boolean deleteAll(String tabla)
+	{
+		return ComparativaPreciosDAO.deleteAll(tabla);
 	}
 }

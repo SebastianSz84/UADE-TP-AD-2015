@@ -135,4 +135,21 @@ public class BaseDAO
 		}
 		return null;
 	}
+	
+	public static boolean deleteAll(String tabla)
+	{
+		Transaction tx = getSession().beginTransaction();
+		String hql = String.format("delete from %s", tabla);
+		try
+		{
+			getSession().createQuery(hql);
+			tx.commit();
+			return true;
+		}
+		catch (Exception ex)
+		{
+			tx.rollback();
+		}
+		return false;
+	}
 }

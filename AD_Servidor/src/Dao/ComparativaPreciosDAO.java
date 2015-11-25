@@ -13,4 +13,9 @@ public class ComparativaPreciosDAO extends BaseDAO
 	{
 		return saveEntity(comPr);
 	}
+	
+	public static boolean deleteAll(String tabla)
+	{
+		return deleteAll(tabla);
+	}
 }
