@@ -27,10 +27,10 @@ import bean.RodamientoDTO;
 
 public class CotizacionesXML
 {
-	private static String root = "C:\\gestionRodamientos\\OV\\";
-	private static String paraArmar = "\\cotizaciones\\paraArmar";
-	private static String armadas = "\\cotizaciones\\armadas";
-	private static String aceptadas = "\\cotizaciones\\aceptadas";
+	private static String root = "src\\xmls\\OV\\";
+	private static String paraArmar = "\\paraArmar";
+	private static String armadas = "\\armadas";
+	private static String aceptadas = "\\aceptadas";
 	
 	public static void generarXMLArmarCotizacion(Cotizacion cot)
 	{

@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import Dao.ComparativaPreciosDAO;
 import bean.ItemCotizacionDTO;
 
 @Entity
@@ -66,7 +67,7 @@ public class ComparativaPrecios
 	{
 		if (instancia == null)
 		{
-			instancia = new ComparativaPrecios();
+			instancia = ComparativaPreciosDAO.getComparativa(1);
 		}
 		return instancia;
 	}
@@ -96,5 +97,9 @@ public class ComparativaPrecios
 			}
 		}
 		return null;
+	}
+	
+	private ComparativaPrecios()
+	{
 	}
 }

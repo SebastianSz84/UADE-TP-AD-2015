@@ -39,7 +39,6 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	{
 		ThreadCotizaciones thCot = new ThreadCotizaciones();
 		thCot.start();
-		
 	}
 	
 	public List<RodamientoDTO> getListaRodamientos() throws RemoteException
@@ -70,8 +69,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 					}
 				}
 				OVenta ov = buscarOV(cli.getOventa().getId());
-				// CotizacionesXML.generarXMLSolicitudCotizacion(listaItems, ov);
-				System.out.println("Pasó por el método en el servidor.");
+				CotizacionesXML.generarXMLSolicitudCotizacion(listaItems, ov);
 			}
 		}
 	}
@@ -92,12 +90,15 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		for (OVenta ov : oventas)
 		{
 			File[] files = CotizacionesXML.obtenerXMLCotizacionParaArmar(ov);
-			for (int i = 0; i < files.length; i++)
+			if (files != null)
 			{
-				CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionParaArmar(files[i]);
-				ov.generarCotizacion(cotDTO);
-				
-				files[i].delete();
+				for (int i = 0; i < files.length; i++)
+				{
+					CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionParaArmar(files[i]);
+					ov.generarCotizacion(cotDTO);
+					
+					files[i].delete();
+				}
 			}
 		}
 	}

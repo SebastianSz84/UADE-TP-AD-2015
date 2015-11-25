@@ -112,23 +112,25 @@ public class BaseDAO
 		}
 		catch (Exception ex)
 		{
+			ex.printStackTrace();
 			tx.rollback();
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static <T> List<T> getAll(Class<T> cls, String tabla)
 	{
-		Transaction tx = getSession().beginTransaction();
+		// Transaction tx = getSession().beginTransaction();
 		try
 		{
-			@SuppressWarnings("unchecked")
 			List<T> list = getSession().createQuery("from " + tabla).list();
-			tx.commit();
+			// tx.commit();
 			return list;
 		}
 		catch (Exception ex)
 		{
-			tx.rollback();
+			ex.printStackTrace();
+			// tx.rollback();
 		}
 		return null;
 	}

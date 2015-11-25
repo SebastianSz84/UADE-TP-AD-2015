@@ -6,7 +6,7 @@
    <property name="hibernate.connection.driver_class">net.sourceforge.jtds.jdbc.Driver</property>
    <property name="hibernate.connection.url">jdbc:jtds:sqlserver://localhost/UADE-TP-AD-2015;instance=SQLEXPRESS</property>
    <property name="hibernate.connection.username">sa</property>
-   <property name="hibernate.connection.pool_size">2</property>
+   <property name="hibernate.connection.pool_size">10</property>
    <property name="hibernate.connection.password">sa</property>
    <property name="show_sql">true</property>
 </session-factory>

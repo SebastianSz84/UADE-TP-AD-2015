@@ -123,13 +123,13 @@ public class Cotizacion
 		this.estado = cotDTO.getEstado();
 		this.oventa = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
 		this.items.clear();
-		for (int i = 0; i < cotDTO.getItems().size(); i++)
+		for (ItemCotizacionDTO itCotDTO : cotDTO.getItems())
 		{
 			ItemCotizacion item = new ItemCotizacion();
-			item.setCantidad(cotDTO.getItems().elementAt(i).getCantidad());
-			item.setPrecio(cotDTO.getItems().elementAt(i).getPrecio());
-			item.setProveedor(ProveedorDAO.getProveedor(cotDTO.getItems().elementAt(i).getProveedor().getCodigoProveedor()));
-			item.setRod(RodamientoDAO.getRodamiento(cotDTO.getItems().elementAt(i).getRod().getCodigoSKF()));
+			item.setCantidad(itCotDTO.getCantidad());
+			item.setPrecio(itCotDTO.getPrecio());
+			item.setProveedor(ProveedorDAO.getProveedor(itCotDTO.getProveedor().getCodigoProveedor()));
+			item.setRod(RodamientoDAO.getRodamiento(itCotDTO.getRod().getCodigoSKF()));
 			items.add(item);
 		}
 	}
