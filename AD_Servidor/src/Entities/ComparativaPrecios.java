@@ -1,37 +1,37 @@
 package Entities;
 
-import java.util.Vector;
+import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import Dao.ComparativaPreciosDAO;
 import bean.ItemCotizacionDTO;
 
 @Entity
+@Table(name = "ComparativaPrecios")
 public class ComparativaPrecios
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@OneToMany
-	@JoinColumn(name = "codigoItemProveedor")
-	private Vector<ItemProveedor> items;
+	@ManyToMany
+	@JoinTable(name = "ItemsComparativa", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "codigoItemProveedor"))
+	private List<ItemProveedor> items;
 	
 	private static ComparativaPrecios instancia;
 	
 	public ItemProveedor getMejorPrecio(ItemCotizacionDTO itCotDTO)
 	{
-		for (int i = 0; i < this.items.size(); i++)
+		for (ItemProveedor itPro : this.items)
 		{
-			if (this.items.elementAt(i).equals(itCotDTO))
+			if (itPro.equals(itCotDTO))
 			{
-				return this.items.elementAt(i);
+				return itPro;
 			}
 		}
 		return null;
@@ -59,7 +59,7 @@ public class ComparativaPrecios
 		}
 		else
 		{
-			items.addElement(itemProveedorFinal);
+			items.add(itemProveedorFinal);
 		}
 	}
 	
@@ -67,7 +67,7 @@ public class ComparativaPrecios
 	{
 		if (instancia == null)
 		{
-			instancia = ComparativaPreciosDAO.getComparativa(1);
+			instancia = ComparativaPreciosDAO.getComparativa();
 		}
 		return instancia;
 	}
@@ -77,12 +77,12 @@ public class ComparativaPrecios
 		ComparativaPrecios.instancia = instancia;
 	}
 	
-	public Vector<ItemProveedor> getItems()
+	public List<ItemProveedor> getItems()
 	{
 		return items;
 	}
 	
-	public void setItems(Vector<ItemProveedor> items)
+	public void setItems(List<ItemProveedor> items)
 	{
 		this.items = items;
 	}
@@ -103,8 +103,8 @@ public class ComparativaPrecios
 	{
 	}
 	
-	public boolean deleteAll(String tabla)
+	public boolean deleteItems()
 	{
-		return ComparativaPreciosDAO.deleteAll(tabla);
+		return ComparativaPreciosDAO.deleteItems();
 	}
 }

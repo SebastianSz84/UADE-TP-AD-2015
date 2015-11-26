@@ -4,9 +4,9 @@ import Entities.ComparativaPrecios;
 
 public class ComparativaPreciosDAO extends BaseDAO
 {
-	public static ComparativaPrecios getComparativa(int id)
+	public static ComparativaPrecios getComparativa()
 	{
-		return getEntity(ComparativaPrecios.class, id);
+		return getEntity(ComparativaPrecios.class, 1);
 	}
 	
 	public static ComparativaPrecios saveComparativa(ComparativaPrecios comPr)
@@ -14,8 +14,8 @@ public class ComparativaPreciosDAO extends BaseDAO
 		return saveEntity(comPr);
 	}
 	
-	public static boolean deleteAll(String tabla)
+	public static boolean deleteItems()
 	{
-		return deleteAll(tabla);
+		return deleteAll("ComparativaPrecios");
 	}
 }

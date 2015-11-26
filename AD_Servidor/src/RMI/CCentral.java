@@ -110,7 +110,7 @@ public class CCentral
 	
 	public void PublicarListaDePreciosFinal()
 	{
-		if (ComparativaPrecios.getInstancia().deleteAll("ComparativaPrecios"))
+		if (ComparativaPrecios.getInstancia().deleteItems())
 		{
 			
 			for (Rodamiento rod : rodamientos)
