@@ -21,7 +21,7 @@ import Entities.Rodamiento;
 import Helper.CotizacionesXML;
 import Server.ThreadCotizaciones;
 import bean.CotizacionDTO;
-import bean.ItemCotizacionWeb;
+import bean.ItemCotizacionDTO;
 import bean.RodamientoDTO;
 
 public class GestionRodamientos implements InterfazGestionRodamientos, Serializable
@@ -32,8 +32,6 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	private static final long serialVersionUID = 1L;
 	private static GestionRodamientos instancia;
 	private List<OVenta> oventas = new Vector<OVenta>();
-	private List<Rodamiento> rodamientos = new Vector<Rodamiento>();
-	private List<RodamientoDTO> rodamientosDTO = new Vector<RodamientoDTO>();
 	
 	private GestionRodamientos()
 	{
@@ -43,27 +41,28 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	
 	public List<RodamientoDTO> getListaRodamientos() throws RemoteException
 	{
-		for (Rodamiento rodamiento : rodamientos)
+		List<RodamientoDTO> listaRodDTO = new ArrayList<>();
+		for (Rodamiento rodamiento : RodamientoDAO.getListaRodamientos())
 		{
-			rodamientosDTO.add(rodamiento.getDTO());
+			listaRodDTO.add(rodamiento.getDTO());
 		}
-		return rodamientosDTO;
+		return listaRodDTO;
 	}
 	
-	public void solicitarCotizacion(int nroCliente, List<ItemCotizacionWeb> itemsCotLista) throws RemoteException
+	public void solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) throws RemoteException
 	{
 		Cliente cli = ClienteDAO.getCliente(nroCliente);
 		if (cli != null)
 		{
 			List<ItemCotizacion> listaItems = new ArrayList<>();
-			for (ItemCotizacionWeb itCotWeb : itemsCotLista)
+			for (ItemCotizacionDTO itCotDTO : itemsCotLista)
 			{
 				{
-					Rodamiento rod = RodamientoDAO.getRodamiento(itCotWeb.getCodigoSKF());
+					Rodamiento rod = RodamientoDAO.getRodamiento(itCotDTO.getRod().getCodigoSKF());
 					if (rod != null)
 					{
 						ItemCotizacion itCot = new ItemCotizacion();
-						itCot.setCantidad(itCotWeb.getCantidad());
+						itCot.setCantidad(itCotDTO.getCantidad());
 						itCot.setRod(rod);
 						listaItems.add(itCot);
 					}

@@ -1,11 +1,9 @@
 package Entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import bean.RodamientoDTO;
@@ -21,8 +19,7 @@ public class Rodamiento
 	@Column(nullable = false, length = 50)
 	private String tipo;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "codigoSKF")
+	@Embedded
 	private Stock stock;
 	
 	public boolean sosRodamiento(String codigoSKF)
@@ -67,5 +64,15 @@ public class Rodamiento
 		rodDTO.setCodigoSKF(this.codigoSKF);
 		rodDTO.setTipo(this.tipo);
 		return rodDTO;
+	}
+	
+	public Stock getStock()
+	{
+		return stock;
+	}
+	
+	public void setStock(Stock stock)
+	{
+		this.stock = stock;
 	}
 }

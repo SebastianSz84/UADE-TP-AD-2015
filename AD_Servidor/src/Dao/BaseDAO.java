@@ -28,7 +28,6 @@ import Entities.PedVenta;
 import Entities.Proveedor;
 import Entities.Remito;
 import Entities.Rodamiento;
-import Entities.Stock;
 
 public class BaseDAO
 {
@@ -61,7 +60,6 @@ public class BaseDAO
 			cfg.addAnnotatedClass(Proveedor.class);
 			cfg.addAnnotatedClass(Remito.class);
 			cfg.addAnnotatedClass(Rodamiento.class);
-			cfg.addAnnotatedClass(Stock.class);
 			cfg.addAnnotatedClass(ComparativaPrecios.class);
 			
 			cfg.configure("hibernate.cfg.xml");
@@ -72,6 +70,23 @@ public class BaseDAO
 	}
 	
 	public static <T> T getEntity(Class<T> cls, int id)
+	{
+		Transaction tx = getSession().beginTransaction();
+		try
+		{
+			T entity = getSession().get(cls, id);
+			tx.commit();
+			return entity;
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+			tx.rollback();
+		}
+		return null;
+	}
+	
+	public static <T> T getEntity(Class<T> cls, String id)
 	{
 		Transaction tx = getSession().beginTransaction();
 		try
@@ -121,17 +136,14 @@ public class BaseDAO
 	@SuppressWarnings("unchecked")
 	public static <T> List<T> getAll(Class<T> cls, String tabla)
 	{
-		// Transaction tx = getSession().beginTransaction();
 		try
 		{
 			List<T> list = getSession().createQuery("from " + tabla).list();
-			// tx.commit();
 			return list;
 		}
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
-			// tx.rollback();
 		}
 		return null;
 	}

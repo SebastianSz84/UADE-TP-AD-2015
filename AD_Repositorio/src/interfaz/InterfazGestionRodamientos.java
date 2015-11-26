@@ -4,7 +4,7 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
-import bean.ItemCotizacionWeb;
+import bean.ItemCotizacionDTO;
 import bean.RodamientoDTO;
 
 public interface InterfazGestionRodamientos extends Remote
@@ -14,7 +14,7 @@ public interface InterfazGestionRodamientos extends Remote
 	
 	public List<RodamientoDTO> getListaRodamientos() throws RemoteException;
 	
-	public void solicitarCotizacion(int nroCliente, List<ItemCotizacionWeb> itemsCotLista) throws RemoteException;
+	public void solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) throws RemoteException;
 	
 	public void grabarNuevaCotizacion() throws RemoteException;
 	

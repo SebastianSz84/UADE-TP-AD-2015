@@ -1,6 +1,6 @@
 package Dao;
 
-import org.hibernate.Transaction;
+import java.util.List;
 
 import Entities.Rodamiento;
 
@@ -8,17 +8,11 @@ public class RodamientoDAO extends BaseDAO
 {
 	public static Rodamiento getRodamiento(String codigoSKF)
 	{
-		Transaction tx = getSession().beginTransaction();
-		try
-		{
-			Rodamiento rod = getSession().get(Rodamiento.class, codigoSKF);
-			tx.commit();
-			return rod;
-		}
-		catch (Exception ex)
-		{
-			tx.rollback();
-		}
-		return null;
+		return getEntity(Rodamiento.class, codigoSKF);
+	}
+	
+	public static List<Rodamiento> getListaRodamientos()
+	{
+		return getAll(Rodamiento.class, "Rodamiento");
 	}
 }

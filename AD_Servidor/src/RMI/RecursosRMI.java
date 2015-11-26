@@ -6,7 +6,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-import bean.ItemCotizacionWeb;
+import bean.ItemCotizacionDTO;
 import bean.RodamientoDTO;
 
 public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionRodamientos
@@ -29,7 +29,7 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 	}
 	
 	@Override
-	public void solicitarCotizacion(int nroCliente, List<ItemCotizacionWeb> itemsCotLista) throws RemoteException
+	public void solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) throws RemoteException
 	{
 		GestionRodamientos.getInstancia().solicitarCotizacion(nroCliente, itemsCotLista);
 	}

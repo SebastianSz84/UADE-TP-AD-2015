@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import utils.ParserJson;
 import RMI.GestionRodamientos;
-import bean.ItemCotizacionWeb;
+import bean.ItemCotizacionDTO;
 import bean.RodamientoDTO;
 
 import com.google.gson.Gson;
@@ -57,11 +57,13 @@ public class ServletCrearCot extends HttpServlet {
 		int nroCliente = jObj.get("nroCliente").getAsInt();
 
 		JsonArray itemsCot = jObj.getAsJsonArray("items");
-		List<ItemCotizacionWeb> itemsCotLista = new ArrayList<ItemCotizacionWeb>();
+		List<ItemCotizacionDTO> itemsCotLista = new ArrayList<>();
 		for (int i = 0; i < itemsCot.size(); i++) {
-			ItemCotizacionWeb itCot = new ItemCotizacionWeb();
+			ItemCotizacionDTO itCot = new ItemCotizacionDTO();
 			itCot.setCantidad(itemsCot.get(i).getAsJsonObject().get("cantidad").getAsInt());
-			itCot.setCodigoSKF(itemsCot.get(i).getAsJsonObject().get("codigoSKF").getAsString());
+			RodamientoDTO rodDTO = new RodamientoDTO();
+			rodDTO.setCodigoSKF(itemsCot.get(i).getAsJsonObject().get("codigoSKF").getAsString());
+			itCot.setRod(rodDTO);
 			itemsCotLista.add(itCot);
 		}
 		BusinessDelegate.getInstancia().solicitarCotizacion(nroCliente, itemsCotLista);
