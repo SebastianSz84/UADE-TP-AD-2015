@@ -13,7 +13,6 @@ import Entities.ComparativaPrecios;
 import Entities.CondCompra;
 import Entities.Cotizacion;
 import Entities.Envio;
-import Entities.Factura;
 import Entities.FormaPago;
 import Entities.ItemBulto;
 import Entities.ItemCotizacion;
@@ -47,7 +46,6 @@ public class BaseDAO
 			cfg.addAnnotatedClass(CondCompra.class);
 			cfg.addAnnotatedClass(Cotizacion.class);
 			cfg.addAnnotatedClass(Envio.class);
-			cfg.addAnnotatedClass(Factura.class);
 			cfg.addAnnotatedClass(FormaPago.class);
 			cfg.addAnnotatedClass(ItemBulto.class);
 			cfg.addAnnotatedClass(ItemCotizacion.class);
