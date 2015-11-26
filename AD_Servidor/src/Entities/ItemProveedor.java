@@ -133,4 +133,8 @@ public class ItemProveedor
 		ItemProveedorDTO itPrDTO = new ItemProveedorDTO(this.getRodamiento().getCodigoSKF(), this.codigo, this.getPrecio(), this.isDisponible(), this.getCondiciones());
 		return itPrDTO;
 	}
+	
+	public ItemProveedor()
+	{
+	}
 }

@@ -9,6 +9,7 @@ import org.hibernate.cfg.Configuration;
 
 import Entities.Bulto;
 import Entities.Cliente;
+import Entities.ComparativaPrecios;
 import Entities.CondCompra;
 import Entities.Cotizacion;
 import Entities.Envio;
@@ -63,6 +64,7 @@ public class BaseDAO
 			cfg.addAnnotatedClass(Remito.class);
 			cfg.addAnnotatedClass(Rodamiento.class);
 			cfg.addAnnotatedClass(Stock.class);
+			cfg.addAnnotatedClass(ComparativaPrecios.class);
 			
 			cfg.configure("hibernate.cfg.xml");
 			SessionFactory factory = cfg.buildSessionFactory();
