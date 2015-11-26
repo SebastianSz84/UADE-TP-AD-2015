@@ -1,7 +1,9 @@
 package Entities;
 
+import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -18,6 +20,9 @@ public class ComparativaPrecios
 {
 	@Id
 	private int id;
+	
+	@Column(nullable = false)
+	private Date fecha;
 	
 	@ManyToMany
 	@JoinTable(name = "ItemsComparativa", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "codigoItemProveedor"))
@@ -106,5 +111,25 @@ public class ComparativaPrecios
 	public boolean deleteItems()
 	{
 		return ComparativaPreciosDAO.deleteItems();
+	}
+	
+	public int getId()
+	{
+		return id;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
+	public Date getFecha()
+	{
+		return fecha;
+	}
+	
+	public void setFecha(Date fecha)
+	{
+		this.fecha = fecha;
 	}
 }

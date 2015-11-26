@@ -1,5 +1,6 @@
 package RMI;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -108,11 +109,11 @@ public class CCentral
 		return null;
 	}
 	
-	public void PublicarListaDePreciosFinal()
+	public void publicarListaDePreciosFinal()
 	{
 		if (ComparativaPrecios.getInstancia().deleteItems())
 		{
-			
+			ComparativaPrecios.getInstancia().setFecha(Calendar.getInstance().getTime());
 			for (Rodamiento rod : rodamientos)
 			{
 				ItemProveedor mejorPrecio = null;
@@ -132,7 +133,6 @@ public class CCentral
 					ComparativaPrecios.getInstancia().ActualizarPrecio(mejorPrecio);
 				}
 			}
-			
 		}
 	}
 	
