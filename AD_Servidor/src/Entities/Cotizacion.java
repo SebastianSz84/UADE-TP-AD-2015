@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class Cotizacion
 	@Column
 	private String estado;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idCotizacion")
 	private List<ItemCotizacion> items;
 	

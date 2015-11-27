@@ -23,8 +23,7 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 	
 	public List<RodamientoDTO> getListaRodamientos() throws RemoteException
 	{
-		GestionRodamientos.getInstancia().getListaRodamientos();
-		return null;
+		return GestionRodamientos.getInstancia().getListaRodamientos();
 	}
 	
 	public void solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) throws RemoteException
