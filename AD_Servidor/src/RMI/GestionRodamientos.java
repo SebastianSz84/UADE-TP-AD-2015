@@ -15,7 +15,6 @@ import Dao.RodamientoDAO;
 import Entities.Cliente;
 import Entities.Cotizacion;
 import Entities.ItemCotizacion;
-import Entities.ItemCotizacionId;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import Helper.CotizacionesXML;
@@ -68,10 +67,7 @@ public class GestionRodamientos implements Serializable
 					{
 						ItemCotizacion itCot = new ItemCotizacion();
 						itCot.setCantidad(itCotDTO.getCantidad());
-						ItemCotizacionId itCotId = new ItemCotizacionId();
-						itCotId.setRod(rod);
-						itCotId.setCot(cot);
-						itCot.setId(itCotId);
+						itCot.setRod(rod);
 						listaItems.add(itCot);
 					}
 				}

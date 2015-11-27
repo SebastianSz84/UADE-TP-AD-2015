@@ -47,11 +47,7 @@ public class Cotizacion
 	{
 		ItemCotizacion itCot = new ItemCotizacion();
 		itCot.setCantidad(itCotDTO.getCantidad());
-		itCot.setPrecio(itPrDTO.getPrecio());
-		ItemCotizacionId itCotId = new ItemCotizacionId();
-		itCotId.setCot(this);
-		itCotId.setRod(RodamientoDAO.getRodamiento(itPrDTO.getSKF()));
-		itCot.setId(itCotId);
+		itCot.setRod(RodamientoDAO.getRodamiento(itPrDTO.getSKF()));
 		this.items.add(itCot);
 	}
 	
@@ -101,8 +97,7 @@ public class Cotizacion
 		{
 			ItemCotizacionDTO itemDTO = new ItemCotizacionDTO();
 			itemDTO.setCantidad(items.get(i).getCantidad());
-			itemDTO.setPrecio(items.get(i).getPrecio());
-			itemDTO.setRod(items.get(i).getId().getRod().getDTO());
+			itemDTO.setRod(items.get(i).getRod().getDTO());
 			itemsDTO.add(itemDTO);
 		}
 		cotDTO.setItems(itemsDTO);
@@ -117,12 +112,8 @@ public class Cotizacion
 		{
 			ItemCotizacion item = new ItemCotizacion();
 			item.setCantidad(itCotDTO.getCantidad());
-			item.setPrecio(itCotDTO.getPrecio());
 			item.setProveedor(ProveedorDAO.getProveedor(itCotDTO.getProveedor().getCodigoProveedor()));
-			ItemCotizacionId itCotId = new ItemCotizacionId();
-			itCotId.setCot(this);
-			itCotId.setRod(RodamientoDAO.getRodamiento(itCotDTO.getRod().getCodigoSKF()));
-			item.setId(itCotId);
+			item.setRod(RodamientoDAO.getRodamiento(itCotDTO.getRod().getCodigoSKF()));
 			items.add(item);
 		}
 	}

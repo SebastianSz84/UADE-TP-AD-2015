@@ -36,7 +36,6 @@ public class AD_XML_Cotizaciones_Test
 				
 				itCot.setCantidad(i * 3);
 				// itCot.setId(i);
-				itCot.setPrecio(i * 15);
 				itCot.setProveedor(pr);
 				
 				Rodamiento r = new Rodamiento();

@@ -64,11 +64,7 @@ public class CotizacionesXML
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("idRod");
-				attribute.setValue(itCot.getId().getRod().getCodigoSKF());
-				item.setAttributeNode(attribute);
-				
-				attribute = xmlDoc.createAttribute("precio");
-				attribute.setValue(Float.toString(itCot.getPrecio()));
+				attribute.setValue(itCot.getRod().getCodigoSKF());
 				item.setAttributeNode(attribute);
 				
 				raiz.appendChild(item);
@@ -188,7 +184,7 @@ public class CotizacionesXML
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("idRod");
-				attribute.setValue(itCot.getId().getRod().getCodigoSKF());
+				attribute.setValue(itCot.getRod().getCodigoSKF());
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("precio");

@@ -69,8 +69,7 @@ public class PedVenta
 		{
 			ItemPedVenta itPedVta = new ItemPedVenta();
 			itPedVta.setCantidad(cotizacion.getItems().get(i).getCantidad());
-			itPedVta.setPrecio(cotizacion.getItems().get(i).getPrecio());
-			itPedVta.setRodamiento(cotizacion.getItems().get(i).getId().getRod());
+			itPedVta.setRodamiento(cotizacion.getItems().get(i).getRod());
 			itPedVta.setProveedor(cotizacion.getItems().get(i).getProveedor());
 			items.add(itPedVta);
 		}
