@@ -1,5 +1,7 @@
 package Dao;
 
+import java.util.List;
+
 import Entities.OCProveedor;
 
 public class OCProveedorDAO extends BaseDAO
@@ -18,5 +20,10 @@ public class OCProveedorDAO extends BaseDAO
 	public static void deleteOCProveedor(OCProveedor oc)
 	{
 		deleteEntity(oc);
+	}
+	
+	public static List<OCProveedor> getListaOCProveedores()
+	{
+		return getAll(OCProveedor.class, "OCProveedor");
 	}
 }

@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-import RMI.CCentral;
+import Entities.CCentral;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI

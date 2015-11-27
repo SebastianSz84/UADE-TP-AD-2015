@@ -1,5 +1,7 @@
 package Dao;
 
+import java.util.List;
+
 import org.hibernate.Transaction;
 
 import Entities.Proveedor;
@@ -20,5 +22,10 @@ public class ProveedorDAO extends BaseDAO
 			tx.rollback();
 		}
 		return null;
+	}
+	
+	public static List<Proveedor> getListaProveedores()
+	{
+		return getAll(Proveedor.class, "Proveedor");
 	}
 }

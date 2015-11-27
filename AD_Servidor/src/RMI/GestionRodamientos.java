@@ -14,6 +14,7 @@ import Dao.ClienteDAO;
 import Dao.CotizacionDAO;
 import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
+import Entities.CCentral;
 import Entities.Cliente;
 import Entities.Cotizacion;
 import Entities.ItemCotizacion;
@@ -34,6 +35,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 	private static final long serialVersionUID = 1L;
 	private static GestionRodamientos instancia;
 	private List<OVenta> oventas = new Vector<OVenta>();
+	private CCentral casaCentral;
 	
 	private GestionRodamientos()
 	{

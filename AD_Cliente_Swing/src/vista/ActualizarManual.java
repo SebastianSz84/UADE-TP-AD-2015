@@ -12,7 +12,7 @@ import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import RMI.CCentral;
+import Entities.CCentral;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -121,11 +121,11 @@ public class ActualizarManual extends javax.swing.JFrame
 							{
 								break;
 							}
-							int codigoProveedor = (int) jTable1Model.getValueAt(i, 0);
+							int codigoProveedor = Integer.parseInt((String) jTable1Model.getValueAt(i, 0));
 							String SKF = (String) jTable1Model.getValueAt(i, 1);
 							String codigo = (String) jTable1Model.getValueAt(i, 2);
-							boolean disponible = (boolean) jTable1Model.getValueAt(i, 3);
-							float precio = (float) jTable1Model.getValueAt(i, 4);
+							boolean disponible = ((String) jTable1Model.getValueAt(i, 3)).equals("SI");
+							float precio = Float.parseFloat((String) jTable1Model.getValueAt(i, 4));
 							String condiciones = (String) jTable1Model.getValueAt(i, 5);
 
 							CCentral.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigo, precio, condiciones, disponible, SKF);

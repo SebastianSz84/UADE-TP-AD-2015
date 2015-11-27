@@ -1,4 +1,4 @@
-package RMI;
+package Entities;
 
 import java.util.Calendar;
 import java.util.List;
@@ -6,15 +6,7 @@ import java.util.Vector;
 
 import Dao.OCProveedorDAO;
 import Dao.ProveedorDAO;
-import Entities.Bulto;
-import Entities.ComparativaPrecios;
-import Entities.ItemPedVenta;
-import Entities.ItemProveedor;
-import Entities.OCProveedor;
-import Entities.PedVenta;
-import Entities.Proveedor;
-import Entities.Remito;
-import Entities.Rodamiento;
+import Dao.RodamientoDAO;
 import Helper.OCProveedorXML;
 import Helper.ProveedorListaPreciosXML;
 import bean.ItemProveedorDTO;
@@ -23,11 +15,6 @@ import bean.ProveedorDTO;
 public class CCentral
 {
 	private static CCentral instancia;
-	private ComparativaPrecios comparativa;
-	private List<Proveedor> proveedores;
-	private List<Bulto> bultos;
-	private List<OCProveedor> ordenesCompra;
-	private List<Rodamiento> rodamientos;
 	
 	/*
 	 * public void altaProveedor( ProveedorDTO) { } public void bajaProveedor( ProveedorDTO) { } public void modificacionProveedor( ProveedorDTO) { } public CotizacionDTO crearCotizacion() { return null; }
@@ -38,42 +25,36 @@ public class CCentral
 		OCProveedor oc = new OCProveedor();
 		oc.agregarAOC(item.getRodamiento(), item.getCantidad());
 		oc.setProveedor(ProveedorDAO.getProveedor(item.getProveedor().getCodigoProveedor()));
-		ordenesCompra.add(oc);
 		OCProveedorDAO.saveEntity(oc);
 	}
 	
 	public void ActualizarStock(String codigoSKF, int cantidad, float precio)
 	{
-		buscarRodamiento(codigoSKF).ActualizarStock(cantidad, precio);
+		Rodamiento rod = buscarRodamiento(codigoSKF);
+		rod.ActualizarStock(cantidad, precio);
+		RodamientoDAO.saveEntity(rod);
 	}
 	
 	private Rodamiento buscarRodamiento(String codigoSKF)
 	{
-		for (Rodamiento rod : rodamientos)
-		{
-			if (rod.sosRodamiento(codigoSKF))
-				return rod;
-		}
-		
-		return null;
+		return RodamientoDAO.getRodamiento(codigoSKF);
 	}
 	
-	public void GenerarBultosDeRodamiento(List<Remito> remitosOV, List<Rodamiento> rodamientosComprados)
+	public void GenerarBultosDeRodamiento(Rodamiento rodamiento, int cantidad)
 	{
-		for (Remito remito : remitosOV)
-		{
-			Bulto bulto = new Bulto();
-			for (Rodamiento rodamiento : rodamientosComprados)
-			{
-				if (remito.contieneRodamiento(rodamiento))
-				{
-					/* agregar cantidad aca */
-					rodamientosComprados.remove(rodamiento);
-					bulto.agregarRodamientoComprado(rodamiento, 0);
-				}
-			}
-			bultos.add(bulto);
-		}
+		// for (Remito remito : remitosOV)
+		// {
+		// Bulto bulto = new Bulto();
+		// for (Rodamiento rodamiento : rodamientosComprados)
+		// {
+		// if (remito.contieneRodamiento(rodamiento))
+		// {
+		// rodamientosComprados.remove(rodamiento);
+		// bulto.agregarRodamientoComprado(rodamiento, 0);
+		// }
+		// }
+		// BultoDAO.saveEntity(bulto);
+		// }
 	}
 	
 	public void GenerarOrdenesDeCompra(List<PedVenta> pedidos)
@@ -93,20 +74,13 @@ public class CCentral
 				}
 			}
 		}
-		OCProveedorXML.GenerarXMLOrdenesDeCompra(ordenesCompra);
+		OCProveedorXML.GenerarXMLOrdenesDeCompra(OCProveedorDAO.getListaOCProveedores());
 		
 	}
 	
 	private OCProveedor buscarOC(int codigoProveedor)
 	{
-		for (OCProveedor ocprov : ordenesCompra)
-		{
-			if (ocprov.getProveedor().getCodigoProveedor() == codigoProveedor)
-			{
-				return ocprov;
-			}
-		}
-		return null;
+		return OCProveedorDAO.getOCProveedor(codigoProveedor);
 	}
 	
 	public void publicarListaDePreciosFinal()
@@ -114,11 +88,11 @@ public class CCentral
 		if (ComparativaPrecios.getInstancia().deleteItems())
 		{
 			ComparativaPrecios.getInstancia().setFecha(Calendar.getInstance().getTime());
-			for (Rodamiento rod : rodamientos)
+			for (Rodamiento rod : RodamientoDAO.getListaRodamientos())
 			{
 				ItemProveedor mejorPrecio = null;
 				Proveedor mejorProveedor = null;
-				for (Proveedor prov : proveedores)
+				for (Proveedor prov : ProveedorDAO.getListaProveedores())
 				{
 					ItemProveedor itemProv = prov.getItemProveedor(rod);
 					if (itemProv != null && (mejorPrecio == null || mejorPrecio.getPrecio() < itemProv.getPrecio()))
@@ -154,19 +128,13 @@ public class CCentral
 			}
 			
 			proveedor.setItems(items);
+			ProveedorDAO.saveEntity(proveedor);
 		}
 	}
 	
 	public Proveedor buscarProveedor(int codigoProveedor)
 	{
-		for (Proveedor prov : proveedores)
-		{
-			if (prov.getCodigoProveedor() == codigoProveedor)
-			{
-				return prov;
-			}
-		}
-		return null;
+		return ProveedorDAO.getProveedor(codigoProveedor);
 	}
 	
 	public static CCentral getInstancia()
@@ -181,26 +149,6 @@ public class CCentral
 	public static void setInstancia(CCentral instancia)
 	{
 		CCentral.instancia = instancia;
-	}
-	
-	public List<Proveedor> getProveedores()
-	{
-		return proveedores;
-	}
-	
-	public void setProveedores(Vector<Proveedor> proveedores)
-	{
-		this.proveedores = proveedores;
-	}
-	
-	public List<Bulto> getBultos()
-	{
-		return bultos;
-	}
-	
-	public void setBultos(Vector<Bulto> bultos)
-	{
-		this.bultos = bultos;
 	}
 	
 	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF)
@@ -222,6 +170,7 @@ public class CCentral
 				}
 			}
 		}
+		ProveedorDAO.saveEntity(proveedor);
 		
 	}
 }
