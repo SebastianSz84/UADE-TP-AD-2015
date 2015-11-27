@@ -63,8 +63,8 @@ public class BusinessDelegate
 		CCentral.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigoItem, precio, condiciones, disponible, codigoSKF);
 	}
 
-	public void GenerarBultosDeRodamiento(String codigoSKF, int cantidad)
+	public int GenerarBultosDeRodamiento(String codigoSKF, int cantidad)
 	{
-		CCentral.getInstancia().GenerarBultosDeRodamiento(codigoSKF, cantidad);
+		return CCentral.getInstancia().GenerarBultosDeRodamiento(codigoSKF, cantidad);
 	}
 }

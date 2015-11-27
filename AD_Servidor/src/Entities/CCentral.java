@@ -42,9 +42,11 @@ public class CCentral
 		return RodamientoDAO.getRodamiento(codigoSKF);
 	}
 	
-	public void GenerarBultosDeRodamiento(String codigoSKF, int cantidad)
+	public int GenerarBultosDeRodamiento(String codigoSKF, int cantidad)
 	{
 		Rodamiento rodamiento = RodamientoDAO.getRodamiento(codigoSKF);
+		if (rodamiento == null)
+			return -1;
 		float precio = 0;
 		for (PedVenta pedVenta : PedVentaDAO.getListaPedVenta())
 		{
@@ -94,6 +96,7 @@ public class CCentral
 			rodamiento.getStock().setPrecio(precio);
 			RodamientoDAO.saveEntity(rodamiento);
 		}
+		return 0;
 	}
 	
 	public void GenerarOrdenesDeCompra(List<PedVenta> pedidos)
