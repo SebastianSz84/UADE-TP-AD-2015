@@ -26,6 +26,26 @@ public class PedVenta
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	public int getId()
+	{
+		return id;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
+	public OVenta getOficinaDeVenta()
+	{
+		return OficinaDeVenta;
+	}
+	
+	public void setOficinaDeVenta(OVenta oficinaDeVenta)
+	{
+		OficinaDeVenta = oficinaDeVenta;
+	}
+	
 	@ManyToOne
 	@JoinColumn(name = "idOVenta")
 	private OVenta OficinaDeVenta;

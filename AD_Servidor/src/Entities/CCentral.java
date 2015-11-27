@@ -4,7 +4,9 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
+import Dao.BultoDAO;
 import Dao.OCProveedorDAO;
+import Dao.PedVentaDAO;
 import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
 import Helper.OCProveedorXML;
@@ -40,21 +42,59 @@ public class CCentral
 		return RodamientoDAO.getRodamiento(codigoSKF);
 	}
 	
-	public void GenerarBultosDeRodamiento(Rodamiento rodamiento, int cantidad)
+	public void GenerarBultosDeRodamiento(String codigoSKF, int cantidad)
 	{
-		// for (Remito remito : remitosOV)
-		// {
-		// Bulto bulto = new Bulto();
-		// for (Rodamiento rodamiento : rodamientosComprados)
-		// {
-		// if (remito.contieneRodamiento(rodamiento))
-		// {
-		// rodamientosComprados.remove(rodamiento);
-		// bulto.agregarRodamientoComprado(rodamiento, 0);
-		// }
-		// }
-		// BultoDAO.saveEntity(bulto);
-		// }
+		Rodamiento rodamiento = RodamientoDAO.getRodamiento(codigoSKF);
+		float precio = 0;
+		for (PedVenta pedVenta : PedVentaDAO.getListaPedVenta())
+		{
+			ItemPedVenta itemPedVenta = PedVentaDAO.getItemPedVentaByRodamiento(pedVenta.getId(), rodamiento.getCodigoSKF());
+			if ((cantidad > 0 || rodamiento.getStock().getCantidad() > 0) && itemPedVenta != null)
+			{
+				Bulto bulto = BultoDAO.getBultoByOV(pedVenta.getOficinaDeVenta().getId());
+				if (bulto == null)
+				{
+					bulto = new Bulto();
+					bulto.setOficinaDeVenta(pedVenta.getCotizacion().getCliente().getOventa());
+				}
+				int cantidadUsada = 0;
+				if (cantidad >= itemPedVenta.getCantidad())
+				{
+					cantidadUsada = itemPedVenta.getCantidad();
+					cantidad -= cantidadUsada;
+				}
+				else
+				{
+					cantidadUsada = cantidad;
+					cantidad = 0;
+					if (rodamiento.getStock().getCantidad() > 0)
+					{
+						int cantidadRestante = itemPedVenta.getCantidad() - cantidadUsada;
+						if (rodamiento.getStock().getCantidad() >= cantidadRestante)
+						{
+							cantidadUsada = itemPedVenta.getCantidad();
+							rodamiento.getStock().setCantidad(rodamiento.getStock().getCantidad() - cantidadRestante);
+						}
+						else
+						{
+							cantidadUsada += rodamiento.getStock().getCantidad();
+							rodamiento.getStock().setCantidad(0);
+						}
+					}
+				}
+				bulto.agregarRodamientoComprado(rodamiento, cantidadUsada);
+				
+				BultoDAO.saveEntity(bulto);
+				precio = itemPedVenta.getPrecio();
+			}
+		}
+		
+		if (cantidad > 0)
+		{
+			rodamiento.getStock().setCantidad(rodamiento.getStock().getCantidad() + cantidad);
+			rodamiento.getStock().setPrecio(precio);
+			RodamientoDAO.saveEntity(rodamiento);
+		}
 	}
 	
 	public void GenerarOrdenesDeCompra(List<PedVenta> pedidos)
