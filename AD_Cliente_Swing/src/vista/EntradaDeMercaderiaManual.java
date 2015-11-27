@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingUtilities;
@@ -80,16 +81,16 @@ public class EntradaDeMercaderiaManual extends javax.swing.JFrame
 					{
 						jTable1Model = new DefaultTableModel(new String[][]
 						{
-						{ "", "", "", "", "", "" },
-						{ "", "", "", "", "", "" },
-						{ "", "", "", "", "", "" },
-						{ "", "", "", "", "", "" },
-						{ "", "", "", "", "", "" },
-						{ "", "", "", "", "", "" },
-						{ "", "", "", "", "", "" },
-						{ "", "", "", "", "", "" },
-						{ "", "", "", "", "", "" },
-						{ "", "", "", "", "", "" } }, new String[]
+						{ "", "" },
+						{ "", "" },
+						{ "", "" },
+						{ "", "" },
+						{ "", "" },
+						{ "", "" },
+						{ "", "" },
+						{ "", "" },
+						{ "", "" },
+						{ "", "" } }, new String[]
 						{ "SKF", "Cantidad" });
 						jTable1 = new JTable();
 						jScrollPane2.setViewportView(jTable1);
@@ -109,10 +110,10 @@ public class EntradaDeMercaderiaManual extends javax.swing.JFrame
 						boolean breaked = false;
 						for (int i = 0; i < 10; i++)
 						{
-							for (int j = 0; j < 6; j++)
+							for (int j = 0; j < 2; j++)
 							{
 								String valor = (String) jTable1Model.getValueAt(i, j);
-								if (valor == "")
+								if (valor.equals(""))
 								{
 									breaked = true;
 									break;
@@ -123,12 +124,14 @@ public class EntradaDeMercaderiaManual extends javax.swing.JFrame
 								break;
 							}
 							String SKF = (String) jTable1Model.getValueAt(i, 0);
-							int cantidad = (Integer) jTable1Model.getValueAt(i, 1);
+							int cantidad = Integer.parseInt((String) jTable1Model.getValueAt(i, 1));
 
-							BusinessDelegate.getInstancia().GenerarBultosDeRodamiento(SKF, cantidad);
+							if (BusinessDelegate.getInstancia().GenerarBultosDeRodamiento(SKF, cantidad) ==  -1) {
+								JOptionPane.showMessageDialog(null, "Codigo SKF " + SKF + " no encontrado!");
+							}
 						}
 
-						dispose();
+						
 					}
 				});
 			}
