@@ -44,5 +44,5 @@ public interface InterfazGestionRodamientos extends Remote
 	
 	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo) throws RemoteException;
 	
-	public boolean checkearSiClienteExiste(int nroCliente);
+	public boolean checkearSiClienteExiste(int nroCliente) throws RemoteException;
 }

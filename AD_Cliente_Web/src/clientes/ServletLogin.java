@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import controlador.BusinessDelegate;
+
 public class ServletLogin extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -16,7 +18,9 @@ public class ServletLogin extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String usuario = request.getParameter("nroCliente");
+		Integer nroCliente = Integer.parseInt(request.getParameter("nroCliente"));
+
+		boolean clienteExiste = BusinessDelegate.getInstancia().checkearSiClienteExiste(nroCliente);
 
 		request.getRequestDispatcher("/Cotizaciones.jsp").forward(request, response);
 	}

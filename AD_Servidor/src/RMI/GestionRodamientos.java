@@ -215,7 +215,7 @@ public class GestionRodamientos implements Serializable
 		
 	}
 	
-	public boolean checkearSiClienteExiste(int nroCliente)
+	public boolean checkearSiClienteExiste(int nroCliente) throws RemoteException
 	{
 		return true;
 	}

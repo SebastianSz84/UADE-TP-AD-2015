@@ -72,7 +72,7 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 		GestionRodamientos.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigoItem, precio, condiciones, disponible, codigoSKF, Tipo);
 	}
 	
-	public boolean checkearSiClienteExiste(int nroCliente)
+	public boolean checkearSiClienteExiste(int nroCliente) throws RemoteException
 	{
 		return GestionRodamientos.getInstancia().checkearSiClienteExiste(nroCliente);
 	}
