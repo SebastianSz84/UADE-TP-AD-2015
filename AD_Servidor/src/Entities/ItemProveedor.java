@@ -1,9 +1,12 @@
 package Entities;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -13,8 +16,16 @@ import bean.ItemProveedorDTO;
 @Table(name = "ItemProveedor")
 public class ItemProveedor
 {
-	@EmbeddedId
-	private ItemProveedorId id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@Column(length = 50, nullable = false)
+	private String codigo;
+	
+	@ManyToOne
+	@JoinColumn(name = "idProveedor")
+	private Proveedor proveedor;
 	
 	@Column
 	private float precio;
@@ -31,10 +42,7 @@ public class ItemProveedor
 	
 	public ItemProveedor(Proveedor proveedor, String codigo, float precio, String condiciones, boolean disponible, Rodamiento rodamiento)
 	{
-		ItemProveedorId itProvId = new ItemProveedorId();
-		itProvId.setCodigo(codigo);
-		itProvId.setProveedor(proveedor);
-		this.setId(itProvId);
+		this.setProveedor(proveedor);
 		this.precio = precio;
 		this.condiciones = condiciones;
 		this.disponible = disponible;
@@ -106,7 +114,7 @@ public class ItemProveedor
 	
 	public ItemProveedorDTO getDTO()
 	{
-		ItemProveedorDTO itPrDTO = new ItemProveedorDTO(this.getRodamiento().getCodigoSKF(), this.getId().getCodigo(), this.getPrecio(), this.isDisponible(), this.getCondiciones());
+		ItemProveedorDTO itPrDTO = new ItemProveedorDTO(this.getId(), this.getRodamiento().getCodigoSKF(), this.getCodigo(), this.getPrecio(), this.isDisponible(), this.getCondiciones());
 		return itPrDTO;
 	}
 	
@@ -114,13 +122,33 @@ public class ItemProveedor
 	{
 	}
 	
-	public ItemProveedorId getId()
+	public int getId()
 	{
 		return id;
 	}
 	
-	public void setId(ItemProveedorId id)
+	public void setId(int id)
 	{
 		this.id = id;
+	}
+	
+	public Proveedor getProveedor()
+	{
+		return proveedor;
+	}
+	
+	public void setProveedor(Proveedor proveedor)
+	{
+		this.proveedor = proveedor;
+	}
+	
+	public String getCodigo()
+	{
+		return codigo;
+	}
+	
+	public void setCodigo(String codigo)
+	{
+		this.codigo = codigo;
 	}
 }
