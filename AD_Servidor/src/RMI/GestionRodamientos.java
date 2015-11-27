@@ -1,7 +1,5 @@
 package RMI;
 
-import interfaz.InterfazGestionRodamientos;
-
 import java.io.File;
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -26,7 +24,7 @@ import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.RodamientoDTO;
 
-public class GestionRodamientos implements InterfazGestionRodamientos, Serializable
+public class GestionRodamientos implements Serializable
 {
 	/**
 	 * 
@@ -205,17 +203,20 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		
 	}
 	
-	@Override
 	public void leerXMLCotizacion() throws RemoteException
 	{
 		// TODO Auto-generated method stub
 		
 	}
 	
-	@Override
 	public void aceptarCotizacion() throws RemoteException
 	{
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public boolean checkearSiClienteExiste(int nroCliente)
+	{
+		return true;
 	}
 }
