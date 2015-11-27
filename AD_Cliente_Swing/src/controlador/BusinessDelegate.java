@@ -55,10 +55,6 @@ public class BusinessDelegate
 	}
 
 	public void generarListaDePrecioProveedorAutomatica(String archivoProveedor, int codigoProveedor) {
-		try {
-			objetoRemoto. .solicitarCotizacion(nroCliente, itemsCotLista);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+		
 	}
 }
