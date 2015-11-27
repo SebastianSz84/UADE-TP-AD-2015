@@ -53,7 +53,6 @@ public class GestionRodamientos implements Serializable
 		Cliente cli = ClienteDAO.getCliente(nroCliente);
 		if (cli != null)
 		{
-			OVenta ov = buscarOV(cli.getOventa().getId());
 			Cotizacion cot = new Cotizacion();
 			cot.setFecha(Calendar.getInstance().getTime());
 			cot.setEstado("Pendiente");
@@ -73,8 +72,7 @@ public class GestionRodamientos implements Serializable
 				}
 			}
 			cot.setItems(listaItems);
-			CotizacionDAO.saveCotizacion(cot);
-			CotizacionesXML.generarXMLSolicitudCotizacion(listaItems, ov);
+			CotizacionesXML.generarXMLSolicitudCotizacion(CotizacionDAO.saveCotizacion(cot));
 		}
 	}
 	
@@ -133,11 +131,16 @@ public class GestionRodamientos implements Serializable
 		for (int i = 0; i < files.length; i++)
 		{
 			CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionAceptada(files[i]);
-			Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
-			cot.actualizarDesdeDTO(cotDTO);
-			OVenta ov = OVentaDAO.getOVenta(cotDTO.getCliente().getOVenta().getId());
-			ov.crearPedidoVenta(cot);
-			files[i].delete();
+			if (cotDTO != null)
+			{
+				Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
+				OVenta ov = OVentaDAO.getOVenta(cot.getCliente().getOventa().getId());
+				if (ov != null)
+				{
+					ov.crearPedidoVenta(cot);
+					files[i].delete();
+				}
+			}
 		}
 	}
 	

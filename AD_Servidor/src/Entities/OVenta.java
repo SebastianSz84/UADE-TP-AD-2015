@@ -66,6 +66,7 @@ public class OVenta
 		if (cot != null)
 		{
 			cot.aceptar();
+			CotizacionDAO.saveCotizacion(cot);
 			return cot.getDTO();
 		}
 		return null;

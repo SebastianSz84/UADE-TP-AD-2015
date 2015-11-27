@@ -2,7 +2,6 @@ package Helper;
 
 import java.io.File;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,6 +17,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import Dao.ClienteDAO;
+import Dao.ComparativaPreciosDAO;
 import Dao.RodamientoDAO;
 import Entities.Cotizacion;
 import Entities.ItemCotizacion;
@@ -65,6 +65,10 @@ public class CotizacionesXML
 				
 				attribute = xmlDoc.createAttribute("idRod");
 				attribute.setValue(itCot.getRod().getCodigoSKF());
+				item.setAttributeNode(attribute);
+				
+				attribute = xmlDoc.createAttribute("precio");
+				attribute.setValue(Float.toString(ComparativaPreciosDAO.getComparativa().buscarRodamiento(itCot.getRod().getCodigoSKF()).getPrecio()));
 				item.setAttributeNode(attribute);
 				
 				raiz.appendChild(item);
@@ -152,7 +156,7 @@ public class CotizacionesXML
 		return null;
 	}
 	
-	public static void generarXMLSolicitudCotizacion(List<ItemCotizacion> listaItems, OVenta ov)
+	public static void generarXMLSolicitudCotizacion(Cotizacion cot)
 	{
 		try
 		{
@@ -171,10 +175,10 @@ public class CotizacionesXML
 			raiz.setAttributeNode(attribute);
 			
 			attribute = xmlDoc.createAttribute("idCliente");
-			attribute.setValue(Integer.toString(ov.getId()));
+			attribute.setValue(Integer.toString(cot.getCliente().getOventa().getId()));
 			raiz.setAttributeNode(attribute);
 			
-			for (ItemCotizacion itCot : listaItems)
+			for (ItemCotizacion itCot : cot.getItems())
 			{
 				Element item = xmlDoc.createElement("item");
 				
@@ -196,7 +200,7 @@ public class CotizacionesXML
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(xmlDoc);
 			long timestamp = Calendar.getInstance().getTimeInMillis();
-			StreamResult result = new StreamResult(new File(root + Integer.toString(ov.getId()) + pendientes, Float.toString(timestamp) + ".xml"));
+			StreamResult result = new StreamResult(new File(root + Integer.toString(cot.getCliente().getOventa().getId()) + pendientes, Float.toString(timestamp) + ".xml"));
 			transformer.transform(source, result);
 		}
 		catch (Exception e)
