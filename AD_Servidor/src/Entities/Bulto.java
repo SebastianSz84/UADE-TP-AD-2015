@@ -27,7 +27,7 @@ public class Bulto
 	private OVenta OficinaDeVenta;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "ItemsBulto", joinColumns = @JoinColumn(name = "id") )
+	@JoinTable(name = "ItemsBulto", joinColumns = @JoinColumn(name = "id"))
 	private List<ItemBulto> items;
 	
 	public Bulto()
@@ -37,7 +37,7 @@ public class Bulto
 	
 	public void agregarRodamientoComprado(Rodamiento rodamientoComprado, int cantidad)
 	{
-		ItemBulto nuevoBulto = new ItemBulto(this, cantidad, rodamientoComprado);
+		ItemBulto nuevoBulto = new ItemBulto(cantidad, rodamientoComprado);
 		items.add(nuevoBulto);
 	}
 	

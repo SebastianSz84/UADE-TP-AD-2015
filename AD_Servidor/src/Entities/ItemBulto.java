@@ -1,27 +1,34 @@
 package Entities;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinColumns;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "ItemsBultos")
 public class ItemBulto
 {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	
 	@Column
 	private int cantidad;
 	
-	@EmbeddedId
-	private ItemBultoId itemBultoId;
+	@OneToOne
+	@JoinColumns(@JoinColumn(name = "codigoSKF"))
+	private Rodamiento rodamiento;
 	
-	public ItemBulto(Bulto bulto, int cantidad, Rodamiento rodamientoComprado)
+	public ItemBulto(int cantidad, Rodamiento rodamientoComprado)
 	{
-		this.itemBultoId = new ItemBultoId();
 		this.cantidad = cantidad;
-		this.itemBultoId.setBulto(bulto);
-		this.itemBultoId.setRodamiento(rodamientoComprado);
+		this.setRodamiento(rodamientoComprado);
 	}
 	
 	public int getCantidad()
@@ -32,6 +39,26 @@ public class ItemBulto
 	public void setCantidad(int cantidad)
 	{
 		this.cantidad = cantidad;
+	}
+	
+	public int getId()
+	{
+		return id;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
+	public Rodamiento getRodamiento()
+	{
+		return rodamiento;
+	}
+	
+	public void setRodamiento(Rodamiento rodamiento)
+	{
+		this.rodamiento = rodamiento;
 	}
 	
 }
