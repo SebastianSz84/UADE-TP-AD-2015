@@ -148,7 +148,8 @@ public class CCentral
 				Rodamiento rod = buscarRodamiento(itemDTO.getSKF());
 				if (rod != null)
 				{
-					items.addElement(new ItemProveedor(itemDTO.getCodRodProv(), itemDTO.getPrecio(), itemDTO.getCondciones(), itemDTO.getDisponible(), rod));
+					ItemProveedor itProv = new ItemProveedor(proveedor, itemDTO.getCodRodProv(), itemDTO.getPrecio(), itemDTO.getCondciones(), itemDTO.getDisponible(), rod);
+					items.addElement(itProv);
 				}
 			}
 			

@@ -65,9 +65,9 @@ public class AD_Servidor_Tests
 		r.setCodigoSKF("pepe2");
 		Proveedor pr = new Proveedor();
 		pr.setCodigoProveedor(1);
-		ItemProveedor item = new ItemProveedor("1", (float) 0.5, "", true, r);
+		// ItemProveedor item = new ItemProveedor("1", (float) 0.5, "", true, r);
 		Vector<ItemProveedor> items = new Vector<ItemProveedor>();
-		items.add(item);
+		// items.add(item);
 		pr.setItems(items);
 		oc.agregarAOC(r, 5);
 		oc.agregarAOC(r2, 15);
