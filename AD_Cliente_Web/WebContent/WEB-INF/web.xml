@@ -16,13 +16,13 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ServletListarCotizaciones</display-name>
-    <servlet-name>ServletListarCotizaciones</servlet-name>
-    <servlet-class>cotizaciones.ServletListarCotizaciones</servlet-class>
+    <display-name>ServletListCotizaciones</display-name>
+    <servlet-name>ServletListCotizaciones</servlet-name>
+    <servlet-class>cotizaciones.ServletListCotizaciones</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ServletListarCotizaciones</servlet-name>
-    <url-pattern>/ServletListarCotizaciones</url-pattern>
+    <servlet-name>ServletListCotizaciones</servlet-name>
+    <url-pattern>/ServletListCotizaciones</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

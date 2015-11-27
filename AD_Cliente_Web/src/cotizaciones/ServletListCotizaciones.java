@@ -53,5 +53,4 @@ public class ServletListCotizaciones extends HttpServlet {
 		response.setContentType("application/json");
 		out.print(listaGson);
 	}
-
 }
