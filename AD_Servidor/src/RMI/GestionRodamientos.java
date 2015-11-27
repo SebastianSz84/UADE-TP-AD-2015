@@ -213,17 +213,7 @@ public class GestionRodamientos implements Serializable
 	
 	public boolean checkearSiClienteExiste(int nroCliente) throws RemoteException
 	{
-		oventas = OVentaDAO.getAll();
-		boolean clienteExiste = false;
-		for (OVenta ov : oventas)
-		{
-			Cliente cliente = ov.buscarCliente(nroCliente);
-			if (cliente != null)
-			{
-				clienteExiste = true;
-				break;
-			}
-		}
-		return clienteExiste;
+		Cliente cliente = ClienteDAO.getCliente(nroCliente);
+		return cliente != null;
 	}
 }
