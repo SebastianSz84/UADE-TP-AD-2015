@@ -12,6 +12,7 @@ import javax.swing.WindowConstants;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import controlador.BusinessDelegate;
 import Entities.CCentral;
 
 /**
@@ -128,7 +129,7 @@ public class ActualizarListaPreciosManual extends javax.swing.JFrame
 							float precio = Float.parseFloat((String) jTable1Model.getValueAt(i, 4));
 							String condiciones = (String) jTable1Model.getValueAt(i, 5);
 
-							CCentral.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigo, precio, condiciones, disponible, SKF);
+							BusinessDelegate.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigo, precio, condiciones, disponible, SKF);
 						}
 
 						dispose();

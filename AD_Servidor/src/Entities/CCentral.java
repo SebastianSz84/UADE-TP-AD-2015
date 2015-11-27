@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
+import Dao.BultoDAO;
 import Dao.OCProveedorDAO;
 import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
@@ -40,21 +41,13 @@ public class CCentral
 		return RodamientoDAO.getRodamiento(codigoSKF);
 	}
 	
-	public void GenerarBultosDeRodamiento(Rodamiento rodamiento, int cantidad)
+	public void GenerarBultosDeRodamiento(String codigoSKF, int cantidad)
 	{
-		// for (Remito remito : remitosOV)
-		// {
-		// Bulto bulto = new Bulto();
-		// for (Rodamiento rodamiento : rodamientosComprados)
-		// {
-		// if (remito.contieneRodamiento(rodamiento))
-		// {
-		// rodamientosComprados.remove(rodamiento);
-		// bulto.agregarRodamientoComprado(rodamiento, 0);
-		// }
-		// }
-		// BultoDAO.saveEntity(bulto);
-		// }
+		Rodamiento rodamiento = RodamientoDAO.getRodamiento(codigoSKF);
+		
+		Bulto bulto = new Bulto();
+		bulto.agregarRodamientoComprado(rodamiento, cantidad);
+		BultoDAO.saveEntity(bulto);
 	}
 	
 	public void GenerarOrdenesDeCompra(List<PedVenta> pedidos)
