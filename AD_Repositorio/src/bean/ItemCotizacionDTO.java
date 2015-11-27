@@ -10,7 +10,6 @@ public class ItemCotizacionDTO implements Serializable
 	private static final long serialVersionUID = 1L;
 	private int cantidad;
 	private RodamientoDTO rod;
-	private float precio;
 	private ProveedorDTO proveedor;
 	
 	public int getCantidad()
@@ -31,16 +30,6 @@ public class ItemCotizacionDTO implements Serializable
 	public void setRod(RodamientoDTO rod)
 	{
 		this.rod = rod;
-	}
-	
-	public float getPrecio()
-	{
-		return precio;
-	}
-	
-	public void setPrecio(float precio)
-	{
-		this.precio = precio;
 	}
 	
 	public ProveedorDTO getProveedor()

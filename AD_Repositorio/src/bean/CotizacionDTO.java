@@ -55,11 +55,10 @@ public class CotizacionDTO implements Serializable
 		return this.items.remove(0);
 	}
 	
-	public void agregarItem(int cantidad, RodamientoDTO rodDTO, float precio)
+	public void agregarItem(int cantidad, RodamientoDTO rodDTO)
 	{
 		ItemCotizacionDTO itCotDTO = new ItemCotizacionDTO();
 		itCotDTO.setCantidad(cantidad);
-		itCotDTO.setPrecio(precio);
 		itCotDTO.setRod(rodDTO);
 		items.add(itCotDTO);
 	}
