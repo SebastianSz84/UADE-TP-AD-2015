@@ -24,7 +24,7 @@ public class ItemProveedor
 	private String codigo;
 	
 	@ManyToOne
-	@JoinColumn(name = "idProveedor")
+	@JoinColumn(name = "codigoProveedor")
 	private Proveedor proveedor;
 	
 	@Column
