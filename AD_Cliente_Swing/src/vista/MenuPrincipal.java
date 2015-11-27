@@ -22,6 +22,7 @@ import javax.swing.WindowConstants;
 public class MenuPrincipal extends javax.swing.JFrame
 {
 	private JMenuBar jMenuBar1;
+	private JMenuItem jMenuItem4;
 	private JMenuItem jMenuItem3;
 	private JMenuItem jMenuItem2;
 	private JMenuItem jMenuItem1;
@@ -69,7 +70,7 @@ public class MenuPrincipal extends javax.swing.JFrame
 						{
 							public void actionPerformed(ActionEvent evt)
 							{
-								new ActualizarPorXml();
+								new ActualizarListaPreciosPorXml();
 							}
 						});
 					}
@@ -81,7 +82,7 @@ public class MenuPrincipal extends javax.swing.JFrame
 						{
 							public void actionPerformed(ActionEvent evt)
 							{
-								new ActualizarManual();
+								new ActualizarListaPreciosManual();
 							}
 						});
 					}
@@ -89,8 +90,20 @@ public class MenuPrincipal extends javax.swing.JFrame
 				{
 					jMenuItem3 = new JMenuItem();
 					jMenuBar1.add(jMenuItem3);
-					jMenuItem3.setText("Salir");
+					jMenuItem3.setText("Entrada de mercaderia");
 					jMenuItem3.addActionListener(new ActionListener()
+					{
+						public void actionPerformed(ActionEvent evt)
+						{
+							new EntradaDeMercaderiaManual();
+						}
+					});
+				}
+				{
+					jMenuItem4 = new JMenuItem();
+					jMenuBar1.add(jMenuItem4);
+					jMenuItem4.setText("Salir");
+					jMenuItem4.addActionListener(new ActionListener()
 					{
 						public void actionPerformed(ActionEvent evt)
 						{

@@ -26,6 +26,26 @@ public class PedVenta
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	public int getId()
+	{
+		return id;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
+	public OVenta getOficinaDeVenta()
+	{
+		return OficinaDeVenta;
+	}
+	
+	public void setOficinaDeVenta(OVenta oficinaDeVenta)
+	{
+		OficinaDeVenta = oficinaDeVenta;
+	}
+	
 	@ManyToOne
 	@JoinColumn(name = "idOVenta")
 	private OVenta OficinaDeVenta;
@@ -70,7 +90,7 @@ public class PedVenta
 			ItemPedVenta itPedVta = new ItemPedVenta();
 			itPedVta.setCantidad(cotizacion.getItems().get(i).getCantidad());
 			itPedVta.setRodamiento(cotizacion.getItems().get(i).getRod());
-			itPedVta.setProveedor(cotizacion.getItems().get(i).getProveedor());
+			itPedVta.setProveedor(cotizacion.getItems().get(i).getItProveedor().getProveedor());
 			items.add(itPedVta);
 		}
 	}
