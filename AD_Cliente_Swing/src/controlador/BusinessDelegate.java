@@ -60,7 +60,7 @@ public class BusinessDelegate
 	}
 	
 	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF) 	{
-		CCentral.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigo, precio, condiciones, disponible, codigoSKF);
+		CCentral.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigoItem, precio, condiciones, disponible, codigoSKF);
 	}
 	
 	public void GenerarBultosDeRodamiento(String codigoSKF, int cantidad) {
