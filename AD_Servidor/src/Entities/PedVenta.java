@@ -90,7 +90,7 @@ public class PedVenta
 			ItemPedVenta itPedVta = new ItemPedVenta();
 			itPedVta.setCantidad(cotizacion.getItems().get(i).getCantidad());
 			itPedVta.setRodamiento(cotizacion.getItems().get(i).getRod());
-			itPedVta.setProveedor(cotizacion.getItems().get(i).getProveedor());
+			itPedVta.setProveedor(cotizacion.getItems().get(i).getItProveedor().getProveedor());
 			items.add(itPedVta);
 		}
 	}

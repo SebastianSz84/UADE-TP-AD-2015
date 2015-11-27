@@ -70,7 +70,8 @@ public class GestionRodamientos implements Serializable
 						ItemCotizacion itCot = new ItemCotizacion();
 						itCot.setCantidad(itCotDTO.getCantidad());
 						itCot.setRod(rod);
-						itCot.setProveedor(ComparativaPreciosDAO.getComparativa().getItemSKF(rod.getCodigoSKF()).getProveedor());
+						itCot.setItProveedor(ComparativaPreciosDAO.getComparativa().getItemSKF(rod.getCodigoSKF()));
+						itCot.setCot(cot);
 						listaItems.add(itCot);
 					}
 				}

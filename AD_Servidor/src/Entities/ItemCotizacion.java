@@ -20,19 +20,23 @@ public class ItemCotizacion
 	private int id;
 	
 	@ManyToOne
+	@JoinColumn(name = "idCotizacion", referencedColumnName = "id")
+	private Cotizacion cot;
+	
+	@ManyToOne
 	@JoinColumn(name = "codigoSKF")
 	private Rodamiento rod;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idProveedor")
-	private Proveedor proveedor;
+	@JoinColumn(name = "idItemProveedor")
+	private ItemProveedor itProveedor;
 	
 	@Column
 	private int cantidad;
 	
 	public float getSubtotal()
 	{
-		return this.cantidad * this.proveedor.getItemProveedor(rod).getPrecio();
+		return this.cantidad * this.itProveedor.getPrecio();
 	}
 	
 	public int getCantidad()
@@ -43,16 +47,6 @@ public class ItemCotizacion
 	public void setCantidad(int cantidad)
 	{
 		this.cantidad = cantidad;
-	}
-	
-	public Proveedor getProveedor()
-	{
-		return proveedor;
-	}
-	
-	public void setProveedor(Proveedor proveedor)
-	{
-		this.proveedor = proveedor;
 	}
 	
 	public int getId()
@@ -75,4 +69,23 @@ public class ItemCotizacion
 		this.rod = rod;
 	}
 	
+	public ItemProveedor getItProveedor()
+	{
+		return itProveedor;
+	}
+	
+	public void setItProveedor(ItemProveedor itProveedor)
+	{
+		this.itProveedor = itProveedor;
+	}
+	
+	public Cotizacion getCot()
+	{
+		return cot;
+	}
+	
+	public void setCot(Cotizacion cot)
+	{
+		this.cot = cot;
+	}
 }
