@@ -25,6 +25,11 @@ public class ItemBulto
 	@JoinColumns(@JoinColumn(name = "codigoSKF"))
 	private Rodamiento rodamiento;
 	
+	public ItemBulto()
+	{
+		
+	}
+	
 	public ItemBulto(int cantidad, Rodamiento rodamientoComprado)
 	{
 		this.cantidad = cantidad;
