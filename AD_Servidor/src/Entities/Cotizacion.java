@@ -10,12 +10,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import Dao.CotizacionDAO;
-import Dao.OVentaDAO;
 import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
 import bean.CotizacionDTO;
@@ -23,19 +22,15 @@ import bean.ItemCotizacionDTO;
 import bean.ItemProveedorDTO;
 
 @Entity
-@Table(name = "Cotizaciones")
+@Table(name = "Cotizacion")
 public class Cotizacion
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column
 	private String estado;
-	
-	@OneToOne
-	@JoinColumn(name = "idOVenta")
-	private OVenta oventa;
 	
 	@OneToMany
 	@JoinColumn(name = "idCotizacion")
@@ -44,12 +39,19 @@ public class Cotizacion
 	@Column
 	private Date fecha;
 	
+	@ManyToOne
+	@JoinColumn(name = "idCliente", referencedColumnName = "id")
+	private Cliente cliente;
+	
 	public void agregarItem(ItemCotizacionDTO itCotDTO, ItemProveedorDTO itPrDTO)
 	{
 		ItemCotizacion itCot = new ItemCotizacion();
 		itCot.setCantidad(itCotDTO.getCantidad());
 		itCot.setPrecio(itPrDTO.getPrecio());
-		itCot.setRod(RodamientoDAO.getRodamiento(itPrDTO.getSKF()));
+		ItemCotizacionId itCotId = new ItemCotizacionId();
+		itCotId.setCot(this);
+		itCotId.setRod(RodamientoDAO.getRodamiento(itPrDTO.getSKF()));
+		itCot.setId(itCotId);
 		this.items.add(itCot);
 	}
 	
@@ -69,7 +71,7 @@ public class Cotizacion
 		return items;
 	}
 	
-	public void setItems(Vector<ItemCotizacion> items)
+	public void setItems(List<ItemCotizacion> items)
 	{
 		this.items = items;
 	}
@@ -89,29 +91,18 @@ public class Cotizacion
 		return id;
 	}
 	
-	public OVenta getOventa()
-	{
-		return oventa;
-	}
-	
-	public void setOventa(OVenta oventa)
-	{
-		this.oventa = oventa;
-	}
-	
 	public CotizacionDTO getDTO()
 	{
 		CotizacionDTO cotDTO = new CotizacionDTO();
 		cotDTO.setEstado(estado);
 		cotDTO.setId(id);
-		cotDTO.setIdOVenta(oventa.getId());
 		Vector<ItemCotizacionDTO> itemsDTO = new Vector<>();
 		for (int i = 0; i < items.size(); i++)
 		{
 			ItemCotizacionDTO itemDTO = new ItemCotizacionDTO();
 			itemDTO.setCantidad(items.get(i).getCantidad());
 			itemDTO.setPrecio(items.get(i).getPrecio());
-			itemDTO.setRod(items.get(i).getRod().getDTO());
+			itemDTO.setRod(items.get(i).getId().getRod().getDTO());
 			itemsDTO.add(itemDTO);
 		}
 		cotDTO.setItems(itemsDTO);
@@ -121,7 +112,6 @@ public class Cotizacion
 	public void actualizarDesdeDTO(CotizacionDTO cotDTO)
 	{
 		this.estado = cotDTO.getEstado();
-		this.oventa = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
 		this.items.clear();
 		for (ItemCotizacionDTO itCotDTO : cotDTO.getItems())
 		{
@@ -129,7 +119,10 @@ public class Cotizacion
 			item.setCantidad(itCotDTO.getCantidad());
 			item.setPrecio(itCotDTO.getPrecio());
 			item.setProveedor(ProveedorDAO.getProveedor(itCotDTO.getProveedor().getCodigoProveedor()));
-			item.setRod(RodamientoDAO.getRodamiento(itCotDTO.getRod().getCodigoSKF()));
+			ItemCotizacionId itCotId = new ItemCotizacionId();
+			itCotId.setCot(this);
+			itCotId.setRod(RodamientoDAO.getRodamiento(itCotDTO.getRod().getCodigoSKF()));
+			item.setId(itCotId);
 			items.add(item);
 		}
 	}
@@ -142,5 +135,20 @@ public class Cotizacion
 	public void setFecha(Date fecha)
 	{
 		this.fecha = fecha;
+	}
+	
+	public Cliente getCliente()
+	{
+		return cliente;
+	}
+	
+	public void setCliente(Cliente cliente)
+	{
+		this.cliente = cliente;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 }

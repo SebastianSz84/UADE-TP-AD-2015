@@ -1,41 +1,56 @@
 package bean;
 
-public class ItemCotizacionDTO {
+import java.io.Serializable;
+
+public class ItemCotizacionDTO implements Serializable
+{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int cantidad;
 	private RodamientoDTO rod;
 	private float precio;
 	private ProveedorDTO proveedor;
-
-	public int getCantidad() {
+	
+	public int getCantidad()
+	{
 		return cantidad;
 	}
 	
-	public void setCantidad(int cantidad) {
+	public void setCantidad(int cantidad)
+	{
 		this.cantidad = cantidad;
 	}
 	
-	public RodamientoDTO getRod() {
+	public RodamientoDTO getRod()
+	{
 		return rod;
 	}
 	
-	public void setRod(RodamientoDTO rod) {
+	public void setRod(RodamientoDTO rod)
+	{
 		this.rod = rod;
 	}
-
-	public float getPrecio() {
+	
+	public float getPrecio()
+	{
 		return precio;
 	}
-
-	public void setPrecio(float precio) {
+	
+	public void setPrecio(float precio)
+	{
 		this.precio = precio;
 	}
-
-	public ProveedorDTO getProveedor() {
+	
+	public ProveedorDTO getProveedor()
+	{
 		return proveedor;
 	}
-
-	public void setProveedor(ProveedorDTO proveedor) {
+	
+	public void setProveedor(ProveedorDTO proveedor)
+	{
 		this.proveedor = proveedor;
 	}
-
+	
 }

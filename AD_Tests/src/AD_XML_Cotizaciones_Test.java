@@ -35,19 +35,19 @@ public class AD_XML_Cotizaciones_Test
 				ItemCotizacion itCot = new ItemCotizacion();
 				
 				itCot.setCantidad(i * 3);
-				itCot.setId(i);
+				// itCot.setId(i);
 				itCot.setPrecio(i * 15);
 				itCot.setProveedor(pr);
 				
 				Rodamiento r = new Rodamiento();
 				r.setCodigoSKF("abc1");
 				
-				itCot.setRod(r);
+				// itCot.setRod(r);
 				
 				items.add(itCot);
 			}
 			
-			cot.setOventa(ov);
+			// cot.setOventa(ov);
 			cot.setItems(items);
 			
 			CotizacionesXML.generarXMLArmarCotizacion(cot);

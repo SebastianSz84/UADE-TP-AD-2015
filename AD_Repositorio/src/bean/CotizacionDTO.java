@@ -12,8 +12,8 @@ public class CotizacionDTO implements Serializable
 	private static final long serialVersionUID = 1L;
 	private int id;
 	private String estado;
+	private ClienteDTO cliente;
 	private List<ItemCotizacionDTO> items;
-	private int idOVenta;
 	
 	public int getId()
 	{
@@ -45,16 +45,6 @@ public class CotizacionDTO implements Serializable
 		this.items = items;
 	}
 	
-	public int getIdOVenta()
-	{
-		return idOVenta;
-	}
-	
-	public void setIdOVenta(int idOVenta)
-	{
-		this.idOVenta = idOVenta;
-	}
-	
 	public boolean tenesItems()
 	{
 		return !this.items.isEmpty();
@@ -77,5 +67,20 @@ public class CotizacionDTO implements Serializable
 	public CotizacionDTO()
 	{
 		this.items = new ArrayList<ItemCotizacionDTO>();
+	}
+	
+	public ClienteDTO getCliente()
+	{
+		return cliente;
+	}
+	
+	public void setCliente(ClienteDTO cliente)
+	{
+		this.cliente = cliente;
+	}
+	
+	public static long getSerialversionuid()
+	{
+		return serialVersionUID;
 	}
 }

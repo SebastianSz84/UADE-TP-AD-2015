@@ -98,7 +98,7 @@ public class Proveedor
 		}
 		else
 		{
-			items.add(new ItemProveedor(codigoItem, precio, condiciones, disponible, rodamiento));
+			items.add(new ItemProveedor(this, codigoItem, precio, condiciones, disponible, rodamiento));
 		}
 		
 	}
@@ -107,7 +107,7 @@ public class Proveedor
 	{
 		for (ItemProveedor item : items)
 		{
-			if (item.getCodigo().equals(codigoItem))
+			if (item.getId().getCodigo().equals(codigoItem))
 			{
 				return item;
 			}

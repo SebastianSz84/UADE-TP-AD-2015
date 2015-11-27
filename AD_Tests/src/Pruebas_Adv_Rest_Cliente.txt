@@ -1,1 +1,1 @@
-{ "nroCliente" : "1", "items" : [{ "cantidad" : "14" , "codigoSKF" : "abc1" },{ "cantidad" : "17" , "codigoSKF" : "abc2" }] }
+{ "nroCliente" : "1", "items" : [{ "cantidad" : "14" , "codigoSKF" : "SKF001" },{ "cantidad" : "17" , "codigoSKF" : "SKF002" }] }

@@ -17,6 +17,7 @@ import Helper.CotizacionesXML;
 import bean.BultoDTO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
+import bean.OVentaDTO;
 import bean.PedVentaDTO;
 
 @Entity
@@ -169,5 +170,14 @@ public class OVenta
 	public List<Cotizacion> listCotizacionesPorCliente(int nroCliente)
 	{
 		return CotizacionDAO.getAll(Cotizacion.class, "Cotizacion");
+	}
+	
+	public OVentaDTO getDTO()
+	{
+		OVentaDTO ovDTO = new OVentaDTO();
+		ovDTO.setDireccion(this.direccion);
+		ovDTO.setId(this.id);
+		ovDTO.setNombre(this.nombre);
+		return ovDTO;
 	}
 }

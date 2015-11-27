@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
 
@@ -16,6 +17,7 @@ import Dao.RodamientoDAO;
 import Entities.Cliente;
 import Entities.Cotizacion;
 import Entities.ItemCotizacion;
+import Entities.ItemCotizacionId;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import Helper.CotizacionesXML;
@@ -54,6 +56,11 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		Cliente cli = ClienteDAO.getCliente(nroCliente);
 		if (cli != null)
 		{
+			OVenta ov = buscarOV(cli.getOventa().getId());
+			Cotizacion cot = new Cotizacion();
+			cot.setFecha(Calendar.getInstance().getTime());
+			cot.setEstado("Pendiente");
+			cot.setCliente(cli);
 			List<ItemCotizacion> listaItems = new ArrayList<>();
 			for (ItemCotizacionDTO itCotDTO : itemsCotLista)
 			{
@@ -63,13 +70,17 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 					{
 						ItemCotizacion itCot = new ItemCotizacion();
 						itCot.setCantidad(itCotDTO.getCantidad());
-						itCot.setRod(rod);
+						ItemCotizacionId itCotId = new ItemCotizacionId();
+						itCotId.setRod(rod);
+						itCotId.setCot(cot);
+						itCot.setId(itCotId);
 						listaItems.add(itCot);
 					}
 				}
-				OVenta ov = buscarOV(cli.getOventa().getId());
-				CotizacionesXML.generarXMLSolicitudCotizacion(listaItems, ov);
 			}
+			cot.setItems(listaItems);
+			CotizacionDAO.saveEntity(cot);
+			CotizacionesXML.generarXMLSolicitudCotizacion(listaItems, ov);
 		}
 	}
 	
@@ -113,7 +124,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		if (cot != null)
 		{
 			CotizacionDTO cotDTO = cot.getDTO();
-			OVenta ov = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
+			OVenta ov = OVentaDAO.getOVenta(cotDTO.getCliente().getOVenta().getId());
 			
 			if (ov != null)
 			{
@@ -130,7 +141,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 			CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionAceptada(files[i]);
 			Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
 			cot.actualizarDesdeDTO(cotDTO);
-			OVenta ov = OVentaDAO.getOVenta(cotDTO.getIdOVenta());
+			OVenta ov = OVentaDAO.getOVenta(cotDTO.getCliente().getOVenta().getId());
 			ov.crearPedidoVenta(cot);
 			files[i].delete();
 		}

@@ -10,7 +10,7 @@ public class AD_Comparativa
 	{
 		for (ItemProveedor itPro : ComparativaPrecios.getInstancia().getItems())
 		{
-			System.out.println(itPro.getCodigo() + "\t" + itPro.getCondiciones() + "\t" + Float.toString(itPro.getPrecio()));
+			System.out.println(itPro.getId().getCodigo() + "\t" + itPro.getCondiciones() + "\t" + Float.toString(itPro.getPrecio()));
 		}
 	}
 }

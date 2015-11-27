@@ -1,12 +1,10 @@
 package Entities;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import bean.ItemProveedorDTO;
@@ -15,8 +13,8 @@ import bean.ItemProveedorDTO;
 @Table(name = "ItemProveedor")
 public class ItemProveedor
 {
-	@Id
-	private String codigo;
+	@EmbeddedId
+	private ItemProveedorId id;
 	
 	@Column
 	private float precio;
@@ -27,18 +25,16 @@ public class ItemProveedor
 	@Column
 	private boolean disponible;
 	
-	@ManyToOne
-	@JoinColumn(name = "codigoProveedor")
-	private Proveedor proveedor;
-	
 	@OneToOne
-	@PrimaryKeyJoinColumn
 	@JoinColumn(name = "codigoSKF")
 	private Rodamiento rodamiento;
 	
-	public ItemProveedor(String codigo, float precio, String condiciones, boolean disponible, Rodamiento rodamiento)
+	public ItemProveedor(Proveedor proveedor, String codigo, float precio, String condiciones, boolean disponible, Rodamiento rodamiento)
 	{
-		this.codigo = codigo;
+		ItemProveedorId itProvId = new ItemProveedorId();
+		itProvId.setCodigo(codigo);
+		itProvId.setProveedor(proveedor);
+		this.setId(itProvId);
 		this.precio = precio;
 		this.condiciones = condiciones;
 		this.disponible = disponible;
@@ -88,16 +84,6 @@ public class ItemProveedor
 		this.precio = precio;
 	}
 	
-	public String getCodigo()
-	{
-		return codigo;
-	}
-	
-	public void setCodigo(String codigo)
-	{
-		this.codigo = codigo;
-	}
-	
 	public String getCondiciones()
 	{
 		return condiciones;
@@ -118,23 +104,23 @@ public class ItemProveedor
 		this.disponible = disponible;
 	}
 	
-	public Proveedor getProveedor()
-	{
-		return proveedor;
-	}
-	
-	public void setProveedor(Proveedor proveedor)
-	{
-		this.proveedor = proveedor;
-	}
-	
 	public ItemProveedorDTO getDTO()
 	{
-		ItemProveedorDTO itPrDTO = new ItemProveedorDTO(this.getRodamiento().getCodigoSKF(), this.codigo, this.getPrecio(), this.isDisponible(), this.getCondiciones());
+		ItemProveedorDTO itPrDTO = new ItemProveedorDTO(this.getRodamiento().getCodigoSKF(), this.getId().getCodigo(), this.getPrecio(), this.isDisponible(), this.getCondiciones());
 		return itPrDTO;
 	}
 	
 	public ItemProveedor()
 	{
+	}
+	
+	public ItemProveedorId getId()
+	{
+		return id;
+	}
+	
+	public void setId(ItemProveedorId id)
+	{
+		this.id = id;
 	}
 }

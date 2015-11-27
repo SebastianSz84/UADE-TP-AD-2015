@@ -17,6 +17,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
+import Dao.ClienteDAO;
 import Dao.RodamientoDAO;
 import Entities.Cotizacion;
 import Entities.ItemCotizacion;
@@ -51,7 +52,7 @@ public class CotizacionesXML
 			raiz.setAttributeNode(attribute);
 			
 			attribute = xmlDoc.createAttribute("idOVenta");
-			attribute.setValue(Integer.toString(cot.getOventa().getId()));
+			attribute.setValue(Integer.toString(cot.getCliente().getOventa().getId()));
 			raiz.setAttributeNode(attribute);
 			
 			for (ItemCotizacion itCot : cot.getItems())
@@ -63,7 +64,7 @@ public class CotizacionesXML
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("idRod");
-				attribute.setValue(itCot.getRod().getCodigoSKF());
+				attribute.setValue(itCot.getId().getRod().getCodigoSKF());
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("precio");
@@ -76,7 +77,7 @@ public class CotizacionesXML
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(xmlDoc);
 			long timestamp = Calendar.getInstance().getTimeInMillis();
-			StreamResult result = new StreamResult(new File(root + Integer.toString(cot.getOventa().getId()) + armadas, Long.toString(timestamp) + ".xml"));
+			StreamResult result = new StreamResult(new File(root + Integer.toString(cot.getCliente().getOventa().getId()) + armadas, Long.toString(timestamp) + ".xml"));
 			transformer.transform(source, result);
 		}
 		catch (Exception e)
@@ -101,12 +102,12 @@ public class CotizacionesXML
 				NamedNodeMap attrs = n.getAttributes();
 				Node attribute = attrs.getNamedItem("estado");
 				String estado = attribute.getNodeValue();
-				attribute = attrs.getNamedItem("idOVenta");
-				int idOVenta = Integer.valueOf(attribute.getNodeValue());
+				attribute = attrs.getNamedItem("idCliente");
+				int idCliente = Integer.valueOf(attribute.getNodeValue());
 				
 				CotizacionDTO cotDTO = new CotizacionDTO();
 				cotDTO.setEstado(estado);
-				cotDTO.setIdOVenta(idOVenta);
+				cotDTO.setCliente(ClienteDAO.getCliente(idCliente).getDTO());
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 				{
 					if ("item".equalsIgnoreCase(d.getNodeName()))
@@ -187,7 +188,7 @@ public class CotizacionesXML
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("idRod");
-				attribute.setValue(itCot.getRod().getCodigoSKF());
+				attribute.setValue(itCot.getId().getRod().getCodigoSKF());
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("precio");
@@ -239,12 +240,12 @@ public class CotizacionesXML
 				NamedNodeMap attrs = n.getAttributes();
 				Node attribute = attrs.getNamedItem("estado");
 				String estado = attribute.getNodeValue();
-				attribute = attrs.getNamedItem("idOVenta");
-				int idOVenta = Integer.valueOf(attribute.getNodeValue());
+				attribute = attrs.getNamedItem("idCliente");
+				int idCliente = Integer.valueOf(attribute.getNodeValue());
 				
 				CotizacionDTO cotDTO = new CotizacionDTO();
 				cotDTO.setEstado(estado);
-				cotDTO.setIdOVenta(idOVenta);
+				cotDTO.setCliente(ClienteDAO.getCliente(idCliente).getDTO());
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 				{
 					if ("item".equalsIgnoreCase(d.getNodeName()))
@@ -285,7 +286,7 @@ public class CotizacionesXML
 			raiz.setAttributeNode(attribute);
 			
 			attribute = xmlDoc.createAttribute("idOVenta");
-			attribute.setValue(Integer.toString(cotDTO.getIdOVenta()));
+			attribute.setValue(Integer.toString(cotDTO.getCliente().getOVenta().getId()));
 			raiz.setAttributeNode(attribute);
 			
 			for (ItemCotizacionDTO itCot : cotDTO.getItems())
@@ -310,7 +311,7 @@ public class CotizacionesXML
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(xmlDoc);
 			long timestamp = Calendar.getInstance().getTimeInMillis();
-			StreamResult result = new StreamResult(new File(root + Integer.toString(cotDTO.getIdOVenta()) + aceptadas, Long.toString(timestamp) + ".xml"));
+			StreamResult result = new StreamResult(new File(root + Integer.toString(cotDTO.getCliente().getOVenta().getId()) + aceptadas, Long.toString(timestamp) + ".xml"));
 			transformer.transform(source, result);
 		}
 		catch (Exception e)

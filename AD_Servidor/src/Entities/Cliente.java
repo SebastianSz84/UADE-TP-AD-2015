@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import bean.ClienteDTO;
+
 @Entity
 @Table(name = "Cliente")
 public class Cliente
@@ -76,4 +78,13 @@ public class Cliente
 		this.oventa = oventa;
 	}
 	
+	public ClienteDTO getDTO()
+	{
+		ClienteDTO cliDTO = new ClienteDTO();
+		cliDTO.setDireccion(this.direccion);
+		cliDTO.setNombre(this.nombre);
+		cliDTO.setOVenta(this.oventa.getDTO());
+		cliDTO.setId(this.id);
+		return cliDTO;
+	}
 }

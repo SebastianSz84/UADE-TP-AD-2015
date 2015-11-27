@@ -113,6 +113,7 @@ public class BaseDAO
 		}
 		catch (Exception ex)
 		{
+			ex.printStackTrace();
 			tx.rollback();
 		}
 		return entity;
