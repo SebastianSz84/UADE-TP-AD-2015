@@ -79,7 +79,7 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 				}
 			}
 			cot.setItems(listaItems);
-			CotizacionDAO.saveEntity(cot);
+			CotizacionDAO.saveCotizacion(cot);
 			CotizacionesXML.generarXMLSolicitudCotizacion(listaItems, ov);
 		}
 	}

@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ItemsCotizacion")
+@Table(name = "ItemCotizacion")
 public class ItemCotizacion
 {
 	@EmbeddedId

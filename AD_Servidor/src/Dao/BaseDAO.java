@@ -108,6 +108,7 @@ public class BaseDAO
 		Transaction tx = getSession().beginTransaction();
 		try
 		{
+			getSession().flush();
 			getSession().saveOrUpdate(entity);
 			tx.commit();
 		}
