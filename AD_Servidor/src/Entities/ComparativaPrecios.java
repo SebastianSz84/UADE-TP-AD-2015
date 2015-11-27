@@ -27,8 +27,7 @@ public class ComparativaPrecios
 	@ManyToMany
 	@JoinTable(name = "ItemsComparativa", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns =
 	{
-		@JoinColumn(name = "idProveedor", referencedColumnName = "codigoProveedor"),
-		@JoinColumn(name = "codigoItemProveedor", referencedColumnName = "codigo")
+		@JoinColumn(name = "idItemProveedor", referencedColumnName = "id")
 	})
 	private List<ItemProveedor> items;
 	

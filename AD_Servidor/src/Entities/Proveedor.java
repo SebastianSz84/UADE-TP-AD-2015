@@ -107,7 +107,7 @@ public class Proveedor
 	{
 		for (ItemProveedor item : items)
 		{
-			if (item.getId().getCodigo().equals(codigoItem))
+			if (item.getCodigo().equals(codigoItem))
 			{
 				return item;
 			}

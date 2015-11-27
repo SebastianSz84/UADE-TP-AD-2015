@@ -8,6 +8,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
+import Entities.CCentral;
 import bean.ItemCotizacionDTO;
 
 public class BusinessDelegate
@@ -55,10 +56,14 @@ public class BusinessDelegate
 	}
 
 	public void generarListaDePrecioProveedorAutomatica(String archivoProveedor, int codigoProveedor) {
-		try {
-			objetoRemoto. .solicitarCotizacion(nroCliente, itemsCotLista);
-		} catch (RemoteException e) {
-			e.printStackTrace();
-		}
+		
+	}
+	
+	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF) 	{
+		CCentral.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigoItem, precio, condiciones, disponible, codigoSKF);
+	}
+	
+	public void GenerarBultosDeRodamiento(String codigoSKF, int cantidad) {
+		CCentral.getInstancia().GenerarBultosDeRodamiento(codigoSKF, cantidad);
 	}
 }

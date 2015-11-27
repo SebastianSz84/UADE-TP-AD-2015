@@ -20,13 +20,11 @@ import Entities.ItemEnvio;
 import Entities.ItemOCProveedor;
 import Entities.ItemPedVenta;
 import Entities.ItemProveedor;
-import Entities.ItemRemito;
 import Entities.ListaPrecios;
 import Entities.OCProveedor;
 import Entities.OVenta;
 import Entities.PedVenta;
 import Entities.Proveedor;
-import Entities.Remito;
 import Entities.Rodamiento;
 
 public class BaseDAO
@@ -52,13 +50,11 @@ public class BaseDAO
 			cfg.addAnnotatedClass(ItemOCProveedor.class);
 			cfg.addAnnotatedClass(ItemPedVenta.class);
 			cfg.addAnnotatedClass(ItemProveedor.class);
-			cfg.addAnnotatedClass(ItemRemito.class);
 			cfg.addAnnotatedClass(ListaPrecios.class);
 			cfg.addAnnotatedClass(OCProveedor.class);
 			cfg.addAnnotatedClass(OVenta.class);
 			cfg.addAnnotatedClass(PedVenta.class);
 			cfg.addAnnotatedClass(Proveedor.class);
-			cfg.addAnnotatedClass(Remito.class);
 			cfg.addAnnotatedClass(Rodamiento.class);
 			cfg.addAnnotatedClass(ComparativaPrecios.class);
 			

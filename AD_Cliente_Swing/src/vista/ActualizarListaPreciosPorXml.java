@@ -22,7 +22,7 @@ import Entities.CCentral;
  * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
  * ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
-public class ActualizarPorXml extends javax.swing.JFrame
+public class ActualizarListaPreciosPorXml extends javax.swing.JFrame
 {
 	private JLabel jLabel1;
 	private JLabel jLabel2;
@@ -40,14 +40,14 @@ public class ActualizarPorXml extends javax.swing.JFrame
 		{
 			public void run()
 			{
-				ActualizarPorXml inst = new ActualizarPorXml();
+				ActualizarListaPreciosPorXml inst = new ActualizarListaPreciosPorXml();
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 			}
 		});
 	}
 
-	public ActualizarPorXml()
+	public ActualizarListaPreciosPorXml()
 	{
 		super();
 		initGUI();

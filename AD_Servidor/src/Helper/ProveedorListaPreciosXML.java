@@ -45,7 +45,7 @@ public class ProveedorListaPreciosXML
 						boolean disponible = Boolean.parseBoolean(attrs.getNamedItem("disp").getNodeValue());
 						float precio = Float.valueOf(attrs.getNamedItem("precio").getNodeValue());
 						String condiciones = attrs.getNamedItem("cond").getNodeValue();
-						proveedorDTO.agregarItem(skf, codRodProv, precio, disponible, condiciones);
+						proveedorDTO.agregarItem(0, skf, codRodProv, precio, disponible, condiciones);
 					}
 				}
 				return proveedorDTO;

@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Vector;
 
 import Dao.ClienteDAO;
+import Dao.ComparativaPreciosDAO;
 import Dao.CotizacionDAO;
 import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
@@ -69,6 +70,7 @@ public class GestionRodamientos implements Serializable
 						ItemCotizacion itCot = new ItemCotizacion();
 						itCot.setCantidad(itCotDTO.getCantidad());
 						itCot.setRod(rod);
+						itCot.setProveedor(ComparativaPreciosDAO.getComparativa().getItemSKF(rod.getCodigoSKF()).getProveedor());
 						listaItems.add(itCot);
 					}
 				}
