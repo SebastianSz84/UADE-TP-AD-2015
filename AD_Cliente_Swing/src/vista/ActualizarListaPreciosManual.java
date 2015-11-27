@@ -24,7 +24,7 @@ import Entities.CCentral;
  * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
  * ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
-public class ActualizarManual extends javax.swing.JFrame
+public class ActualizarListaPreciosManual extends javax.swing.JFrame
 {
 
 	private JLabel jLabel1;
@@ -43,14 +43,14 @@ public class ActualizarManual extends javax.swing.JFrame
 		{
 			public void run()
 			{
-				ActualizarManual inst = new ActualizarManual();
+				ActualizarListaPreciosManual inst = new ActualizarListaPreciosManual();
 				inst.setLocationRelativeTo(null);
 				inst.setVisible(true);
 			}
 		});
 	}
 
-	public ActualizarManual()
+	public ActualizarListaPreciosManual()
 	{
 		super();
 		initGUI();
