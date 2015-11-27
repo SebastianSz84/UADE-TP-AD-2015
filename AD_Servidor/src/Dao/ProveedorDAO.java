@@ -2,30 +2,23 @@ package Dao;
 
 import java.util.List;
 
-import org.hibernate.Transaction;
-
+import Entities.ItemProveedor;
 import Entities.Proveedor;
 
 public class ProveedorDAO extends BaseDAO
 {
 	public static Proveedor getProveedor(int codigoProveedor)
 	{
-		Transaction tx = getSession().beginTransaction();
-		try
-		{
-			Proveedor prov = getSession().get(Proveedor.class, codigoProveedor);
-			tx.commit();
-			return prov;
-		}
-		catch (Exception ex)
-		{
-			tx.rollback();
-		}
-		return null;
+		return getEntity(Proveedor.class, codigoProveedor);
 	}
 	
 	public static List<Proveedor> getListaProveedores()
 	{
 		return getAll(Proveedor.class, "Proveedor");
+	}
+	
+	public static ItemProveedor getItProveedor(int id)
+	{
+		return getEntity(ItemProveedor.class, id);
 	}
 }

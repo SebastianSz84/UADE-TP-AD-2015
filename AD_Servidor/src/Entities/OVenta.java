@@ -49,14 +49,14 @@ public class OVenta
 	
 	public void generarCotizacion(CotizacionDTO cotDTO)
 	{
-		Cotizacion cot = new Cotizacion();
-		cot.setEstado(cotDTO.getEstado());
+		Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
+		cot.setEstado("Armada");
 		while (cotDTO.tenesItems())
 		{
 			ItemCotizacionDTO itCotDTO = cotDTO.dameItem();
 			cot.agregarItem(itCotDTO, ComparativaPrecios.getInstancia().getMejorPrecio(itCotDTO).getDTO());
 		}
-		CotizacionesXML.generarXMLArmarCotizacion(CotizacionDAO.saveCotizacion(cot));
+		CotizacionesXML.generarXMLArmarCotizacion(CotizacionDAO.saveCotizacion(cot).getDTO());
 	}
 	
 	public CotizacionDTO aceptarCotizacion(CotizacionDTO cotDTO)

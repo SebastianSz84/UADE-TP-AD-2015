@@ -37,7 +37,7 @@ public class ComparativaPrecios
 	{
 		for (ItemProveedor itPro : this.items)
 		{
-			if (itPro.equals(itCotDTO))
+			if (itPro.getRodamiento().getCodigoSKF().equals(itCotDTO.getRod().getCodigoSKF()))
 			{
 				return itPro;
 			}

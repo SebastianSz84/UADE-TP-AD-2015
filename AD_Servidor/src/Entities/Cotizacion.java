@@ -1,5 +1,6 @@
 package Entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Vector;
@@ -15,7 +16,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import Dao.ClienteDAO;
 import Dao.CotizacionDAO;
+import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
@@ -48,6 +51,8 @@ public class Cotizacion
 		ItemCotizacion itCot = new ItemCotizacion();
 		itCot.setCantidad(itCotDTO.getCantidad());
 		itCot.setRod(RodamientoDAO.getRodamiento(itPrDTO.getSKF()));
+		itCot.setItProveedor(ProveedorDAO.getItProveedor(itPrDTO.getId()));
+		itCot.setCot(this);
 		this.items.add(itCot);
 	}
 	
@@ -92,6 +97,8 @@ public class Cotizacion
 		CotizacionDTO cotDTO = new CotizacionDTO();
 		cotDTO.setEstado(estado);
 		cotDTO.setId(id);
+		cotDTO.setCliente(ClienteDAO.getCliente(this.cliente.getId()).getDTO());
+		cotDTO.setFecha(this.fecha);
 		Vector<ItemCotizacionDTO> itemsDTO = new Vector<>();
 		for (int i = 0; i < items.size(); i++)
 		{
@@ -127,5 +134,10 @@ public class Cotizacion
 	public void setId(int id)
 	{
 		this.id = id;
+	}
+	
+	public Cotizacion()
+	{
+		this.items = new ArrayList<ItemCotizacion>();
 	}
 }

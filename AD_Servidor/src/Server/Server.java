@@ -25,6 +25,9 @@ public class Server extends Thread
 	{
 		try
 		{
+			ThreadCotizaciones thCot = new ThreadCotizaciones();
+			thCot.start();
+			
 			LocateRegistry.createRegistry(1099);
 			objetoRemoto = new RecursosRMI();
 			// Vincula el objeto con un nombre en el registry

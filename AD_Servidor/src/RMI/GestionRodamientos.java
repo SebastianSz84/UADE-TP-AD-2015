@@ -20,7 +20,6 @@ import Entities.ItemCotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import Helper.CotizacionesXML;
-import Server.ThreadCotizaciones;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.RodamientoDTO;
@@ -37,8 +36,8 @@ public class GestionRodamientos implements Serializable
 	
 	private GestionRodamientos()
 	{
-		ThreadCotizaciones thCot = new ThreadCotizaciones();
-		thCot.start();
+		// ThreadCotizaciones thCot = new ThreadCotizaciones();
+		// thCot.start();
 	}
 	
 	public List<RodamientoDTO> getListaRodamientos() throws RemoteException
@@ -108,11 +107,6 @@ public class GestionRodamientos implements Serializable
 				}
 			}
 		}
-	}
-	
-	private OVenta buscarOV(int idOVenta)
-	{
-		return OVentaDAO.getOVenta(idOVenta);
 	}
 	
 	public void aceptarCotizacion(int nroCotizacion) throws RemoteException

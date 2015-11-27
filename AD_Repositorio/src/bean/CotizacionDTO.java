@@ -2,6 +2,7 @@ package bean;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CotizacionDTO implements Serializable
@@ -13,6 +14,7 @@ public class CotizacionDTO implements Serializable
 	private int id;
 	private String estado;
 	private ClienteDTO cliente;
+	private Date fecha;
 	private List<ItemCotizacionDTO> items;
 	
 	public int getId()
@@ -81,5 +83,15 @@ public class CotizacionDTO implements Serializable
 	public static long getSerialversionuid()
 	{
 		return serialVersionUID;
+	}
+	
+	public Date getFecha()
+	{
+		return fecha;
+	}
+	
+	public void setFecha(Date fecha)
+	{
+		this.fecha = fecha;
 	}
 }

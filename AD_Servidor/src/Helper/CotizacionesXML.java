@@ -2,6 +2,7 @@ package Helper;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -33,7 +34,7 @@ public class CotizacionesXML
 	private static String armadas = "\\armadas";
 	private static String aceptadas = "\\aceptadas";
 	
-	public static void generarXMLArmarCotizacion(Cotizacion cot)
+	public static void generarXMLArmarCotizacion(CotizacionDTO cotDTO)
 	{
 		try
 		{
@@ -47,15 +48,23 @@ public class CotizacionesXML
 			Element raiz = xmlDoc.createElement("Cotizacion");
 			xmlDoc.appendChild(raiz);
 			
-			Attr attribute = xmlDoc.createAttribute("estado");
-			attribute.setValue(cot.getEstado());
+			Attr attribute = xmlDoc.createAttribute("id");
+			attribute.setValue(Integer.toString(cotDTO.getId()));
+			raiz.setAttributeNode(attribute);
+			
+			attribute = xmlDoc.createAttribute("estado");
+			attribute.setValue(cotDTO.getEstado());
+			raiz.setAttributeNode(attribute);
+			
+			attribute = xmlDoc.createAttribute("fecha");
+			attribute.setValue(ConversorFechas.convertirFechaString(cotDTO.getFecha()));
 			raiz.setAttributeNode(attribute);
 			
 			attribute = xmlDoc.createAttribute("idCliente");
-			attribute.setValue(Integer.toString(cot.getCliente().getId()));
+			attribute.setValue(Integer.toString(cotDTO.getCliente().getId()));
 			raiz.setAttributeNode(attribute);
 			
-			for (ItemCotizacion itCot : cot.getItems())
+			for (ItemCotizacionDTO itCot : cotDTO.getItems())
 			{
 				Element item = xmlDoc.createElement("item");
 				
@@ -77,7 +86,7 @@ public class CotizacionesXML
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(xmlDoc);
 			long timestamp = Calendar.getInstance().getTimeInMillis();
-			StreamResult result = new StreamResult(new File(root + Integer.toString(cot.getCliente().getOventa().getId()) + armadas, Long.toString(timestamp) + ".xml"));
+			StreamResult result = new StreamResult(new File(root + Integer.toString(cotDTO.getCliente().getOVenta().getId()) + armadas, Long.toString(timestamp) + ".xml"));
 			transformer.transform(source, result);
 		}
 		catch (Exception e)
@@ -100,14 +109,20 @@ public class CotizacionesXML
 			if ("cotizacion".equalsIgnoreCase(n.getNodeName()))
 			{
 				NamedNodeMap attrs = n.getAttributes();
-				Node attribute = attrs.getNamedItem("estado");
+				Node attribute = attrs.getNamedItem("id");
+				int id = Integer.parseInt(attribute.getNodeValue());
+				attribute = attrs.getNamedItem("estado");
 				String estado = attribute.getNodeValue();
 				attribute = attrs.getNamedItem("idCliente");
 				int idCliente = Integer.valueOf(attribute.getNodeValue());
+				attribute = attrs.getNamedItem("fecha");
+				Date fecha = ConversorFechas.parsearFecha(attribute.getNodeValue());
 				
 				CotizacionDTO cotDTO = new CotizacionDTO();
+				cotDTO.setId(id);
 				cotDTO.setEstado(estado);
 				cotDTO.setCliente(ClienteDAO.getCliente(idCliente).getDTO());
+				cotDTO.setFecha(fecha);
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 				{
 					if ("item".equalsIgnoreCase(d.getNodeName()))
@@ -170,8 +185,16 @@ public class CotizacionesXML
 			Element raiz = xmlDoc.createElement("Cotizacion");
 			xmlDoc.appendChild(raiz);
 			
-			Attr attribute = xmlDoc.createAttribute("estado");
-			attribute.setValue("nueva");
+			Attr attribute = xmlDoc.createAttribute("id");
+			attribute.setValue(Integer.toString(cot.getId()));
+			raiz.setAttributeNode(attribute);
+			
+			attribute = xmlDoc.createAttribute("estado");
+			attribute.setValue("pendiente");
+			raiz.setAttributeNode(attribute);
+			
+			attribute = xmlDoc.createAttribute("fecha");
+			attribute.setValue(ConversorFechas.convertirFechaString(cot.getFecha()));
 			raiz.setAttributeNode(attribute);
 			
 			attribute = xmlDoc.createAttribute("idCliente");
