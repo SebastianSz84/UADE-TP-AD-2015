@@ -6,10 +6,8 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.List;
 
 import Entities.CCentral;
-import bean.ItemCotizacionDTO;
 
 public class BusinessDelegate
 {
@@ -55,15 +53,18 @@ public class BusinessDelegate
 		return false;
 	}
 
-	public void generarListaDePrecioProveedorAutomatica(String archivoProveedor, int codigoProveedor) {
-		
+	public void generarListaDePrecioProveedorAutomatica(String archivoProveedor, int codigoProveedor)
+	{
+		CCentral.getInstancia().generarListaDePrecioProveedorAutomatica(archivoProveedor, codigoProveedor);
 	}
-	
-	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF) 	{
+
+	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF)
+	{
 		CCentral.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigoItem, precio, condiciones, disponible, codigoSKF);
 	}
-	
-	public int GenerarBultosDeRodamiento(String codigoSKF, int cantidad) {
-		return CCentral.getInstancia().GenerarBultosDeRodamiento(codigoSKF, cantidad);
+
+	public void GenerarBultosDeRodamiento(String codigoSKF, int cantidad)
+	{
+		CCentral.getInstancia().GenerarBultosDeRodamiento(codigoSKF, cantidad);
 	}
 }

@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-import Entities.CCentral;
+import controlador.BusinessDelegate;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
@@ -88,7 +88,7 @@ public class ActualizarListaPreciosPorXml extends javax.swing.JFrame
 						if (!jTextField2.getText().isEmpty() && !jTextField1.getText().isEmpty())
 						{
 							int codigoProveedor = Integer.parseInt(jTextField2.getText());
-							CCentral.getInstancia().generarListaDePrecioProveedorAutomatica(jTextField1.getText().toString(), codigoProveedor);
+							BusinessDelegate.getInstancia().generarListaDePrecioProveedorAutomatica(jTextField1.getText().toString(), codigoProveedor);
 							dispose();
 						} else
 						{
