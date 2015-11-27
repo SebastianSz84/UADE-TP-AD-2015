@@ -43,3 +43,4 @@ Temporary Items
 .apdisk
 */bin
 .idea
+AD_Servidor/src/hibernate.cfg.xml

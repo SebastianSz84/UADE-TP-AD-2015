@@ -1,7 +1,5 @@
 package RMI;
 
-import interfaz.InterfazGestionRodamientos;
-
 import java.io.File;
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -18,7 +16,6 @@ import Entities.CCentral;
 import Entities.Cliente;
 import Entities.Cotizacion;
 import Entities.ItemCotizacion;
-import Entities.ItemCotizacionId;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import Helper.CotizacionesXML;
@@ -27,7 +24,7 @@ import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.RodamientoDTO;
 
-public class GestionRodamientos implements InterfazGestionRodamientos, Serializable
+public class GestionRodamientos implements Serializable
 {
 	/**
 	 * 
@@ -58,7 +55,6 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		Cliente cli = ClienteDAO.getCliente(nroCliente);
 		if (cli != null)
 		{
-			OVenta ov = buscarOV(cli.getOventa().getId());
 			Cotizacion cot = new Cotizacion();
 			cot.setFecha(Calendar.getInstance().getTime());
 			cot.setEstado("Pendiente");
@@ -72,17 +68,13 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 					{
 						ItemCotizacion itCot = new ItemCotizacion();
 						itCot.setCantidad(itCotDTO.getCantidad());
-						ItemCotizacionId itCotId = new ItemCotizacionId();
-						itCotId.setRod(rod);
-						itCotId.setCot(cot);
-						itCot.setId(itCotId);
+						itCot.setRod(rod);
 						listaItems.add(itCot);
 					}
 				}
 			}
 			cot.setItems(listaItems);
-			CotizacionDAO.saveCotizacion(cot);
-			CotizacionesXML.generarXMLSolicitudCotizacion(listaItems, ov);
+			CotizacionesXML.generarXMLSolicitudCotizacion(CotizacionDAO.saveCotizacion(cot));
 		}
 	}
 	
@@ -141,11 +133,16 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		for (int i = 0; i < files.length; i++)
 		{
 			CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionAceptada(files[i]);
-			Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
-			cot.actualizarDesdeDTO(cotDTO);
-			OVenta ov = OVentaDAO.getOVenta(cotDTO.getCliente().getOVenta().getId());
-			ov.crearPedidoVenta(cot);
-			files[i].delete();
+			if (cotDTO != null)
+			{
+				Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
+				OVenta ov = OVentaDAO.getOVenta(cot.getCliente().getOventa().getId());
+				if (ov != null)
+				{
+					ov.crearPedidoVenta(cot);
+					files[i].delete();
+				}
+			}
 		}
 	}
 	
@@ -207,17 +204,21 @@ public class GestionRodamientos implements InterfazGestionRodamientos, Serializa
 		
 	}
 	
-	@Override
 	public void leerXMLCotizacion() throws RemoteException
 	{
 		// TODO Auto-generated method stub
 		
 	}
 	
-	@Override
 	public void aceptarCotizacion() throws RemoteException
 	{
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public boolean checkearSiClienteExiste(int nroCliente) throws RemoteException
+	{
+		Cliente cliente = ClienteDAO.getCliente(nroCliente);
+		return cliente != null;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,7 +16,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import Dao.CotizacionDAO;
-import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
@@ -32,7 +32,7 @@ public class Cotizacion
 	@Column
 	private String estado;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idCotizacion")
 	private List<ItemCotizacion> items;
 	
@@ -47,11 +47,7 @@ public class Cotizacion
 	{
 		ItemCotizacion itCot = new ItemCotizacion();
 		itCot.setCantidad(itCotDTO.getCantidad());
-		itCot.setPrecio(itPrDTO.getPrecio());
-		ItemCotizacionId itCotId = new ItemCotizacionId();
-		itCotId.setCot(this);
-		itCotId.setRod(RodamientoDAO.getRodamiento(itPrDTO.getSKF()));
-		itCot.setId(itCotId);
+		itCot.setRod(RodamientoDAO.getRodamiento(itPrDTO.getSKF()));
 		this.items.add(itCot);
 	}
 	
@@ -101,30 +97,11 @@ public class Cotizacion
 		{
 			ItemCotizacionDTO itemDTO = new ItemCotizacionDTO();
 			itemDTO.setCantidad(items.get(i).getCantidad());
-			itemDTO.setPrecio(items.get(i).getPrecio());
-			itemDTO.setRod(items.get(i).getId().getRod().getDTO());
+			itemDTO.setRod(items.get(i).getRod().getDTO());
 			itemsDTO.add(itemDTO);
 		}
 		cotDTO.setItems(itemsDTO);
 		return cotDTO;
-	}
-	
-	public void actualizarDesdeDTO(CotizacionDTO cotDTO)
-	{
-		this.estado = cotDTO.getEstado();
-		this.items.clear();
-		for (ItemCotizacionDTO itCotDTO : cotDTO.getItems())
-		{
-			ItemCotizacion item = new ItemCotizacion();
-			item.setCantidad(itCotDTO.getCantidad());
-			item.setPrecio(itCotDTO.getPrecio());
-			item.setProveedor(ProveedorDAO.getProveedor(itCotDTO.getProveedor().getCodigoProveedor()));
-			ItemCotizacionId itCotId = new ItemCotizacionId();
-			itCotId.setCot(this);
-			itCotId.setRod(RodamientoDAO.getRodamiento(itCotDTO.getRod().getCodigoSKF()));
-			item.setId(itCotId);
-			items.add(item);
-		}
 	}
 	
 	public Date getFecha()

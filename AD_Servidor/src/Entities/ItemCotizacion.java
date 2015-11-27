@@ -2,9 +2,12 @@ package Entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -12,8 +15,13 @@ import javax.persistence.Table;
 @Table(name = "ItemCotizacion")
 public class ItemCotizacion
 {
-	@EmbeddedId
-	private ItemCotizacionId id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@ManyToOne
+	@JoinColumn(name = "codigoSKF")
+	private Rodamiento rod;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idProveedor")
@@ -22,12 +30,9 @@ public class ItemCotizacion
 	@Column
 	private int cantidad;
 	
-	@Column
-	private float precio;
-	
 	public float getSubtotal()
 	{
-		return this.cantidad * this.precio;
+		return this.cantidad * this.proveedor.getItemProveedor(rod).getPrecio();
 	}
 	
 	public int getCantidad()
@@ -40,16 +45,6 @@ public class ItemCotizacion
 		this.cantidad = cantidad;
 	}
 	
-	public float getPrecio()
-	{
-		return precio;
-	}
-	
-	public void setPrecio(float precio)
-	{
-		this.precio = precio;
-	}
-	
 	public Proveedor getProveedor()
 	{
 		return proveedor;
@@ -60,13 +55,24 @@ public class ItemCotizacion
 		this.proveedor = proveedor;
 	}
 	
-	public ItemCotizacionId getId()
+	public int getId()
 	{
 		return id;
 	}
 	
-	public void setId(ItemCotizacionId id)
+	public void setId(int id)
 	{
 		this.id = id;
 	}
+	
+	public Rodamiento getRod()
+	{
+		return rod;
+	}
+	
+	public void setRod(Rodamiento rod)
+	{
+		this.rod = rod;
+	}
+	
 }

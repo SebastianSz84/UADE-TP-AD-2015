@@ -16,32 +16,18 @@ import bean.CotizacionDTO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-/**
- * Servlet implementation class ServletGetCotizacion
- */
 public class ServletListCotizaciones extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public ServletListCotizaciones() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		JsonObject jObj = ParserJson.parsearJsonObject(request);
 		Integer nroCliente = jObj.get("nroCliente").getAsInt();
@@ -53,5 +39,4 @@ public class ServletListCotizaciones extends HttpServlet {
 		response.setContentType("application/json");
 		out.print(listaGson);
 	}
-
 }

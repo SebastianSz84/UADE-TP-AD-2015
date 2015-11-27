@@ -53,4 +53,14 @@ public class BusinessDelegate {
 			e.printStackTrace();
 		}
 	}
+
+	public boolean checkearSiClienteExiste(int nroCliente) {
+		try {
+			return objetoRemoto.checkearSiClienteExiste(nroCliente);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

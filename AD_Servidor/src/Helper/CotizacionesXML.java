@@ -2,7 +2,6 @@ package Helper;
 
 import java.io.File;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,6 +17,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import Dao.ClienteDAO;
+import Dao.ComparativaPreciosDAO;
 import Dao.RodamientoDAO;
 import Entities.Cotizacion;
 import Entities.ItemCotizacion;
@@ -29,7 +29,7 @@ import bean.RodamientoDTO;
 public class CotizacionesXML
 {
 	private static String root = "src\\xmls\\OV\\";
-	private static String paraArmar = "\\paraArmar";
+	private static String pendientes = "\\pendientes";
 	private static String armadas = "\\armadas";
 	private static String aceptadas = "\\aceptadas";
 	
@@ -51,8 +51,8 @@ public class CotizacionesXML
 			attribute.setValue(cot.getEstado());
 			raiz.setAttributeNode(attribute);
 			
-			attribute = xmlDoc.createAttribute("idOVenta");
-			attribute.setValue(Integer.toString(cot.getCliente().getOventa().getId()));
+			attribute = xmlDoc.createAttribute("idCliente");
+			attribute.setValue(Integer.toString(cot.getCliente().getId()));
 			raiz.setAttributeNode(attribute);
 			
 			for (ItemCotizacion itCot : cot.getItems())
@@ -64,11 +64,11 @@ public class CotizacionesXML
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("idRod");
-				attribute.setValue(itCot.getId().getRod().getCodigoSKF());
+				attribute.setValue(itCot.getRod().getCodigoSKF());
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("precio");
-				attribute.setValue(Float.toString(itCot.getPrecio()));
+				attribute.setValue(Float.toString(ComparativaPreciosDAO.getComparativa().buscarRodamiento(itCot.getRod().getCodigoSKF()).getPrecio()));
 				item.setAttributeNode(attribute);
 				
 				raiz.appendChild(item);
@@ -115,8 +115,7 @@ public class CotizacionesXML
 						attrs = d.getAttributes();
 						int cantidad = Integer.valueOf(attrs.getNamedItem("cantidad").getNodeValue());
 						RodamientoDTO rodDTO = RodamientoDAO.getRodamiento(attrs.getNamedItem("idRod").getNodeValue()).getDTO();
-						float precio = Float.valueOf(attrs.getNamedItem("precio").getNodeValue());
-						cotDTO.agregarItem(cantidad, rodDTO, precio);
+						cotDTO.agregarItem(cantidad, rodDTO);
 					}
 				}
 				return cotDTO;
@@ -133,7 +132,7 @@ public class CotizacionesXML
 	{
 		try
 		{
-			File dir = new File(root + Integer.toString(ov.getId()), paraArmar);
+			File dir = new File(root + Integer.toString(ov.getId()), pendientes);
 			return dir.listFiles(new XMLFilter());
 		}
 		catch (Exception e)
@@ -157,7 +156,7 @@ public class CotizacionesXML
 		return null;
 	}
 	
-	public static void generarXMLSolicitudCotizacion(List<ItemCotizacion> listaItems, OVenta ov)
+	public static void generarXMLSolicitudCotizacion(Cotizacion cot)
 	{
 		try
 		{
@@ -175,11 +174,11 @@ public class CotizacionesXML
 			attribute.setValue("nueva");
 			raiz.setAttributeNode(attribute);
 			
-			attribute = xmlDoc.createAttribute("idOVenta");
-			attribute.setValue(Integer.toString(ov.getId()));
+			attribute = xmlDoc.createAttribute("idCliente");
+			attribute.setValue(Integer.toString(cot.getCliente().getOventa().getId()));
 			raiz.setAttributeNode(attribute);
 			
-			for (ItemCotizacion itCot : listaItems)
+			for (ItemCotizacion itCot : cot.getItems())
 			{
 				Element item = xmlDoc.createElement("item");
 				
@@ -188,7 +187,7 @@ public class CotizacionesXML
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("idRod");
-				attribute.setValue(itCot.getId().getRod().getCodigoSKF());
+				attribute.setValue(itCot.getRod().getCodigoSKF());
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("precio");
@@ -201,7 +200,7 @@ public class CotizacionesXML
 			Transformer transformer = transformerFactory.newTransformer();
 			DOMSource source = new DOMSource(xmlDoc);
 			long timestamp = Calendar.getInstance().getTimeInMillis();
-			StreamResult result = new StreamResult(new File(root + Integer.toString(ov.getId()) + paraArmar, Float.toString(timestamp) + ".xml"));
+			StreamResult result = new StreamResult(new File(root + Integer.toString(cot.getCliente().getOventa().getId()) + pendientes, Float.toString(timestamp) + ".xml"));
 			transformer.transform(source, result);
 		}
 		catch (Exception e)
@@ -253,8 +252,7 @@ public class CotizacionesXML
 						attrs = d.getAttributes();
 						int cantidad = Integer.valueOf(attrs.getNamedItem("cantidad").getNodeValue());
 						RodamientoDTO rodDTO = RodamientoDAO.getRodamiento(attrs.getNamedItem("idRod").getNodeValue()).getDTO();
-						float precio = Float.valueOf(attrs.getNamedItem("precio").getNodeValue());
-						cotDTO.agregarItem(cantidad, rodDTO, precio);
+						cotDTO.agregarItem(cantidad, rodDTO);
 					}
 				}
 				return cotDTO;
@@ -285,8 +283,8 @@ public class CotizacionesXML
 			attribute.setValue(cotDTO.getEstado());
 			raiz.setAttributeNode(attribute);
 			
-			attribute = xmlDoc.createAttribute("idOVenta");
-			attribute.setValue(Integer.toString(cotDTO.getCliente().getOVenta().getId()));
+			attribute = xmlDoc.createAttribute("idCliente");
+			attribute.setValue(Integer.toString(cotDTO.getCliente().getId()));
 			raiz.setAttributeNode(attribute);
 			
 			for (ItemCotizacionDTO itCot : cotDTO.getItems())
@@ -302,7 +300,7 @@ public class CotizacionesXML
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("precio");
-				attribute.setValue(Float.toString(itCot.getPrecio()));
+				attribute.setValue(Float.toString(itCot.getProveedor().getItemProveedor(itCot.getRod()).getPrecio()));
 				item.setAttributeNode(attribute);
 				
 				raiz.appendChild(item);
