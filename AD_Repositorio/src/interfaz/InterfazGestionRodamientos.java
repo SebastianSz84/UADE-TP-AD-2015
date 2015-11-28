@@ -17,8 +17,6 @@ public interface InterfazGestionRodamientos extends Remote
 	
 	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) throws RemoteException;
 	
-	public void grabarNuevaCotizacion() throws RemoteException;
-	
 	public void agregarItem() throws RemoteException;
 	
 	public void leerXMLCotizacion() throws RemoteException;

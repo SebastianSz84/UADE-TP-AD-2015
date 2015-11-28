@@ -9,11 +9,9 @@ import java.util.List;
 import java.util.Vector;
 
 import Dao.ClienteDAO;
-import Dao.ComparativaPreciosDAO;
 import Dao.CotizacionDAO;
 import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
-import Entities.CCentral;
 import Entities.Cliente;
 import Entities.Cotizacion;
 import Entities.ItemCotizacion;
@@ -32,7 +30,6 @@ public class GestionRodamientos implements Serializable
 	private static final long serialVersionUID = 1L;
 	private static GestionRodamientos instancia;
 	private List<OVenta> oventas = new Vector<OVenta>();
-	private CCentral casaCentral;
 	
 	private GestionRodamientos()
 	{
@@ -67,8 +64,8 @@ public class GestionRodamientos implements Serializable
 						ItemCotizacion itCot = new ItemCotizacion();
 						itCot.setCantidad(itCotDTO.getCantidad());
 						itCot.setRod(rod);
-						itCot.setItProveedor(ComparativaPreciosDAO.getComparativa().getItemSKF(rod.getCodigoSKF()));
 						itCot.setCot(cot);
+						itCot.setCotizado(false);
 						listaItems.add(itCot);
 					}
 				}
@@ -77,11 +74,6 @@ public class GestionRodamientos implements Serializable
 			return CotizacionesXML.generarXMLSolicitudCotizacion(CotizacionDAO.saveCotizacion(cot));
 		}
 		return false;
-	}
-	
-	public void grabarNuevaCotizacion() throws RemoteException
-	{
-		
 	}
 	
 	public void agregarItem() throws RemoteException
@@ -117,6 +109,7 @@ public class GestionRodamientos implements Serializable
 			
 			if (ov != null)
 			{
+				CotizacionesXML.borrarXMLCotizacionAceptada(cot);
 				return CotizacionesXML.generarXMLAceptarCotizacion(ov.aceptarCotizacion(cot));
 			}
 		}
@@ -126,17 +119,20 @@ public class GestionRodamientos implements Serializable
 	public void leerXMLCotAceptadas()
 	{
 		File[] files = CotizacionesXML.obtenerXMLCotizacionesAceptadas();
-		for (int i = 0; i < files.length; i++)
+		if (files != null)
 		{
-			CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionAceptada(files[i]);
-			if (cotDTO != null)
+			for (int i = 0; i < files.length; i++)
 			{
-				Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
-				OVenta ov = OVentaDAO.getOVenta(cot.getCliente().getOVenta().getId());
-				if (ov != null)
+				CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionAceptada(files[i]);
+				if (cotDTO != null)
 				{
-					ov.crearPedidoVenta(cot);
-					files[i].delete();
+					Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
+					OVenta ov = OVentaDAO.getOVenta(cot.getCliente().getOVenta().getId());
+					if (ov != null)
+					{
+						ov.crearPedidoVenta(cot);
+						files[i].delete();
+					}
 				}
 			}
 		}

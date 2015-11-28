@@ -1,1 +1,5 @@
+ServletCrearCot
 {"nroCliente" : "1", "items" : [{"codigoSKF" : "SKF001","cantidad" : "20"},{"codigoSKF" : "SKF002","cantidad" : "18"}] }
+
+ServletAceptarCot
+{"idCotizacion" : "8"}

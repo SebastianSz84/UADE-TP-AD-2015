@@ -18,7 +18,6 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
 import Dao.ClienteDAO;
-import Dao.ComparativaPreciosDAO;
 import Dao.RodamientoDAO;
 import Entities.Cotizacion;
 import Entities.ItemCotizacion;
@@ -76,7 +75,18 @@ public class CotizacionesXML
 				item.setAttributeNode(attribute);
 				
 				attribute = xmlDoc.createAttribute("precio");
-				attribute.setValue(Float.toString(ComparativaPreciosDAO.getComparativa().buscarRodamiento(itCot.getRod().getCodigoSKF()).getPrecio()));
+				if (itCot.getItProveedor() != null)
+				{
+					attribute.setValue(Float.toString(itCot.getItProveedor().getPrecio()));
+				}
+				else
+				{
+					attribute.setValue("0");
+				}
+				item.setAttributeNode(attribute);
+				
+				attribute = xmlDoc.createAttribute("cotizado");
+				attribute.setValue(Boolean.toString(itCot.isCotizado()));
 				item.setAttributeNode(attribute);
 				
 				raiz.appendChild(item);
@@ -156,11 +166,11 @@ public class CotizacionesXML
 		return null;
 	}
 	
-	public static File[] obtenerXMLCotizacionArmadas()
+	public static File[] obtenerXMLCotizacionArmadas(OVenta ov)
 	{
 		try
 		{
-			File dir = new File(root, armadas);
+			File dir = new File(root + Integer.toString(ov.getId()), armadas);
 			return dir.listFiles(new XMLFilter());
 		}
 		catch (Exception e)
@@ -216,6 +226,10 @@ public class CotizacionesXML
 				attribute.setValue("0");
 				item.setAttributeNode(attribute);
 				
+				attribute = xmlDoc.createAttribute("cotizado");
+				attribute.setValue(Boolean.toString(false));
+				item.setAttributeNode(attribute);
+				
 				raiz.appendChild(item);
 			}
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -261,13 +275,19 @@ public class CotizacionesXML
 			if ("cotizacion".equalsIgnoreCase(n.getNodeName()))
 			{
 				NamedNodeMap attrs = n.getAttributes();
-				Node attribute = attrs.getNamedItem("estado");
+				Node attribute = attrs.getNamedItem("id");
+				int idCotizacion = Integer.parseInt(attribute.getNodeValue());
+				attribute = attrs.getNamedItem("estado");
 				String estado = attribute.getNodeValue();
+				attribute = attrs.getNamedItem("fecha");
+				Date fecha = ConversorFechas.parsearFecha(attribute.getNodeValue());
 				attribute = attrs.getNamedItem("idCliente");
 				int idCliente = Integer.valueOf(attribute.getNodeValue());
 				
 				CotizacionDTO cotDTO = new CotizacionDTO();
 				cotDTO.setEstado(estado);
+				cotDTO.setFecha(fecha);
+				cotDTO.setId(idCotizacion);
 				cotDTO.setCliente(ClienteDAO.getCliente(idCliente).getDTO());
 				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
 				{
@@ -303,7 +323,7 @@ public class CotizacionesXML
 			Element raiz = xmlDoc.createElement("Cotizacion");
 			xmlDoc.appendChild(raiz);
 			
-			Attr attribute = xmlDoc.createAttribute("idCotizacion");
+			Attr attribute = xmlDoc.createAttribute("id");
 			attribute.setValue(Integer.toString(cot.getId()));
 			raiz.setAttributeNode(attribute);
 			
@@ -335,6 +355,10 @@ public class CotizacionesXML
 				attribute.setValue(Float.toString(itCot.getItProveedor().getPrecio()));
 				item.setAttributeNode(attribute);
 				
+				attribute = xmlDoc.createAttribute("cotizado");
+				attribute.setValue(Boolean.toString(itCot.isCotizado()));
+				item.setAttributeNode(attribute);
+				
 				raiz.appendChild(item);
 			}
 			TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -350,5 +374,69 @@ public class CotizacionesXML
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public static void borrarXMLCotizacionAceptada(Cotizacion cot)
+	{
+		File[] files = obtenerXMLCotizacionArmadas(cot.getCliente().getOVenta());
+		
+		if (files != null)
+		{
+			for (File file : files)
+			{
+				if (leerXMLCotizacionArmada(file).getId() == cot.getId())
+				{
+					file.delete();
+				}
+			}
+		}
+	}
+	
+	public static CotizacionDTO leerXMLCotizacionArmada(File file)
+	{
+		try
+		{
+			final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			dbf.setNamespaceAware(false);
+			dbf.setValidating(false);
+			dbf.setIgnoringComments(true);
+			final DocumentBuilder db = dbf.newDocumentBuilder();
+			Document xmlDoc = db.parse(file);
+			Node n = xmlDoc.getFirstChild();
+			if ("Cotizacion".equalsIgnoreCase(n.getNodeName()))
+			{
+				NamedNodeMap attrs = n.getAttributes();
+				Node attribute = attrs.getNamedItem("id");
+				int idCotizacion = Integer.parseInt(attribute.getNodeValue());
+				attribute = attrs.getNamedItem("estado");
+				String estado = attribute.getNodeValue();
+				attribute = attrs.getNamedItem("fecha");
+				Date fecha = ConversorFechas.parsearFecha(attribute.getNodeValue());
+				attribute = attrs.getNamedItem("idCliente");
+				int idCliente = Integer.valueOf(attribute.getNodeValue());
+				
+				CotizacionDTO cotDTO = new CotizacionDTO();
+				cotDTO.setEstado(estado);
+				cotDTO.setFecha(fecha);
+				cotDTO.setId(idCotizacion);
+				cotDTO.setCliente(ClienteDAO.getCliente(idCliente).getDTO());
+				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
+				{
+					if ("item".equalsIgnoreCase(d.getNodeName()))
+					{
+						attrs = d.getAttributes();
+						int cantidad = Integer.valueOf(attrs.getNamedItem("cantidad").getNodeValue());
+						RodamientoDTO rodDTO = RodamientoDAO.getRodamiento(attrs.getNamedItem("idRod").getNodeValue()).getDTO();
+						cotDTO.agregarItem(cantidad, rodDTO);
+					}
+				}
+				return cotDTO;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

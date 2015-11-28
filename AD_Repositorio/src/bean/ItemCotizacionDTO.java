@@ -11,6 +11,7 @@ public class ItemCotizacionDTO implements Serializable
 	private int cantidad;
 	private RodamientoDTO rod;
 	private ProveedorDTO proveedor;
+	private boolean cotizado;
 	
 	public int getCantidad()
 	{
@@ -42,4 +43,18 @@ public class ItemCotizacionDTO implements Serializable
 		this.proveedor = proveedor;
 	}
 	
+	public boolean isCotizado()
+	{
+		return cotizado;
+	}
+	
+	public void setCotizado(boolean cotizado)
+	{
+		this.cotizado = cotizado;
+	}
+	
+	public static long getSerialversionuid()
+	{
+		return serialVersionUID;
+	}
 }

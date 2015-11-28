@@ -18,7 +18,6 @@ import Helper.CotizacionesXML;
 import bean.BultoDTO;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
-import bean.ItemCotizacionDTO;
 import bean.OVentaDTO;
 import bean.PedVentaDTO;
 
@@ -71,13 +70,20 @@ public class OVenta
 	public void generarCotizacion(CotizacionDTO cotDTO)
 	{
 		Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
-		cot.setEstado("Armada");
-		while (cotDTO.tenesItems())
+		if (cot != null)
 		{
-			ItemCotizacionDTO itCotDTO = cotDTO.dameItem();
-			cot.agregarItem(itCotDTO, ComparativaPrecios.getInstancia().getMejorPrecio(itCotDTO).getDTO());
+			cot.setEstado("Armada");
+			for (ItemCotizacion itCot : cot.getItems())
+			{
+				ItemProveedor itProv = ComparativaPrecios.getInstancia().getMejorPrecio(itCot.getDTO());
+				if (itProv != null)
+				{
+					itCot.setItProveedor(itProv);
+					itCot.setCotizado(true);
+				}
+			}
+			CotizacionesXML.generarXMLArmarCotizacion(CotizacionDAO.saveCotizacion(cot));
 		}
-		CotizacionesXML.generarXMLArmarCotizacion(CotizacionDAO.saveCotizacion(cot));
 	}
 	
 	public Cotizacion aceptarCotizacion(Cotizacion cot)

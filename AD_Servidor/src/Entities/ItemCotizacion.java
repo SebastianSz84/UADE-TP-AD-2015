@@ -11,6 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import bean.ItemCotizacionDTO;
+
 @Entity
 @Table(name = "ItemCotizacion")
 public class ItemCotizacion
@@ -33,6 +35,9 @@ public class ItemCotizacion
 	
 	@Column
 	private int cantidad;
+	
+	@Column(nullable = false)
+	private boolean cotizado;
 	
 	public float getSubtotal()
 	{
@@ -87,5 +92,28 @@ public class ItemCotizacion
 	public void setCot(Cotizacion cot)
 	{
 		this.cot = cot;
+	}
+	
+	public ItemCotizacionDTO getDTO()
+	{
+		ItemCotizacionDTO itCotDTO = new ItemCotizacionDTO();
+		itCotDTO.setCantidad(cantidad);
+		if (itProveedor != null)
+		{
+			itCotDTO.setProveedor(itProveedor.getProveedor().getDTO());
+		}
+		itCotDTO.setRod(rod.getDTO());
+		itCotDTO.setCotizado(cotizado);
+		return itCotDTO;
+	}
+	
+	public boolean isCotizado()
+	{
+		return cotizado;
+	}
+	
+	public void setCotizado(boolean cotizado)
+	{
+		this.cotizado = cotizado;
 	}
 }

@@ -33,11 +33,6 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 		return GestionRodamientos.getInstancia().solicitarCotizacion(nroCliente, itemsCotLista);
 	}
 	
-	public void grabarNuevaCotizacion() throws RemoteException
-	{
-		GestionRodamientos.getInstancia().grabarNuevaCotizacion();
-	}
-	
 	public void agregarItem() throws RemoteException
 	{
 		GestionRodamientos.getInstancia().agregarItem();
