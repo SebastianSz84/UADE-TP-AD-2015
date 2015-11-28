@@ -6,6 +6,7 @@ public class ProveedorDTO
 {
 	private int codigoProveedor;
 	private String direccion;
+	private String nombre;
 	private ArrayList<ItemProveedorDTO> rodamientos = new ArrayList<ItemProveedorDTO>();
 	
 	public int getCodigoProveedor()
@@ -21,6 +22,16 @@ public class ProveedorDTO
 	public void setDireccion(String direccion)
 	{
 		this.direccion = direccion;
+	}
+	
+	public String getNombre()
+	{
+		return nombre;
+	}
+	
+	public void setNombre(String nombre)
+	{
+		this.nombre = nombre;
 	}
 	
 	public void setCodigoProveedor(int codigoProveedor)

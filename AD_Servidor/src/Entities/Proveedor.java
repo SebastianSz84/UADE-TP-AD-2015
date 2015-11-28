@@ -48,6 +48,7 @@ public class Proveedor
 	public void modificar(ProveedorDTO proveedorDTO)
 	{
 		this.direccion = proveedorDTO.getDireccion();
+		this.nombre = proveedorDTO.getNombre();
 	}
 	
 	public int getCodigoProveedor()
