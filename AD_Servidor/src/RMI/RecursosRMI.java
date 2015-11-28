@@ -104,17 +104,17 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 		CCentral.getInstancia().modificacionProveedor(proveedorDTO);
 	}
 	
-	public void altaCliente(ClienteDTO clienteDTO)
+	public void altaCliente(ClienteDTO clienteDTO) throws RemoteException
 	{
 		GestionRodamientos.getInstancia().altaCliente(clienteDTO);
 	}
 	
-	public void bajaCliente(int oVenta, int codigoCliente)
+	public void bajaCliente(int oVenta, int codigoCliente) throws RemoteException
 	{
 		GestionRodamientos.getInstancia().bajaCliente(oVenta, codigoCliente);
 	}
 	
-	public void modificacionCliente(ClienteDTO clienteDTO)
+	public void modificacionCliente(ClienteDTO clienteDTO) throws RemoteException
 	{
 		GestionRodamientos.getInstancia().modificacionCliente(clienteDTO);
 	}

@@ -58,9 +58,9 @@ public interface InterfazGestionRodamientos extends Remote
 	
 	public void modificacionProveedor(ProveedorDTO proveedorDTO) throws RemoteException;
 	
-	public void altaCliente(ClienteDTO clienteDTO);
+	public void altaCliente(ClienteDTO clienteDTO) throws RemoteException;
 	
-	public void bajaCliente(int oVenta, int codigoCliente);
+	public void bajaCliente(int oVenta, int codigoCliente) throws RemoteException;
 	
-	public void modificacionCliente(ClienteDTO clienteDTO);
+	public void modificacionCliente(ClienteDTO clienteDTO) throws RemoteException;
 }
