@@ -67,34 +67,28 @@ public class BaseDAO
 	
 	public static <T> T getEntity(Class<T> cls, int id)
 	{
-		Transaction tx = getSession().beginTransaction();
 		try
 		{
 			T entity = getSession().get(cls, id);
-			tx.commit();
 			return entity;
 		}
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
-			tx.rollback();
 		}
 		return null;
 	}
 	
 	public static <T> T getEntity(Class<T> cls, String id)
 	{
-		Transaction tx = getSession().beginTransaction();
 		try
 		{
 			T entity = getSession().get(cls, id);
-			tx.commit();
 			return entity;
 		}
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
-			tx.rollback();
 		}
 		return null;
 	}
