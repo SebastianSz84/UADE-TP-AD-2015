@@ -7,6 +7,7 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
+import bean.ProveedorDTO;
 public class BusinessDelegate
 {
 	InterfazGestionRodamientos objetoRemoto;
@@ -87,5 +88,22 @@ public class BusinessDelegate
 		}
 
 		return 0;
+		CCentral.getInstancia().modificacionProveedor(proveedorDTO);
 	}
+	
+	public void altaProveedor(ProveedorDTO proveedorDTO)
+	{
+		CCentral.getInstancia().altaProveedor(proveedorDTO);
+	}
+	
+	public void bajaProveedor(ProveedorDTO proveedorDTO)
+	{
+		CCentral.getInstancia().modificacionProveedor(proveedorDTO);
+	}
+	
+	public void modificacionProveedor(int codigoProveedor)
+	{
+		CCentral.getInstancia().bajaProveedor(codigoProveedor);
+	}
+	
 }

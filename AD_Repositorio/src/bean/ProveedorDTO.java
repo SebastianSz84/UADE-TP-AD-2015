@@ -5,11 +5,22 @@ import java.util.ArrayList;
 public class ProveedorDTO
 {
 	private int codigoProveedor;
+	private String direccion;
 	private ArrayList<ItemProveedorDTO> rodamientos = new ArrayList<ItemProveedorDTO>();
 	
 	public int getCodigoProveedor()
 	{
 		return codigoProveedor;
+	}
+	
+	public String getDireccion()
+	{
+		return direccion;
+	}
+	
+	public void setDireccion(String direccion)
+	{
+		this.direccion = direccion;
 	}
 	
 	public void setCodigoProveedor(int codigoProveedor)

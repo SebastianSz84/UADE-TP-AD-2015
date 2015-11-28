@@ -18,9 +18,24 @@ public class CCentral
 {
 	private static CCentral instancia;
 	
-	/*
-	 * public void altaProveedor( ProveedorDTO) { } public void bajaProveedor( ProveedorDTO) { } public void modificacionProveedor( ProveedorDTO) { } public CotizacionDTO crearCotizacion() { return null; }
-	 */
+	public void altaProveedor(ProveedorDTO proveedorDTO)
+	{
+		Proveedor proveedor = new Proveedor(proveedorDTO);
+		ProveedorDAO.saveEntity(proveedor);
+	}
+	
+	public void bajaProveedor(int codigoProveedor)
+	{
+		Proveedor proveedor = buscarProveedor(codigoProveedor);
+		ProveedorDAO.deleteEntity(proveedor);
+	}
+	
+	public void modificacionProveedor(ProveedorDTO proveedorDTO)
+	{
+		Proveedor proveedor = buscarProveedor(proveedorDTO.getCodigoProveedor());
+		proveedor.modificar(proveedorDTO);
+		ProveedorDAO.saveEntity(proveedor);
+	}
 	
 	public void crearOC(ItemPedVenta item)
 	{

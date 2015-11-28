@@ -35,6 +35,18 @@ public class Proveedor
 		items = new ArrayList<ItemProveedor>();
 	}
 	
+	public Proveedor(ProveedorDTO proveedorDTO)
+	{
+		this();
+		
+		this.modificar(proveedorDTO);
+	}
+	
+	public void modificar(ProveedorDTO proveedorDTO)
+	{
+		this.direccion = proveedorDTO.getDireccion();
+	}
+	
 	public int getCodigoProveedor()
 	{
 		return codigoProveedor;
