@@ -30,7 +30,7 @@ public class AD_Servidor_Tests
 			ov.setNombre("TestOVName");
 			ov.setDireccion("TestOVAddress");
 			
-			cliente = new Cliente();
+			// cliente = new Cliente();
 			cliente.setNombre("TestName");
 			cliente.setDireccion("TestAddress");
 			cliente.setOventa(ov);
@@ -49,7 +49,7 @@ public class AD_Servidor_Tests
 		finally
 		{
 			ov.getClientes().remove(cliente);
-			ClienteDAO.deleteCliente(cliente);
+			// ClienteDAO.deleteCliente(cliente);
 			OVentaDAO.deleteEntity(ov);
 		}
 	}

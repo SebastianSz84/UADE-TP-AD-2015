@@ -207,4 +207,9 @@ public class GestionRodamientos implements Serializable
 		Cliente cliente = ClienteDAO.getCliente(nroCliente);
 		return cliente != null;
 	}
+	
+	public CotizacionDTO leerCotizacion(int idCotizacion) throws RemoteException
+	{
+		return CotizacionDAO.getCotizacion(idCotizacion).getDTO();
+	}
 }

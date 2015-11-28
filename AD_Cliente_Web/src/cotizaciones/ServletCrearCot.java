@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utils.ParserJson;
-import RMI.GestionRodamientos;
 import bean.ItemCotizacionDTO;
 import bean.RodamientoDTO;
 
@@ -40,7 +39,7 @@ public class ServletCrearCot extends HttpServlet {
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<RodamientoDTO> lista = GestionRodamientos.getInstancia().getListaRodamientos();
+		List<RodamientoDTO> lista = BusinessDelegate.getInstancia().getListaRodamientos();
 		String listaGson = new Gson().toJson(lista);
 		PrintWriter out = response.getWriter();
 		response.setCharacterEncoding("utf8");

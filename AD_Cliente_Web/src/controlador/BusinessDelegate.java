@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import bean.ItemCotizacionDTO;
+import bean.RodamientoDTO;
 
 public class BusinessDelegate {
 	InterfazGestionRodamientos objetoRemoto;
@@ -72,5 +73,14 @@ public class BusinessDelegate {
 			e.printStackTrace();
 		}
 		return false;
+	}
+
+	public List<RodamientoDTO> getListaRodamientos() {
+		try {
+			return objetoRemoto.getListaRodamientos();
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
