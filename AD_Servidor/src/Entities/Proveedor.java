@@ -30,6 +30,9 @@ public class Proveedor
 	@Column
 	private String direccion;
 	
+	@Column
+	private String nombre;
+	
 	public Proveedor()
 	{
 		items = new ArrayList<ItemProveedor>();
@@ -75,6 +78,16 @@ public class Proveedor
 	public void setDireccion(String direccion)
 	{
 		this.direccion = direccion;
+	}
+	
+	public String getNombre()
+	{
+		return nombre;
+	}
+	
+	public void setNombre(String nombre)
+	{
+		this.nombre = nombre;
 	}
 	
 	public ItemProveedor getItemProveedor(Rodamiento rodamiento)

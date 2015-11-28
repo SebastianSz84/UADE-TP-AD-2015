@@ -40,7 +40,7 @@ public class ItemProveedor
 	@JoinColumn(name = "codigoSKF")
 	private Rodamiento rodamiento;
 	
-	public ItemProveedor(Proveedor proveedor, float precio, String condiciones, boolean disponible, Rodamiento rodamiento)
+	public ItemProveedor(Proveedor proveedor, String codigo, float precio, String condiciones, boolean disponible, Rodamiento rodamiento)
 	{
 		this.setProveedor(proveedor);
 		this.codigo = codigo;
