@@ -46,12 +46,13 @@ public class BusinessDelegate {
 		return false;
 	}
 
-	public void solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) {
+	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) {
 		try {
-			objetoRemoto.solicitarCotizacion(nroCliente, itemsCotLista);
+			return objetoRemoto.solicitarCotizacion(nroCliente, itemsCotLista);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	public boolean checkearSiClienteExiste(int nroCliente) {
@@ -59,6 +60,15 @@ public class BusinessDelegate {
 			return objetoRemoto.checkearSiClienteExiste(nroCliente);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean aceptarCotizacion(int idCotizacion) {
+		try {
+			return objetoRemoto.aceptarCotizacion(idCotizacion);
+		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
 		return false;

@@ -36,7 +36,7 @@ public class Cliente
 	
 	@ManyToOne
 	@JoinColumn(name = "idOVenta")
-	private OVenta oventa;
+	private OVenta oVenta;
 	
 	public int getId()
 	{
@@ -68,14 +68,14 @@ public class Cliente
 		this.direccion = direccion;
 	}
 	
-	public OVenta getOventa()
+	public OVenta getOVenta()
 	{
-		return oventa;
+		return oVenta;
 	}
 	
-	public void setOventa(OVenta oventa)
+	public void setOventa(OVenta oVenta)
 	{
-		this.oventa = oventa;
+		this.oVenta = oVenta;
 	}
 	
 	public ClienteDTO getDTO()
@@ -83,7 +83,7 @@ public class Cliente
 		ClienteDTO cliDTO = new ClienteDTO();
 		cliDTO.setDireccion(this.direccion);
 		cliDTO.setNombre(this.nombre);
-		cliDTO.setOVenta(this.oventa.getDTO());
+		cliDTO.setOVenta(this.oVenta.getDTO());
 		cliDTO.setId(this.id);
 		return cliDTO;
 	}

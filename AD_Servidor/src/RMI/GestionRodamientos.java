@@ -36,8 +36,6 @@ public class GestionRodamientos implements Serializable
 	
 	private GestionRodamientos()
 	{
-		// ThreadCotizaciones thCot = new ThreadCotizaciones();
-		// thCot.start();
 	}
 	
 	public List<RodamientoDTO> getListaRodamientos() throws RemoteException
@@ -50,7 +48,7 @@ public class GestionRodamientos implements Serializable
 		return listaRodDTO;
 	}
 	
-	public void solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) throws RemoteException
+	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) throws RemoteException
 	{
 		Cliente cli = ClienteDAO.getCliente(nroCliente);
 		if (cli != null)
@@ -76,8 +74,9 @@ public class GestionRodamientos implements Serializable
 				}
 			}
 			cot.setItems(listaItems);
-			CotizacionesXML.generarXMLSolicitudCotizacion(CotizacionDAO.saveCotizacion(cot));
+			return CotizacionesXML.generarXMLSolicitudCotizacion(CotizacionDAO.saveCotizacion(cot));
 		}
+		return false;
 	}
 	
 	public void grabarNuevaCotizacion() throws RemoteException
@@ -109,19 +108,19 @@ public class GestionRodamientos implements Serializable
 		}
 	}
 	
-	public void aceptarCotizacion(int nroCotizacion) throws RemoteException
+	public boolean aceptarCotizacion(int nroCotizacion) throws RemoteException
 	{
 		Cotizacion cot = CotizacionDAO.getCotizacion(nroCotizacion);
 		if (cot != null)
 		{
-			CotizacionDTO cotDTO = cot.getDTO();
-			OVenta ov = OVentaDAO.getOVenta(cotDTO.getCliente().getOVenta().getId());
+			OVenta ov = OVentaDAO.getOVenta(cot.getCliente().getOVenta().getId());
 			
 			if (ov != null)
 			{
-				CotizacionesXML.generarXMLAceptarCotizacion(ov.aceptarCotizacion(cotDTO));
+				return CotizacionesXML.generarXMLAceptarCotizacion(ov.aceptarCotizacion(cot));
 			}
 		}
+		return false;
 	}
 	
 	public void leerXMLCotAceptadas()
@@ -133,7 +132,7 @@ public class GestionRodamientos implements Serializable
 			if (cotDTO != null)
 			{
 				Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
-				OVenta ov = OVentaDAO.getOVenta(cot.getCliente().getOventa().getId());
+				OVenta ov = OVentaDAO.getOVenta(cot.getCliente().getOVenta().getId());
 				if (ov != null)
 				{
 					ov.crearPedidoVenta(cot);
@@ -202,12 +201,6 @@ public class GestionRodamientos implements Serializable
 	}
 	
 	public void leerXMLCotizacion() throws RemoteException
-	{
-		// TODO Auto-generated method stub
-		
-	}
-	
-	public void aceptarCotizacion() throws RemoteException
 	{
 		// TODO Auto-generated method stub
 		
