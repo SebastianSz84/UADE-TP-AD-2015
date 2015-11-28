@@ -31,7 +31,7 @@ public class ComparativaPrecios
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "ItemsComparativa", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns =
 	{
-		@JoinColumn(name = "idItemProveedor", referencedColumnName = "codigoProveedor")
+		@JoinColumn(name = "idItemProveedor", referencedColumnName = "id")
 	})
 	private List<ItemProveedor> items;
 	
