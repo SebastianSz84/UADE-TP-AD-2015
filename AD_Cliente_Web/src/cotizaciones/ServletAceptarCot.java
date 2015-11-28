@@ -1,6 +1,7 @@
 package cotizaciones;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -43,10 +44,7 @@ public class ServletAceptarCot extends HttpServlet {
 
 		String strCot = jObj.get("idCotizacion").getAsString();
 
-		if (BusinessDelegate.getInstancia().aceptarCotizacion(Integer.parseInt(strCot))) {
-			// Actualizar response con texto de OK.
-		} else {
-			// Actualizar response con texto de Not OK.
-		}
+		PrintWriter out = response.getWriter();
+		out.print(BusinessDelegate.getInstancia().aceptarCotizacion(Integer.parseInt(strCot)));
 	}
 }

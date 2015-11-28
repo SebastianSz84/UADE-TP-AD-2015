@@ -88,7 +88,7 @@ angular.module('distribuidas')
         };
         
         $scope.aceptarCotizacion = function(cotId){
-        	var data = { 'nroCliente': $rootScope.nroCliente, 'cotId': cotId};
+        	var data = { 'nroCliente': $rootScope.nroCliente, 'idCotizacion': cotId};
         	$http({
         		'data': data,
                 'method':'post',
