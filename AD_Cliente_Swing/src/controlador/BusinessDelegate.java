@@ -93,17 +93,28 @@ public class BusinessDelegate
 
 	public void altaProveedor(ProveedorDTO proveedorDTO)
 	{
-		objetoRemoto.altaProveedor(proveedorDTO);
+		try {
+			objetoRemoto.altaProveedor(proveedorDTO);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void bajaProveedor(int codigoProveedor)
 	{
-		objetoRemoto.bajaProveedor(codigoProveedor);
+		try {
+			objetoRemoto.bajaProveedor(codigoProveedor);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void modificacionProveedor(ProveedorDTO proveedorDTO)
 	{
-		objetoRemoto.modificacionProveedor(proveedorDTO);
+		try {
+			objetoRemoto.modificacionProveedor(proveedorDTO);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+		}
 	}
-
 }

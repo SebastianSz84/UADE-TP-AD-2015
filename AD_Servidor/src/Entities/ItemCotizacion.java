@@ -100,7 +100,7 @@ public class ItemCotizacion
 		itCotDTO.setCantidad(cantidad);
 		if (itProveedor != null)
 		{
-			itCotDTO.setProveedor(itProveedor.getProveedor().getDTO());
+			itCotDTO.setItProveedor(itProveedor.getDTO());
 		}
 		itCotDTO.setRod(rod.getDTO());
 		itCotDTO.setCotizado(cotizado);

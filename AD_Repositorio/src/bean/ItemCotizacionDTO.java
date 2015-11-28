@@ -10,7 +10,7 @@ public class ItemCotizacionDTO implements Serializable
 	private static final long serialVersionUID = 1L;
 	private int cantidad;
 	private RodamientoDTO rod;
-	private ProveedorDTO proveedor;
+	private ItemProveedorDTO itProveedor;
 	private boolean cotizado;
 	
 	public int getCantidad()
@@ -33,16 +33,6 @@ public class ItemCotizacionDTO implements Serializable
 		this.rod = rod;
 	}
 	
-	public ProveedorDTO getProveedor()
-	{
-		return proveedor;
-	}
-	
-	public void setProveedor(ProveedorDTO proveedor)
-	{
-		this.proveedor = proveedor;
-	}
-	
 	public boolean isCotizado()
 	{
 		return cotizado;
@@ -56,5 +46,15 @@ public class ItemCotizacionDTO implements Serializable
 	public static long getSerialversionuid()
 	{
 		return serialVersionUID;
+	}
+	
+	public ItemProveedorDTO getItProveedor()
+	{
+		return itProveedor;
+	}
+	
+	public void setItProveedor(ItemProveedorDTO itProveedor)
+	{
+		this.itProveedor = itProveedor;
 	}
 }
