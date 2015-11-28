@@ -17,6 +17,7 @@ import Entities.Cotizacion;
 import Entities.ItemCotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
+import Helper.BultosXML;
 import Helper.CotizacionesXML;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
@@ -140,6 +141,23 @@ public class GestionRodamientos implements Serializable
 		}
 	}
 	
+	public void leerXMLBultos()
+	{
+		oventas = OVentaDAO.getAll();
+		for (OVenta ov : oventas)
+		{
+			File[] files = BultosXML.obtenerXMLBultos(ov);
+			if (files != null)
+			{
+				for (int i = 0; i < files.length; i++)
+				{
+					
+					files[i].delete();
+				}
+			}
+		}
+	}
+	
 	/*
 	 * public XML leerXMLBultosAEnviar() { } public void borrarXMLPedidoCotizacion(XML xml) { } public void borrarXMLDeBultoAEnviar( XML xml) { }
 	 */
@@ -246,4 +264,5 @@ public class GestionRodamientos implements Serializable
 			return cliente.getDTO();
 		return null;
 	}
+	
 }
