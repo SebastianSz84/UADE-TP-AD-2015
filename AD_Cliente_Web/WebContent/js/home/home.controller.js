@@ -6,7 +6,6 @@ angular.module('distribuidas')
         $scope.cotizaciones = [];
         $scope.rodamientos = [];
         $scope.armandoCot = false;
-        $rootScope.nroCliente = 2;
         $scope.datos = { openCot:0};
 
         $scope.verCotizaciones = function(){
