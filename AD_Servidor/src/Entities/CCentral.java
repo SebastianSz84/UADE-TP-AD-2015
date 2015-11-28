@@ -9,6 +9,7 @@ import Dao.OCProveedorDAO;
 import Dao.PedVentaDAO;
 import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
+import Helper.BultosXML;
 import Helper.ProveedorListaPreciosXML;
 import bean.ItemProveedorDTO;
 import bean.ProveedorDTO;
@@ -100,7 +101,7 @@ public class CCentral
 				}
 				bulto.agregarRodamientoComprado(rodamiento, cantidadUsada);
 				BultoDAO.saveEntity(bulto);
-				// Agregar GenerarBultoXML para cada bulto con la of de venta involucrada
+				BultosXML.GenerarXMLBulto(bulto);
 				precio = itemPedVenta.getPrecio();
 			}
 		}
