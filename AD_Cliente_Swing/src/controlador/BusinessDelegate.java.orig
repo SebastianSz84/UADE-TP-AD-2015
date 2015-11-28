@@ -95,23 +95,27 @@ public class BusinessDelegate
 	{
 		objetoRemoto.altaProveedor(proveedorDTO);
 	}
+<<<<<<< HEAD
 
 	public void bajaProveedor(int codigoProveedor)
 	{
-<<<<<<< HEAD
 		objetoRemoto.modificacionProveedor(codigoProveedor);
-=======
-		objetoRemoto.bajaProveedor(proveedorDTO);
->>>>>>> 23b8ffce3b82810ed3aae0b24fe401a2f0596e7d
 	}
 
 	public void modificacionProveedor(ProveedorDTO proveedorDTO)
 	{
-<<<<<<< HEAD
 		objetoRemoto.bajaProveedor(proveedorDTO);
 =======
-		objetoRemoto.modificacionProveedor(codigoProveedor);
->>>>>>> 23b8ffce3b82810ed3aae0b24fe401a2f0596e7d
+	
+	public void bajaProveedor(int codigoProveedor)
+	{
+		objetoRemoto.bajaProveedor(codigoProveedor);
+	}
+	
+	public void modificacionProveedor(ProveedorDTO proveedorDTO)
+	{
+		objetoRemoto.modificacionProveedor(proveedorDTO);
+>>>>>>> nop...
 	}
 
 }
