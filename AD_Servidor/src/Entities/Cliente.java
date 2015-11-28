@@ -20,6 +20,10 @@ import bean.ClienteDTO;
 @Table(name = "Cliente")
 public class Cliente
 {
+	Cliente()
+	{
+		
+	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
