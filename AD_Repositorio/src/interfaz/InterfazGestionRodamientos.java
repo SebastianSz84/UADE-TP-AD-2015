@@ -55,7 +55,7 @@ public interface InterfazGestionRodamientos extends Remote
 	
 	public void altaProveedor(ProveedorDTO proveedorDTO);
 	
-	public void bajaProveedor(int codigoProveedor);
+	public void bajaProveedor(ProveedorDTO proveedorDTO);
 	
-	public void modificacionProveedor(ProveedorDTO proveedorDTO);
+	public void modificacionProveedor(int codigoProveedor);
 }

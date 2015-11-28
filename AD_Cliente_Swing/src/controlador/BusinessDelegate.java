@@ -97,12 +97,12 @@ public class BusinessDelegate
 	
 	public void bajaProveedor(ProveedorDTO proveedorDTO)
 	{
-		objetoRemoto.modificacionProveedor(proveedorDTO);
+		objetoRemoto.bajaProveedor(proveedorDTO);
 	}
 	
 	public void modificacionProveedor(int codigoProveedor)
 	{
-		objetoRemoto.bajaProveedor(codigoProveedor);
+		objetoRemoto.modificacionProveedor(codigoProveedor);
 	}
 	
 }
