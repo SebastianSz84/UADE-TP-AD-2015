@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import bean.FormaDePagoDTO;
+
 @Entity
 public class FormaPago
 {
@@ -29,7 +31,7 @@ public class FormaPago
 	private boolean activa;
 	
 	@ManyToMany
-	@JoinTable(name = "Clientes_Formas", joinColumns = @JoinColumn(name = "idForma") , inverseJoinColumns = @JoinColumn(name = "id") )
+	@JoinTable(name = "Clientes_Formas", joinColumns = @JoinColumn(name = "idForma"), inverseJoinColumns = @JoinColumn(name = "id"))
 	private List<Cliente> clientes;
 	
 	public String getDescripcion()
@@ -90,6 +92,19 @@ public class FormaPago
 	public void setId(int id)
 	{
 		this.id = id;
+	}
+	
+	public FormaDePagoDTO getDTO()
+	{
+		FormaDePagoDTO forma = new FormaDePagoDTO();
+		
+		forma.setActiva(this.activa);
+		forma.setCuotas(this.cuotas);
+		forma.setDescripcion(this.descripcion);
+		forma.setDias(this.dias);
+		forma.setPorcentaje(this.porcentaje);
+		
+		return forma;
 	}
 	
 }

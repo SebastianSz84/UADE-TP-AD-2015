@@ -48,20 +48,20 @@ public class OVenta
 		clientes = new ArrayList<Cliente>();
 	}
 	
-	public void agregarCliente(ClienteDTO clienteDTO)
+	public void altaCliente(ClienteDTO clienteDTO)
 	{
-		Cliente cliente = new Cliente(clienteDTO);
+		Cliente cliente = new Cliente(this, clienteDTO);
 		ClienteDAO.saveEntity(cliente);
 	}
 	
-	public void modificarCliente(ClienteDTO clienteDTO)
+	public void modificacionCliente(ClienteDTO clienteDTO)
 	{
 		Cliente cliente = buscarCliente(clienteDTO.getId());
-		cliente.modificar(clienteDTO);
+		cliente.modificar(this, clienteDTO);
 		ClienteDAO.saveEntity(cliente);
 	}
 	
-	public void eliminarCliente(int idCliente)
+	public void bajaCliente(int idCliente)
 	{
 		Cliente cliente = buscarCliente(idCliente);
 		ClienteDAO.deleteEntity(cliente);

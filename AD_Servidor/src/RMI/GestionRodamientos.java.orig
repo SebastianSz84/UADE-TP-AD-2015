@@ -209,11 +209,11 @@ public class GestionRodamientos implements Serializable
 		return cliente != null;
 	}
 	
+<<<<<<< HEAD
 	public CotizacionDTO leerCotizacion(int idCotizacion) throws RemoteException
 	{
 		return CotizacionDAO.getCotizacion(idCotizacion).getDTO();
-	}
-	
+=======
 	public void altaCliente(ClienteDTO clienteDTO)
 	{
 		OVenta oventa = OVentaDAO.getOVenta(clienteDTO.getOVenta().getId());
@@ -230,5 +230,6 @@ public class GestionRodamientos implements Serializable
 	{
 		OVenta oventa = OVentaDAO.getOVenta(clienteDTO.getOVenta().getId());
 		oventa.modificacionCliente(clienteDTO);
+>>>>>>> Forma de Pago DTO
 	}
 }

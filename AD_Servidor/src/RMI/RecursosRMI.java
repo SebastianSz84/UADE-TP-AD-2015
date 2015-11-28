@@ -7,6 +7,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
 import Entities.CCentral;
+import bean.ClienteDTO;
 import bean.ItemCotizacionDTO;
 import bean.ProveedorDTO;
 import bean.RodamientoDTO;
@@ -101,5 +102,20 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 	public void modificacionProveedor(ProveedorDTO proveedorDTO) throws RemoteException
 	{
 		CCentral.getInstancia().modificacionProveedor(proveedorDTO);
+	}
+	
+	public void altaCliente(ClienteDTO clienteDTO)
+	{
+		GestionRodamientos.getInstancia().altaCliente(clienteDTO);
+	}
+	
+	public void bajaCliente(int oVenta, int codigoCliente)
+	{
+		GestionRodamientos.getInstancia().bajaCliente(oVenta, codigoCliente);
+	}
+	
+	public void modificacionCliente(ClienteDTO clienteDTO)
+	{
+		GestionRodamientos.getInstancia().modificacionCliente(clienteDTO);
 	}
 }

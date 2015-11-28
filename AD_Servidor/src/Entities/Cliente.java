@@ -1,6 +1,7 @@
 package Entities;
 
 import java.util.List;
+import java.util.Vector;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +14,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import Dao.OVentaDAO;
+import Dao.FormaPagoDAO;
 import bean.ClienteDTO;
+import bean.FormaDePagoDTO;
 
 @Entity
 @Table(name = "Cliente")
@@ -90,18 +92,31 @@ public class Cliente
 		cliDTO.setNombre(this.nombre);
 		cliDTO.setOVenta(this.oVenta.getDTO());
 		cliDTO.setId(this.id);
+		
+		List<FormaDePagoDTO> formasDTO = new Vector<FormaDePagoDTO>();
+		for (FormaPago forma : formas)
+		{
+			formasDTO.add(forma.getDTO());
+		}
+		
+		cliDTO.setFormasDepago(formasDTO);
 		return cliDTO;
 	}
 	
-	public Cliente(ClienteDTO clienteDTO)
+	public Cliente(OVenta oventa, ClienteDTO clienteDTO)
 	{
-		modificar(clienteDTO);
+		modificar(oventa, clienteDTO);
 	}
 	
-	public void modificar(ClienteDTO clienteDTO)
+	public void modificar(OVenta oventa, ClienteDTO clienteDTO)
 	{
 		this.nombre = clienteDTO.getNombre();
 		this.direccion = clienteDTO.getDireccion();
-		this.oVenta = OVentaDAO.getOVenta(clienteDTO.getId());
+		this.oVenta = oventa;
+		
+		for (FormaDePagoDTO forma : clienteDTO.getFormasDepago())
+		{
+			formas.add(FormaPagoDAO.getFormaPago(forma.getId()));
+		}
 	}
 }

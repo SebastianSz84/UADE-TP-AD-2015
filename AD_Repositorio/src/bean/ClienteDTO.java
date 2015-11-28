@@ -1,12 +1,15 @@
 package bean;
 
+import java.util.List;
+import java.util.Vector;
+
 public class ClienteDTO
 {
-	
 	private int id;
 	private String nombre;
 	private String direccion;
 	private OVentaDTO oVenta;
+	private List<FormaDePagoDTO> formasDepago = new Vector<FormaDePagoDTO>();
 	
 	public int getId()
 	{
@@ -47,4 +50,15 @@ public class ClienteDTO
 	{
 		this.oVenta = oVenta;
 	}
+	
+	public List<FormaDePagoDTO> getFormasDepago()
+	{
+		return formasDepago;
+	}
+	
+	public void setFormasDepago(List<FormaDePagoDTO> formasDepago)
+	{
+		this.formasDepago = formasDepago;
+	}
+	
 }
