@@ -23,6 +23,7 @@ public class MenuPrincipal extends javax.swing.JFrame
 {
 	private JMenuBar jMenuBar1;
 	private JMenuItem jMenuItem1;
+	private JMenuItem jMenuItem8;
 	private JMenuItem jMenuItem2;
 	private JMenuItem jMenuItem3;
 	private JMenuItem jMenuItem4;
@@ -32,6 +33,8 @@ public class MenuPrincipal extends javax.swing.JFrame
 	private JMenu jMenu1;
 	private JMenu jMenu2;
 	private JMenu jMenu3;
+	private JMenuItem jMenuItem10;
+	private JMenuItem jMenuItem9;
 	private JMenu jMenu4;
 
 	/**
@@ -147,6 +150,41 @@ public class MenuPrincipal extends javax.swing.JFrame
 								new ModificarProveedor();
 							}
 						});
+					}
+					{
+						jMenu4 = new JMenu();
+						jMenuBar1.add(jMenu4);
+						jMenu4.setText("Cliente");
+						{
+							jMenuItem8 = new JMenuItem();
+							jMenu4.add(jMenuItem8);
+							jMenuItem8.setText("Alta");
+							jMenuItem8.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent evt) {
+									new AltaCliente();
+								}
+							});
+						}
+						{
+							jMenuItem9 = new JMenuItem();
+							jMenu4.add(jMenuItem9);
+							jMenuItem9.setText("Baja");
+							jMenuItem9.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent evt) {
+									new BajaCliente();
+								}
+							});
+						}
+						{
+							jMenuItem10 = new JMenuItem();
+							jMenu4.add(jMenuItem10);
+							jMenuItem10.setText("Modificacion");
+							jMenuItem10.addActionListener(new ActionListener() {
+								public void actionPerformed(ActionEvent evt) {
+									new ModificarCliente();
+								}
+							});
+						}
 					}
 					{
 						jMenuItem7 = new JMenu();
