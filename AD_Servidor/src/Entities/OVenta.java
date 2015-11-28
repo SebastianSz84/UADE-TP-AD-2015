@@ -12,9 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
+import Dao.ClienteDAO;
 import Dao.CotizacionDAO;
 import Helper.CotizacionesXML;
 import bean.BultoDTO;
+import bean.ClienteDTO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.OVentaDTO;
@@ -45,6 +47,25 @@ public class OVenta
 	public OVenta()
 	{
 		clientes = new ArrayList<Cliente>();
+	}
+	
+	public void agregarCliente(ClienteDTO clienteDTO)
+	{
+		Cliente cliente = new Cliente(clienteDTO);
+		ClienteDAO.saveEntity(cliente);
+	}
+	
+	public void modificarCliente(ClienteDTO clienteDTO)
+	{
+		Cliente cliente = buscarCliente(clienteDTO.getId());
+		cliente.modificar(clienteDTO);
+		ClienteDAO.saveEntity(cliente);
+	}
+	
+	public void eliminarCliente(int idCliente)
+	{
+		Cliente cliente = buscarCliente(idCliente);
+		ClienteDAO.deleteEntity(cliente);
 	}
 	
 	public void generarCotizacion(CotizacionDTO cotDTO)

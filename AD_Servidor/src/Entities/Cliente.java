@@ -13,6 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import Dao.OVentaDAO;
 import bean.ClienteDTO;
 
 @Entity
@@ -86,5 +87,17 @@ public class Cliente
 		cliDTO.setOVenta(this.oVenta.getDTO());
 		cliDTO.setId(this.id);
 		return cliDTO;
+	}
+	
+	public Cliente(ClienteDTO clienteDTO)
+	{
+		modificar(clienteDTO);
+	}
+	
+	public void modificar(ClienteDTO clienteDTO)
+	{
+		this.nombre = clienteDTO.getNombre();
+		this.direccion = clienteDTO.getDireccion();
+		this.oVenta = OVentaDAO.getOVenta(clienteDTO.getId());
 	}
 }
