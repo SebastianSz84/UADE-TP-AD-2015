@@ -88,22 +88,21 @@ public class BusinessDelegate
 		}
 
 		return 0;
-		CCentral.getInstancia().modificacionProveedor(proveedorDTO);
 	}
 	
 	public void altaProveedor(ProveedorDTO proveedorDTO)
 	{
-		CCentral.getInstancia().altaProveedor(proveedorDTO);
+		objetoRemoto.altaProveedor(proveedorDTO);
 	}
 	
 	public void bajaProveedor(ProveedorDTO proveedorDTO)
 	{
-		CCentral.getInstancia().modificacionProveedor(proveedorDTO);
+		objetoRemoto.modificacionProveedor(proveedorDTO);
 	}
 	
 	public void modificacionProveedor(int codigoProveedor)
 	{
-		CCentral.getInstancia().bajaProveedor(codigoProveedor);
+		objetoRemoto.bajaProveedor(codigoProveedor);
 	}
 	
 }

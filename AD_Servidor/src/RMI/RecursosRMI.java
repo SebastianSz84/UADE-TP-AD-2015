@@ -8,6 +8,7 @@ import java.util.List;
 
 import Entities.CCentral;
 import bean.ItemCotizacionDTO;
+import bean.ProveedorDTO;
 import bean.RodamientoDTO;
 
 public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionRodamientos
@@ -90,5 +91,20 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 	public int GenerarBultosDeRodamiento(String codigoSKF, int cantidad) throws RemoteException
 	{
 		return CCentral.getInstancia().GenerarBultosDeRodamiento(codigoSKF, cantidad);
+	}
+	
+	public void altaProveedor(ProveedorDTO proveedorDTO)
+	{
+		CCentral.getInstancia().altaProveedor(proveedorDTO);
+	}
+	
+	public void bajaProveedor(int codigoProveedor)
+	{
+		CCentral.getInstancia().bajaProveedor(codigoProveedor);
+	}
+	
+	public void modificacionProveedor(ProveedorDTO proveedorDTO)
+	{
+		CCentral.getInstancia().modificacionProveedor(proveedorDTO);
 	}
 }

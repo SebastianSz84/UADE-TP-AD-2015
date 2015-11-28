@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import bean.ItemCotizacionDTO;
+import bean.ProveedorDTO;
 import bean.RodamientoDTO;
 
 public interface InterfazGestionRodamientos extends Remote
@@ -51,4 +52,10 @@ public interface InterfazGestionRodamientos extends Remote
 	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF) throws RemoteException;
 	
 	public int GenerarBultosDeRodamiento(String codigoSKF, int cantidad) throws RemoteException;
+	
+	public void altaProveedor(ProveedorDTO proveedorDTO);
+	
+	public void bajaProveedor(int codigoProveedor);
+	
+	public void modificacionProveedor(ProveedorDTO proveedorDTO);
 }
