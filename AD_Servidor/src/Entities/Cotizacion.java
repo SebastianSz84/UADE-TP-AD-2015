@@ -102,10 +102,7 @@ public class Cotizacion
 		Vector<ItemCotizacionDTO> itemsDTO = new Vector<>();
 		for (int i = 0; i < items.size(); i++)
 		{
-			ItemCotizacionDTO itemDTO = new ItemCotizacionDTO();
-			itemDTO.setCantidad(items.get(i).getCantidad());
-			itemDTO.setRod(items.get(i).getRod().getDTO());
-			itemsDTO.add(itemDTO);
+			itemsDTO.add(items.get(i).getDTO());
 		}
 		cotDTO.setItems(itemsDTO);
 		return cotDTO;
