@@ -14,10 +14,13 @@ import javax.persistence.OneToMany;
 
 import Dao.ClienteDAO;
 import Dao.CotizacionDAO;
+import Dao.MensajesDAO;
+import Dao.PedVentaDAO;
 import Helper.CotizacionesXML;
 import bean.BultoDTO;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
+import bean.ItemBultoDTO;
 import bean.OVentaDTO;
 import bean.PedVentaDTO;
 
@@ -186,5 +189,53 @@ public class OVenta
 		ovDTO.setId(this.id);
 		ovDTO.setNombre(this.nombre);
 		return ovDTO;
+	}
+	
+	public void completarPedidoVenta(BultoDTO bultoDTO)
+	{
+		
+		// Por cada itembulto leer cada item de los pedidos pendientes (loopear).
+		// Verificar que el pedido sea del codigoSKF del itembulto.
+		// Si es, verifico si existe cantidad pendiente. Si existe, actualizo cantidad recibida.
+		// Verifico si el pedido esta completo. Si lo esta, grabo nuevo mensaje de "Pedido De venta completo"
+		
+		List<PedVenta> pedidos = PedVentaDAO.getListaPedVentaPendientesPorOVenta(this.id);
+		
+		for (PedVenta pedido : pedidos)
+		{
+			for (ItemPedVenta item : pedido.getItems())
+			{
+				for (ItemBultoDTO itemBultoDTO : bultoDTO.getItems())
+				{
+					if (itemBultoDTO.getRodamiento().getCodigoSKF().equals(item.getItCotizacion().getRod().getCodigoSKF()))
+					{
+						int pendiente = item.getItCotizacion().getCantidad() - item.getCantRecibida();
+						
+						if (pendiente > 0)
+						{
+							if (itemBultoDTO.getCantidad() >= pendiente)
+							{
+								item.setCantRecibida(item.getItCotizacion().getCantidad());
+								itemBultoDTO.setCantidad(itemBultoDTO.getCantidad() - pendiente);
+							}
+							if (itemBultoDTO.getCantidad() < pendiente)
+							{
+								item.setCantRecibida(item.getCantRecibida() + itemBultoDTO.getCantidad());
+								itemBultoDTO.setCantidad(0);
+							}
+						}
+					}
+				}
+			}
+			
+			if (pedido.estaCompleto())
+			{
+				Mensajes mensaje = new Mensajes();
+				mensaje.setMensaje("Pedido " + pedido.getId() + " esta completo! ");
+				mensaje.setCli(pedido.getCotizacion().getCliente());
+				MensajesDAO.saveEntity(Mensajes.class);
+			}
+		}
+		
 	}
 }

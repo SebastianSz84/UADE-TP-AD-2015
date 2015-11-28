@@ -22,6 +22,7 @@ import Entities.OVenta;
 import Entities.Rodamiento;
 import Helper.BultosXML;
 import Helper.CotizacionesXML;
+import bean.BultoDTO;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
 import bean.FormaDePagoDTO;
@@ -158,6 +159,9 @@ public class GestionRodamientos implements Serializable
 			{
 				for (int i = 0; i < files.length; i++)
 				{
+					BultoDTO bultoDTO = BultosXML.leerXMLBulto(files[i]);
+					
+					ov.completarPedidoVenta(bultoDTO);
 					
 					files[i].delete();
 				}

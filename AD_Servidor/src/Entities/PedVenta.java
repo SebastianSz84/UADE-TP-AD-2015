@@ -104,4 +104,15 @@ public class PedVenta
 	{
 		this.id = id;
 	}
+	
+	public boolean estaCompleto()
+	{
+		for (ItemPedVenta item : items)
+		{
+			if (!item.estaCompleto())
+				return false;
+		}
+		
+		return true;
+	}
 }

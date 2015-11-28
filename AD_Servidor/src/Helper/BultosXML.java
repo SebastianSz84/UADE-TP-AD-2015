@@ -2,6 +2,7 @@ package Helper;
 
 import java.io.File;
 import java.util.Calendar;
+import java.util.Vector;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -13,10 +14,15 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 
+import Dao.RodamientoDAO;
 import Entities.Bulto;
 import Entities.ItemBulto;
 import Entities.OVenta;
+import bean.BultoDTO;
+import bean.ItemBultoDTO;
 
 public class BultosXML
 {
@@ -68,6 +74,56 @@ public class BultosXML
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static BultoDTO leerXMLBulto(File file)
+	{
+		try
+		{
+			final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+			dbf.setNamespaceAware(false);
+			dbf.setValidating(false);
+			dbf.setIgnoringComments(true);
+			final DocumentBuilder db = dbf.newDocumentBuilder();
+			Document xmlDoc = db.parse(file);
+			Node n = xmlDoc.getFirstChild();
+			if ("bulto".equalsIgnoreCase(n.getNodeName()))
+			{
+				NamedNodeMap attrs = n.getAttributes();
+				Node attribute = attrs.getNamedItem("Id");
+				int idBulto = Integer.parseInt(attribute.getNodeValue());
+				
+				BultoDTO bultoDTO = new BultoDTO();
+				bultoDTO.setId(idBulto);
+				
+				Vector<ItemBultoDTO> itemsDTO = new Vector<ItemBultoDTO>();
+				
+				for (Node d = n.getFirstChild(); d != null; d = d.getNextSibling())
+				{
+					if ("item".equalsIgnoreCase(d.getNodeName()))
+					{
+						attrs = d.getAttributes();
+						int cantidad = Integer.valueOf(attrs.getNamedItem("cantidad").getNodeValue());
+						String codigoSKF = String.valueOf(attrs.getNamedItem("CodigoSKF").getNodeValue());
+						
+						ItemBultoDTO itemDTO = new ItemBultoDTO();
+						itemDTO.setCantidad(cantidad);
+						itemDTO.setRodamiento(RodamientoDAO.getRodamiento(codigoSKF).getDTO());
+						
+						itemsDTO.add(itemDTO);
+						
+					}
+				}
+				bultoDTO.setItems(itemsDTO);
+				
+				return bultoDTO;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public static File[] obtenerXMLBultos(OVenta ov)

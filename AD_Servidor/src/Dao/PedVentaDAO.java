@@ -51,4 +51,10 @@ public class PedVentaDAO extends BaseDAO
 	{
 		return getSession().createQuery("from PedVenta where estado = :est").setParameter("est", "Pendiente").list();
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<PedVenta> getListaPedVentaPendientesPorOVenta(int idOVenta)
+	{
+		return getSession().createQuery("from PedVenta pv join cotizacion c join c.cliente cli where pv.estado = :est and cli.oVenta = :idOventa").setParameter("est", "Pendiente").setParameter("idOVenta", idOVenta).list();
+	}
 }

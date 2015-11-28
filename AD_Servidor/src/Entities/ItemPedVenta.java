@@ -66,4 +66,9 @@ public class ItemPedVenta
 	{
 		this.cantRecibida = cantRecibida;
 	}
+	
+	public boolean estaCompleto()
+	{
+		return this.getItCotizacion().getCantidad() == cantRecibida;
+	}
 }

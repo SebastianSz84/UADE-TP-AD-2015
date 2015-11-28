@@ -6,14 +6,14 @@ import java.util.List;
 public class BultoDTO
 {
 	public int id;
-	public OVentaDTO OficinaDeVenta;	
+	public OVentaDTO OficinaDeVenta;
 	public List<ItemBultoDTO> items;
 	
 	public BultoDTO()
 	{
 		this.items = new ArrayList<ItemBultoDTO>();
 	}
-		
+	
 	public List<ItemBultoDTO> getItems()
 	{
 		return items;
@@ -23,4 +23,15 @@ public class BultoDTO
 	{
 		this.items = items;
 	}
+	
+	public int getId()
+	{
+		return id;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
 }
