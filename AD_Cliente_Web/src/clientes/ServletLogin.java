@@ -1,6 +1,7 @@
 package clientes;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +22,8 @@ public class ServletLogin extends HttpServlet {
 		Integer nroCliente = Integer.parseInt(request.getParameter("nroCliente"));
 
 		boolean clienteExiste = BusinessDelegate.getInstancia().checkearSiClienteExiste(nroCliente);
-
-		request.getRequestDispatcher("/Cotizaciones.jsp").forward(request, response);
+		PrintWriter out = response.getWriter();
+		out.print(clienteExiste);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
