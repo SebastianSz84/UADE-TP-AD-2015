@@ -21,6 +21,7 @@ import Helper.CotizacionesXML;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
+import bean.OVentaDTO;
 import bean.RodamientoDTO;
 
 public class GestionRodamientos implements Serializable
@@ -230,5 +231,13 @@ public class GestionRodamientos implements Serializable
 	{
 		OVenta oventa = OVentaDAO.getOVenta(clienteDTO.getOVenta().getId());
 		oventa.modificacionCliente(clienteDTO);
+	}
+	
+	public OVentaDTO getOVentaDTO(int id)
+	{
+		OVenta oventa = OVentaDAO.getOVenta(id);
+		if (oventa != null)
+			return oventa.getDTO();
+		return null;
 	}
 }

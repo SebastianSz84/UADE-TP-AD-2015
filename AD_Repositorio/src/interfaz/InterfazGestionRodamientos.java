@@ -6,6 +6,7 @@ import java.util.List;
 
 import bean.ClienteDTO;
 import bean.ItemCotizacionDTO;
+import bean.OVentaDTO;
 import bean.ProveedorDTO;
 import bean.RodamientoDTO;
 
@@ -63,4 +64,6 @@ public interface InterfazGestionRodamientos extends Remote
 	public void bajaCliente(int oVenta, int codigoCliente) throws RemoteException;
 	
 	public void modificacionCliente(ClienteDTO clienteDTO) throws RemoteException;
+	
+	public OVentaDTO getOV(int id);
 }
