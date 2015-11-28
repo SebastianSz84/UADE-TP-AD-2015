@@ -85,8 +85,8 @@ public class GestionRodamientos implements Serializable
 	
 	public void armarCotizacones()
 	{
-		oventas = OVentaDAO.getAll();
-		for (OVenta ov : oventas)
+		List<OVenta> oVentas = OVentaDAO.getAll();
+		for (OVenta ov : oVentas)
 		{
 			File[] files = CotizacionesXML.obtenerXMLCotizacionParaArmar(ov);
 			if (files != null)

@@ -1,21 +1,29 @@
 package bean;
 
-import java.util.Vector;
+import java.util.List;
 
-public class PedVentaDTO {
+public class PedVentaDTO
+{
 	private CotizacionDTO cotizacion;
-	private Vector<ItemPedVentaDTO> items;
-
-	public CotizacionDTO getCotizacion() {
+	private List<ItemPedVentaDTO> items;
+	
+	public CotizacionDTO getCotizacion()
+	{
 		return cotizacion;
 	}
-	public void setCotizacion(CotizacionDTO cotizacion) {
+	
+	public void setCotizacion(CotizacionDTO cotizacion)
+	{
 		this.cotizacion = cotizacion;
 	}
-	public Vector<ItemPedVentaDTO> getItems() {
+	
+	public List<ItemPedVentaDTO> getItems()
+	{
 		return items;
 	}
-	public void setItems(Vector<ItemPedVentaDTO> items) {
-		this.items = items;
+	
+	public void setItems(List<ItemPedVentaDTO> itemsDTO)
+	{
+		this.items = itemsDTO;
 	}
 }

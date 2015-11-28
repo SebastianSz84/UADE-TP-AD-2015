@@ -1,14 +1,14 @@
 package Entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import bean.ItemPedVentaDTO;
@@ -21,81 +21,46 @@ public class ItemPedVenta
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 	
-	@OneToOne
-	@PrimaryKeyJoinColumn
-	private Rodamiento rodamiento;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinTable(name = "ItemPedVenta", joinColumns = @JoinColumn(name = "idPedidoVenta"), inverseJoinColumns = @JoinColumn(name = "idItemCotizacion"))
+	private ItemCotizacion itCotizacion;
 	
-	@OneToOne
-	@PrimaryKeyJoinColumn
-	private Proveedor proveedor;
-	
-	@ManyToOne
-	@JoinColumn(name = "idPedidoVenta")
-	private PedVenta PedidoVenta;
-	
-	@Column(nullable = false)
-	private int cantidad;
-	
-	@Column(nullable = false)
-	public float precio;
-	
-	public Rodamiento getRodamiento()
-	{
-		return rodamiento;
-	}
-	
-	public float getSubTotal()
-	{
-		return cantidad * precio;
-	}
-	
-	public int getCantidad()
-	{
-		return cantidad;
-	}
-	
-	public void setCantidad(int cantidad)
-	{
-		this.cantidad = cantidad;
-	}
-	
-	public float getPrecio()
-	{
-		return precio;
-	}
-	
-	public void setPrecio(float precio)
-	{
-		this.precio = precio;
-	}
-	
-	public void setRodamiento(Rodamiento rodamiento)
-	{
-		this.rodamiento = rodamiento;
-	}
+	@Column
+	private int cantRecibida;
 	
 	public int getId()
 	{
 		return id;
 	}
 	
-	public Proveedor getProveedor()
-	{
-		return proveedor;
-	}
-	
-	public void setProveedor(Proveedor proveedor)
-	{
-		this.proveedor = proveedor;
-	}
-	
 	public ItemPedVentaDTO getDTO()
 	{
 		ItemPedVentaDTO itemDTO = new ItemPedVentaDTO();
-		itemDTO.setCantidad(cantidad);
-		itemDTO.setPrecio(precio);
-		itemDTO.setRodamiento(rodamiento.getDTO());
-		itemDTO.setProveedor(proveedor.getDTO());
 		return itemDTO;
+	}
+	
+	public ItemCotizacion getItCotizacion()
+	{
+		return itCotizacion;
+	}
+	
+	public void setItCotizacion(ItemCotizacion itCotizacion)
+	{
+		this.itCotizacion = itCotizacion;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
+	public int getCantRecibida()
+	{
+		return cantRecibida;
+	}
+	
+	public void setCantRecibida(int cantRecibida)
+	{
+		this.cantRecibida = cantRecibida;
 	}
 }

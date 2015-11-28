@@ -45,4 +45,10 @@ public class PedVentaDAO extends BaseDAO
 		}
 		return null;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public static List<PedVenta> getListaPedVentaPendientes()
+	{
+		return getSession().createQuery("from PedVenta where estado = :est").setParameter("est", "Pendiente").list();
+	}
 }

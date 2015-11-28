@@ -1,7 +1,7 @@
 package Entities;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,10 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 import bean.ItemPedVentaDTO;
@@ -36,41 +34,33 @@ public class PedVenta
 		this.id = id;
 	}
 	
-	public OVenta getOficinaDeVenta()
-	{
-		return OficinaDeVenta;
-	}
+	// public OVenta getOficinaDeVenta()
+	// {
+	// return OficinaDeVenta;
+	// }
+	//
+	// public void setOficinaDeVenta(OVenta oficinaDeVenta)
+	// {
+	// OficinaDeVenta = oficinaDeVenta;
+	// }
 	
-	public void setOficinaDeVenta(OVenta oficinaDeVenta)
-	{
-		OficinaDeVenta = oficinaDeVenta;
-	}
-	
-	@ManyToOne
-	@JoinColumn(name = "idOVenta")
-	private OVenta OficinaDeVenta;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@PrimaryKeyJoinColumn
-	private Cotizacion cotizacion;
+	// @ManyToOne
+	// @JoinColumn(name = "idOVenta")
+	// private OVenta OficinaDeVenta;
 	
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idPedidoVenta")
 	private List<ItemPedVenta> items;
 	
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idCotizacion")
+	private Cotizacion cotizacion;
+	
+	private String estado;
+	
 	public float getTotal()
 	{
 		return 0;
-	}
-	
-	public Cotizacion getCotizacion()
-	{
-		return cotizacion;
-	}
-	
-	public void setCotizacion(Cotizacion cotizacion)
-	{
-		this.cotizacion = cotizacion;
 	}
 	
 	public List<ItemPedVenta> getItems()
@@ -85,13 +75,14 @@ public class PedVenta
 	
 	public void generarItemsDesdeCotizacion()
 	{
-		for (int i = 0; i < cotizacion.getItems().size(); i++)
+		if (cotizacion != null)
 		{
-			ItemPedVenta itPedVta = new ItemPedVenta();
-			itPedVta.setCantidad(cotizacion.getItems().get(i).getCantidad());
-			itPedVta.setRodamiento(cotizacion.getItems().get(i).getRod());
-			itPedVta.setProveedor(cotizacion.getItems().get(i).getItProveedor().getProveedor());
-			items.add(itPedVta);
+			for (ItemCotizacion itCot : this.cotizacion.getItems())
+			{
+				ItemPedVenta itPedVta = new ItemPedVenta();
+				itPedVta.setItCotizacion(itCot);
+				items.add(itPedVta);
+			}
 		}
 	}
 	
@@ -99,7 +90,7 @@ public class PedVenta
 	{
 		PedVentaDTO pedVtaDTO = new PedVentaDTO();
 		pedVtaDTO.setCotizacion(cotizacion.getDTO());
-		Vector<ItemPedVentaDTO> itemsDTO = new Vector<>();
+		List<ItemPedVentaDTO> itemsDTO = new ArrayList<>();
 		for (int i = 0; i < items.size(); i++)
 		{
 			itemsDTO.add(items.get(i).getDTO());
@@ -108,4 +99,23 @@ public class PedVenta
 		return pedVtaDTO;
 	}
 	
+	public Cotizacion getCotizacion()
+	{
+		return cotizacion;
+	}
+	
+	public void setCotizacion(Cotizacion cotizacion)
+	{
+		this.cotizacion = cotizacion;
+	}
+	
+	public String getEstado()
+	{
+		return estado;
+	}
+	
+	public void setEstado(String estado)
+	{
+		this.estado = estado;
+	}
 }
