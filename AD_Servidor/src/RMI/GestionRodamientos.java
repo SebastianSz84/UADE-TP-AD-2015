@@ -183,15 +183,12 @@ public class GestionRodamientos implements Serializable
 	public List<CotizacionDTO> getSolicitudesConformadasPorCliente(int nroCliente) throws RemoteException
 	{
 		List<CotizacionDTO> cotizacionesDTO = new Vector<CotizacionDTO>();
-		oventas = OVentaDAO.getAll();
-		for (OVenta o : oventas)
+		Cliente cliente = ClienteDAO.getCliente(nroCliente);
+		List<Cotizacion> cotizaciones = cliente.getOVenta().listCotizacionesPorCliente(nroCliente);
+		
+		for (Cotizacion c : cotizaciones)
 		{
-			List<Cotizacion> cotizaciones = o.listCotizacionesPorCliente(nroCliente);
-			
-			for (Cotizacion c : cotizaciones)
-			{
-				cotizacionesDTO.add(c.getDTO());
-			}
+			cotizacionesDTO.add(c.getDTO());
 		}
 		
 		return cotizacionesDTO;
