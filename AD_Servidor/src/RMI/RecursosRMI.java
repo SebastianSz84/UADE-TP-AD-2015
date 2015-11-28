@@ -9,6 +9,7 @@ import java.util.List;
 import Entities.CCentral;
 import bean.ClienteDTO;
 import bean.ItemCotizacionDTO;
+import bean.OVentaDTO;
 import bean.ProveedorDTO;
 import bean.RodamientoDTO;
 
@@ -117,5 +118,10 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 	public void modificacionCliente(ClienteDTO clienteDTO) throws RemoteException
 	{
 		GestionRodamientos.getInstancia().modificacionCliente(clienteDTO);
+	}
+	
+	public OVentaDTO getOV(int id)
+	{
+		return GestionRodamientos.getInstancia().getOVentaDTO(id);
 	}
 }
