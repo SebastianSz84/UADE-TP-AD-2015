@@ -110,9 +110,9 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 		GestionRodamientos.getInstancia().altaCliente(clienteDTO);
 	}
 	
-	public void bajaCliente(int oVenta, int codigoCliente) throws RemoteException
+	public void bajaCliente(int codigoCliente) throws RemoteException
 	{
-		GestionRodamientos.getInstancia().bajaCliente(oVenta, codigoCliente);
+		GestionRodamientos.getInstancia().bajaCliente(codigoCliente);
 	}
 	
 	public void modificacionCliente(ClienteDTO clienteDTO) throws RemoteException
@@ -123,5 +123,10 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 	public OVentaDTO getOV(int id)
 	{
 		return GestionRodamientos.getInstancia().getOVentaDTO(id);
+	}
+	
+	public ClienteDTO getClienteDTO(int id)
+	{
+		return GestionRodamientos.getInstancia().getClienteDTO(id);
 	}
 }

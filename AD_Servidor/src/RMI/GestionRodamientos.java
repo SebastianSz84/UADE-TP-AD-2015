@@ -221,9 +221,10 @@ public class GestionRodamientos implements Serializable
 		oventa.altaCliente(clienteDTO);
 	}
 	
-	public void bajaCliente(int oVenta, int codigoCliente)
+	public void bajaCliente(int codigoCliente)
 	{
-		OVenta oventa = OVentaDAO.getOVenta(oVenta);
+		Cliente cliente = ClienteDAO.getCliente(codigoCliente);
+		OVenta oventa = OVentaDAO.getOVenta(cliente.getOVenta().getId());
 		oventa.bajaCliente(codigoCliente);
 	}
 	
@@ -238,6 +239,14 @@ public class GestionRodamientos implements Serializable
 		OVenta oventa = OVentaDAO.getOVenta(id);
 		if (oventa != null)
 			return oventa.getDTO();
+		return null;
+	}
+	
+	public ClienteDTO getClienteDTO(int id)
+	{
+		Cliente cliente = ClienteDAO.getCliente(id);
+		if (cliente != null)
+			return cliente.getDTO();
 		return null;
 	}
 }

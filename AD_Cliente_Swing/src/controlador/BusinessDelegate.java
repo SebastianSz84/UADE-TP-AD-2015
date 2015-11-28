@@ -130,10 +130,10 @@ public class BusinessDelegate
 		}
 	}
 
-	public void bajaCliente(int oVenta, int codigoCliente)
+	public void bajaCliente(int codigoCliente)
 	{
 		try{
-		objetoRemoto.bajaCliente(oVenta, codigoCliente);
+		objetoRemoto.bajaCliente(codigoCliente);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -150,6 +150,12 @@ public class BusinessDelegate
 
 	
 	public OVentaDTO getOV(int id) {
-		return objetoRemoto.getOV(id);
+		try{
+			return objetoRemoto.getOV(id);
+		} catch(RemoteException e){
+			e.printStackTrace();
+		}
+		return null;
 	}
+
 }
