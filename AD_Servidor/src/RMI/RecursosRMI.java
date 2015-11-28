@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
+import Entities.CCentral;
 import bean.ItemCotizacionDTO;
 import bean.RodamientoDTO;
 
@@ -74,5 +75,20 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 	public boolean checkearSiClienteExiste(int nroCliente) throws RemoteException
 	{
 		return GestionRodamientos.getInstancia().checkearSiClienteExiste(nroCliente);
+	}
+	
+	public void generarListaDePrecioProveedorAutomatica(String archivoProveedor, int codigoProveedor) throws RemoteException
+	{
+		CCentral.getInstancia().generarListaDePrecioProveedorAutomatica(archivoProveedor, codigoProveedor);
+	}
+	
+	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF) throws RemoteException
+	{
+		CCentral.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigoItem, precio, condiciones, disponible, codigoSKF);
+	}
+	
+	public int GenerarBultosDeRodamiento(String codigoSKF, int cantidad) throws RemoteException
+	{
+		return CCentral.getInstancia().GenerarBultosDeRodamiento(codigoSKF, cantidad);
 	}
 }

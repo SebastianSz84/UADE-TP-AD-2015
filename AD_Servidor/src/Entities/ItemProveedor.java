@@ -43,6 +43,7 @@ public class ItemProveedor
 	public ItemProveedor(Proveedor proveedor, String codigo, float precio, String condiciones, boolean disponible, Rodamiento rodamiento)
 	{
 		this.setProveedor(proveedor);
+		this.codigo = codigo;
 		this.precio = precio;
 		this.condiciones = condiciones;
 		this.disponible = disponible;

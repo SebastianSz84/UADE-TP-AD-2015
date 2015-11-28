@@ -7,8 +7,6 @@ import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
-import Entities.CCentral;
-
 public class BusinessDelegate
 {
 	InterfazGestionRodamientos objetoRemoto;
@@ -55,16 +53,39 @@ public class BusinessDelegate
 
 	public void generarListaDePrecioProveedorAutomatica(String archivoProveedor, int codigoProveedor)
 	{
-		CCentral.getInstancia().generarListaDePrecioProveedorAutomatica(archivoProveedor, codigoProveedor);
+		try
+		{
+			objetoRemoto.generarListaDePrecioProveedorAutomatica(archivoProveedor, codigoProveedor);
+		} catch (RemoteException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF)
 	{
-		CCentral.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigoItem, precio, condiciones, disponible, codigoSKF);
+		try
+		{
+			objetoRemoto.agregarItemAListaProveedor(codigoProveedor, codigoItem, precio, condiciones, disponible, codigoSKF);
+		} catch (RemoteException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public int GenerarBultosDeRodamiento(String codigoSKF, int cantidad)
 	{
-		return CCentral.getInstancia().GenerarBultosDeRodamiento(codigoSKF, cantidad);
+		try
+		{
+			return objetoRemoto.GenerarBultosDeRodamiento(codigoSKF, cantidad);
+		} catch (RemoteException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return 0;
 	}
 }
