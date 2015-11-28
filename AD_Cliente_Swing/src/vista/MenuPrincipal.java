@@ -22,11 +22,17 @@ import javax.swing.WindowConstants;
 public class MenuPrincipal extends javax.swing.JFrame
 {
 	private JMenuBar jMenuBar1;
-	private JMenuItem jMenuItem4;
-	private JMenuItem jMenuItem3;
-	private JMenuItem jMenuItem2;
 	private JMenuItem jMenuItem1;
+	private JMenuItem jMenuItem2;
+	private JMenuItem jMenuItem3;
+	private JMenuItem jMenuItem4;
+	private JMenuItem jMenuItem5;
+	private JMenuItem jMenuItem6;
+	private JMenuItem jMenuItem7;
 	private JMenu jMenu1;
+	private JMenu jMenu2;
+	private JMenu jMenu3;
+	private JMenu jMenu4;
 
 	/**
 	 * Auto-generated main method to display this JFrame
@@ -86,30 +92,74 @@ public class MenuPrincipal extends javax.swing.JFrame
 							}
 						});
 					}
-				}
-				{
-					jMenuItem3 = new JMenuItem();
-					jMenuBar1.add(jMenuItem3);
-					jMenuItem3.setText("Entrada de mercaderia");
-					jMenuItem3.addActionListener(new ActionListener()
 					{
-						public void actionPerformed(ActionEvent evt)
+						jMenu2 = new JMenu();
+						jMenuBar1.add(jMenu2);
+						jMenu2.setText("Mercaderia");
 						{
-							new EntradaDeMercaderiaManual();
+							jMenuItem6 = new JMenuItem();
+							jMenu2.add(jMenuItem6);
+							jMenuItem6.setText("Ingesar nueva mercaderia");
+							jMenuItem6.addActionListener(new ActionListener()
+							{
+								public void actionPerformed(ActionEvent evt)
+								{
+									new ActualizarListaPreciosPorXml();
+								}
+							});
 						}
-					});
-				}
-				{
-					jMenuItem4 = new JMenuItem();
-					jMenuBar1.add(jMenuItem4);
-					jMenuItem4.setText("Salir");
-					jMenuItem4.addActionListener(new ActionListener()
+					}
+					jMenu3 = new JMenu();
+					jMenuBar1.add(jMenu3);
+					jMenu3.setText("Proveedor");
 					{
-						public void actionPerformed(ActionEvent evt)
+						jMenuItem3 = new JMenuItem();
+						jMenu3.add(jMenuItem3);
+						jMenuItem3.setText("Alta");
+						jMenuItem3.addActionListener(new ActionListener()
 						{
-							System.exit(0);
-						}
-					});
+							public void actionPerformed(ActionEvent evt)
+							{
+								new AltaProveedor();
+							}
+						});
+					}
+					{
+						jMenuItem4 = new JMenuItem();
+						jMenu3.add(jMenuItem4);
+						jMenuItem4.setText("Baja");
+						jMenuItem4.addActionListener(new ActionListener()
+						{
+							public void actionPerformed(ActionEvent evt)
+							{
+								new BajaProveedor();
+							}
+						});
+					}
+					{
+						jMenuItem5 = new JMenuItem();
+						jMenu3.add(jMenuItem5);
+						jMenuItem5.setText("Modificacion");
+						jMenuItem5.addActionListener(new ActionListener()
+						{
+							public void actionPerformed(ActionEvent evt)
+							{
+								new ModificarProveedor();
+							}
+						});
+					}
+					{
+						jMenuItem7 = new JMenu();
+						jMenuBar1.add(jMenuItem7);
+						jMenuItem7.setText("Salir");
+						jMenuItem7.addActionListener(new ActionListener()
+						{
+							public void actionPerformed(ActionEvent evt)
+							{
+								System.exit(0);
+							}
+						});
+					}
 				}
 			}
 			pack();
@@ -120,5 +170,4 @@ public class MenuPrincipal extends javax.swing.JFrame
 			e.printStackTrace();
 		}
 	}
-
 }
