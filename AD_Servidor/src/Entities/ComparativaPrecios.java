@@ -3,8 +3,11 @@ package Entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -19,12 +22,13 @@ import bean.ItemCotizacionDTO;
 public class ComparativaPrecios
 {
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
 	@Column(nullable = false)
 	private Date fecha;
 	
-	@ManyToMany
+	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "ItemsComparativa", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns =
 	{
 		@JoinColumn(name = "idItemProveedor", referencedColumnName = "id")
@@ -37,7 +41,7 @@ public class ComparativaPrecios
 	{
 		for (ItemProveedor itPro : this.items)
 		{
-			if (itPro.equals(itCotDTO))
+			if (itPro.getRodamiento().getCodigoSKF().equals(itCotDTO.getRod().getCodigoSKF()))
 			{
 				return itPro;
 			}

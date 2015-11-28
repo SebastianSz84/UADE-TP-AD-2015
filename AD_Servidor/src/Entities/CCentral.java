@@ -57,7 +57,7 @@ public class CCentral
 				if (bulto == null)
 				{
 					bulto = new Bulto();
-					bulto.setOficinaDeVenta(pedVenta.getCotizacion().getCliente().getOventa());
+					bulto.setOficinaDeVenta(pedVenta.getCotizacion().getCliente().getOVenta());
 				}
 				int cantidadUsada = 0;
 				if (cantidad >= itemPedVenta.getCantidad())

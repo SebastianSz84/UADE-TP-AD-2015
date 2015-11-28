@@ -49,8 +49,8 @@ public class OVenta
 	
 	public void generarCotizacion(CotizacionDTO cotDTO)
 	{
-		Cotizacion cot = new Cotizacion();
-		cot.setEstado(cotDTO.getEstado());
+		Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
+		cot.setEstado("Armada");
 		while (cotDTO.tenesItems())
 		{
 			ItemCotizacionDTO itCotDTO = cotDTO.dameItem();
@@ -59,17 +59,10 @@ public class OVenta
 		CotizacionesXML.generarXMLArmarCotizacion(CotizacionDAO.saveCotizacion(cot));
 	}
 	
-	public CotizacionDTO aceptarCotizacion(CotizacionDTO cotDTO)
+	public Cotizacion aceptarCotizacion(Cotizacion cot)
 	{
-		Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
-		
-		if (cot != null)
-		{
-			cot.aceptar();
-			CotizacionDAO.saveCotizacion(cot);
-			return cot.getDTO();
-		}
-		return null;
+		cot.aceptar();
+		return CotizacionDAO.saveCotizacion(cot);
 	}
 	
 	public void generarXMLCotizacion()

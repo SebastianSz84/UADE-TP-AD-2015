@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import utils.ParserJson;
-import RMI.GestionRodamientos;
 
 import com.google.gson.JsonObject;
+
+import controlador.BusinessDelegate;
 
 /**
  * Servlet implementation class ServletAceptarCot
@@ -43,6 +44,10 @@ public class ServletAceptarCot extends HttpServlet {
 
 		String strCot = jObj.get("idCotizacion").getAsString();
 
-		GestionRodamientos.getInstancia().aceptarCotizacion(Integer.parseInt(strCot));
+		if (BusinessDelegate.getInstancia().aceptarCotizacion(Integer.parseInt(strCot))) {
+			// Actualizar response con texto de OK.
+		} else {
+			// Actualizar response con texto de Not OK.
+		}
 	}
 }

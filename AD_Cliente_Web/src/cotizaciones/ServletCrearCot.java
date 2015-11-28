@@ -66,6 +66,10 @@ public class ServletCrearCot extends HttpServlet {
 			itCot.setRod(rodDTO);
 			itemsCotLista.add(itCot);
 		}
-		BusinessDelegate.getInstancia().solicitarCotizacion(nroCliente, itemsCotLista);
+		if (BusinessDelegate.getInstancia().solicitarCotizacion(nroCliente, itemsCotLista)) {
+			// Actualizar response con texto de OK.
+		} else {
+			// Actualizar response con texto de Not OK.
+		}
 	}
 }
