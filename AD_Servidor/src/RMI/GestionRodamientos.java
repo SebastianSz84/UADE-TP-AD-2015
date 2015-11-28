@@ -17,6 +17,7 @@ import Entities.Cotizacion;
 import Entities.ItemCotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
+import Helper.BultosXML;
 import Helper.CotizacionesXML;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
@@ -85,8 +86,8 @@ public class GestionRodamientos implements Serializable
 	
 	public void armarCotizacones()
 	{
-		oventas = OVentaDAO.getAll();
-		for (OVenta ov : oventas)
+		List<OVenta> oVentas = OVentaDAO.getAll();
+		for (OVenta ov : oVentas)
 		{
 			File[] files = CotizacionesXML.obtenerXMLCotizacionParaArmar(ov);
 			if (files != null)
@@ -135,6 +136,23 @@ public class GestionRodamientos implements Serializable
 						ov.crearPedidoVenta(cot);
 						files[i].delete();
 					}
+				}
+			}
+		}
+	}
+	
+	public void leerXMLBultos()
+	{
+		oventas = OVentaDAO.getAll();
+		for (OVenta ov : oventas)
+		{
+			File[] files = BultosXML.obtenerXMLBultos(ov);
+			if (files != null)
+			{
+				for (int i = 0; i < files.length; i++)
+				{
+					
+					files[i].delete();
 				}
 			}
 		}
@@ -246,4 +264,5 @@ public class GestionRodamientos implements Serializable
 			return cliente.getDTO();
 		return null;
 	}
+	
 }

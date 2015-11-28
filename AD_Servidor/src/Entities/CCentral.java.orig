@@ -101,8 +101,13 @@ public class CCentral
 				}
 				bulto.agregarRodamientoComprado(rodamiento, cantidadUsada);
 				BultoDAO.saveEntity(bulto);
+<<<<<<< e76862b7153cd0adfcf8192cc4ffb3b81c70ce84
 				BultosXML.GenerarXMLBulto(bulto);
+				precio = itemPedVenta.getPrecio();
+=======
+				// Agregar GenerarBultoXML para cada bulto con la of de venta involucrada
 				// precio = itemPedVenta.getPrecio();
+>>>>>>> Algunas cosas...
 			}
 		}
 		
