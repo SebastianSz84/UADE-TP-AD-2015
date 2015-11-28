@@ -9,7 +9,6 @@ import Dao.OCProveedorDAO;
 import Dao.PedVentaDAO;
 import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
-import Helper.OCProveedorXML;
 import Helper.ProveedorListaPreciosXML;
 import bean.ItemProveedorDTO;
 import bean.ProveedorDTO;
@@ -63,7 +62,7 @@ public class CCentral
 		if (rodamiento == null)
 			return -1;
 		float precio = 0;
-		for (PedVenta pedVenta : PedVentaDAO.getListaPedVenta())
+		for (PedVenta pedVenta : PedVentaDAO.getListaPedVenta()) // & PedVenta es "Pendiente"
 		{
 			ItemPedVenta itemPedVenta = PedVentaDAO.getItemPedVentaByRodamiento(pedVenta.getId(), rodamiento.getCodigoSKF());
 			if ((cantidad > 0 || rodamiento.getStock().getCantidad() > 0) && itemPedVenta != null)
@@ -101,6 +100,7 @@ public class CCentral
 				}
 				bulto.agregarRodamientoComprado(rodamiento, cantidadUsada);
 				BultoDAO.saveEntity(bulto);
+				// Agregar GenerarBultoXML para cada bulto con la of de venta involucrada
 				precio = itemPedVenta.getPrecio();
 			}
 		}
@@ -121,7 +121,7 @@ public class CCentral
 			for (ItemPedVenta item : pedido.getItems())
 			{
 				OCProveedor ocProv = buscarOC(item.getProveedor().getCodigoProveedor());
-				if (ocProv != null)
+				if (ocProv != null) // && oc.status es "abierta"
 				{
 					ocProv.agregarAOC(item.getRodamiento(), item.getCantidad());
 				}
@@ -131,7 +131,7 @@ public class CCentral
 				}
 			}
 		}
-		OCProveedorXML.GenerarXMLOrdenesDeCompra(OCProveedorDAO.getListaOCProveedores());
+		// OCProveedorXML.GenerarXMLOrdenesDeCompra(OCProveedorDAO.getListaOCProveedores());
 		
 	}
 	
