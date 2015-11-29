@@ -55,14 +55,14 @@ public class GestionRodamientos implements Serializable
 		return listaRodDTO;
 	}
 	
-	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) throws RemoteException
+	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista, boolean aceptada) throws RemoteException
 	{
 		Cliente cli = ClienteDAO.getCliente(nroCliente);
 		if (cli != null)
 		{
 			Cotizacion cot = new Cotizacion();
 			cot.setFecha(Calendar.getInstance().getTime());
-			cot.setEstado("Pendiente");
+			cot.setEstado(aceptada ? "Aceptada" : "Pendiente");
 			cot.setCliente(cli);
 			List<ItemCotizacion> listaItems = new ArrayList<>();
 			for (ItemCotizacionDTO itCotDTO : itemsCotLista)
@@ -105,7 +105,7 @@ public class GestionRodamientos implements Serializable
 		}
 	}
 	
-	public boolean aceptarCotizacion(int nroCotizacion) throws RemoteException
+	public String aceptarCotizacion(int nroCotizacion) throws RemoteException
 	{
 		Cotizacion cot = CotizacionDAO.getCotizacion(nroCotizacion);
 		if (cot != null)
@@ -130,21 +130,24 @@ public class GestionRodamientos implements Serializable
 					}
 				}
 				
-				if (esAceptable)
+				if (esAceptable && CotizacionesXML.generarXMLAceptarCotizacion(ov.aceptarCotizacion(cot)))
 				{
-					return CotizacionesXML.generarXMLAceptarCotizacion(ov.aceptarCotizacion(cot));
+					return "Aceptada";
 				}
 				else
 				{
 					ov.rechazarCotizacion(cot);
 					if (itemsCotLista.size() > 0)
 					{
-						solicitarCotizacion(cot.getCliente().getId(), itemsCotLista);
+						if (solicitarCotizacion(cot.getCliente().getId(), itemsCotLista, true))
+						{
+							return "Nueva";
+						}
 					}
 				}
 			}
 		}
-		return false;
+		return "Error";
 	}
 	
 	public void procesarCotAceptadas()

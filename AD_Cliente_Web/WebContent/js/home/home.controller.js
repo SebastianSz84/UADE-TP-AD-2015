@@ -10,8 +10,6 @@ angular.module('distribuidas')
 
         $scope.verCotizaciones = function(){
             $scope.armandoCot = false;
-            $scope.msg = '';
-            $scope.error = '';
             $scope.datos.cotId = 0;
             
             /*if ($scope.cotizaciones.length > 0){
@@ -35,8 +33,6 @@ angular.module('distribuidas')
 
         $scope.armarCotizacion = function(){
             $scope.armandoCot = true;
-            $scope.msg = '';
-            $scope.error = '';
             
             if ($scope.rodamientos.length > 0){
             	return;
@@ -51,7 +47,7 @@ angular.module('distribuidas')
                 $scope.rodamientos = data;
             }).
             error(function (data, status) {
-                $scope.showError();
+                $scope.showError('Ocurrio un error.');
                 console.log(data);
                 console.log(status);
             });
@@ -66,7 +62,13 @@ angular.module('distribuidas')
         		}
         	}
         	var data = { 'nroCliente': $rootScope.nroCliente, 'items': listaItems};
+        	
         	console.log(data);
+        	
+        	if (data.items.length == 0){
+        		$scope.showError('No se seleccionaron rodamientos.');
+        		return;
+        	}
         	$http({
         		'data': data,
                 'method':'post',
@@ -76,13 +78,13 @@ angular.module('distribuidas')
                 console.log(data);
                 if (data == 'true'){
                 	$scope.rodamientos = [];
-                	$scope.msg = 'Cotizacion creada';
+                	$scope.showMsg('Cotizacion creada.');
                 } else {
-                	$scope.showError();
+                	$scope.showError('No se pudo crear la cotizacion.');
                 }
             }).
             error(function (data, status) {
-                $scope.showError();
+                $scope.showError('Ocurrio un error.');
                 console.log(data);
                 console.log(status);
             });
@@ -97,24 +99,35 @@ angular.module('distribuidas')
                 'url':'http://localhost:8080/AD_Cliente_Web/ServletAceptarCot'
             })
             .success(function (data) {
-                if (data == 'true'){
-                	$scope.msg = 'Cotizacion Aceptada';
-                	$timeout(function(){
-                    	$scope.verCotizaciones();
-                	}, 1000);
+                if (data == 'Aceptada'){
+                	$scope.showMsg('Cotizacion Aceptada');
+                } else if (data == 'Nueva'){
+                	$scope.showError('No se pudo aceptar la cotizacion ya que no se disponen de algunos rodamientos. Se creo una nueva cotizacion con los rodamientos disponibles.');
                 } else {
-                	$scope.showError();
+                    $scope.showError('No se pudo aceptar la cotizacion');
                 }
+            	$scope.verCotizaciones();
             }).
             error(function (data, status) {
-                $scope.showError();
+                $scope.showError('Ocurrio un error.');
+            	$scope.verCotizaciones();
                 console.log(data);
                 console.log(status);
             });
         };
 
-        $scope.showError = function(){
-            $scope.error = 'Ocurrio un error';
+        $scope.showMsg = function(msg){
+            $scope.msg = msg;
+            $timeout(function(){
+            	$scope.msg = '';
+            },5000);
+        };
+
+        $scope.showError = function(error){
+            $scope.error = error;
+            $timeout(function(){
+            	$scope.error = '';
+            },5000);
         };
         
         $scope.verCotizaciones();

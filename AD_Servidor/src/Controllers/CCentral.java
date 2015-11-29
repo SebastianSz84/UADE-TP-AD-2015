@@ -7,6 +7,7 @@ import java.util.Vector;
 
 import Dao.BultoDAO;
 import Dao.OCProveedorDAO;
+import Dao.OVentaDAO;
 import Dao.PedVentaDAO;
 import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
@@ -15,6 +16,7 @@ import Entities.ComparativaPrecios;
 import Entities.ItemPedVenta;
 import Entities.ItemProveedor;
 import Entities.OCProveedor;
+import Entities.OVenta;
 import Entities.PedVenta;
 import Entities.Proveedor;
 import Entities.Rodamiento;
@@ -38,7 +40,8 @@ public class CCentral
 	public void bajaProveedor(int codigoProveedor)
 	{
 		Proveedor proveedor = buscarProveedor(codigoProveedor);
-		ProveedorDAO.deleteEntity(proveedor);
+		proveedor.setInactivo(true);
+		ProveedorDAO.saveEntity(proveedor);
 	}
 	
 	public void modificacionProveedor(ProveedorDTO proveedorDTO)
@@ -73,13 +76,15 @@ public class CCentral
 		Rodamiento rodamiento = RodamientoDAO.getRodamiento(codigoSKF);
 		if (rodamiento == null)
 			return -1;
+		rodamiento.getStock().setCantidad(rodamiento.getStock().getCantidad() + cantidad);
+		
 		List<PedVenta> pedidosVentaPendiente = PedVentaDAO.getListaPedVentaPendientes();
 		for (PedVenta pedVenta : pedidosVentaPendiente)
 		{
 			List<ItemPedVenta> itemsPedVenta = PedVentaDAO.listItemPedVentaByRodamiento(pedVenta.getId(), rodamiento.getCodigoSKF());
 			for (ItemPedVenta itemPedVenta : itemsPedVenta)
 			{
-				if ((cantidad > 0 || rodamiento.getStock().getCantidad() > 0))
+				if ((rodamiento.getStock().getCantidad() > 0))
 				{
 					Bulto bulto = BultoDAO.getBultoAbiertoByOV(pedVenta.getCotizacion().getCliente().getOVenta().getId());
 					if (bulto == null)
@@ -88,30 +93,17 @@ public class CCentral
 						bulto.setEstado("Abierto");
 						bulto.setOficinaDeVenta(pedVenta.getCotizacion().getCliente().getOVenta());
 					}
+					
 					int cantidadUsada = 0;
-					if (cantidad >= itemPedVenta.getItCotizacion().getCantidad())
+					if (rodamiento.getStock().getCantidad() >= itemPedVenta.getItCotizacion().getCantidad())
 					{
-						cantidadUsada = itemPedVenta.getItCotizacion().getCantidad();
-						cantidad -= cantidadUsada;
+						cantidadUsada += itemPedVenta.getItCotizacion().getCantidad();
+						rodamiento.getStock().setCantidad(rodamiento.getStock().getCantidad() - itemPedVenta.getItCotizacion().getCantidad());
 					}
 					else
 					{
-						cantidadUsada = cantidad;
-						cantidad = 0;
-						if (rodamiento.getStock().getCantidad() > 0)
-						{
-							int cantidadRestante = itemPedVenta.getItCotizacion().getCantidad() - cantidadUsada;
-							if (rodamiento.getStock().getCantidad() >= cantidadRestante)
-							{
-								cantidadUsada = itemPedVenta.getItCotizacion().getCantidad();
-								rodamiento.getStock().setCantidad(rodamiento.getStock().getCantidad() - cantidadRestante);
-							}
-							else
-							{
-								cantidadUsada += rodamiento.getStock().getCantidad();
-								rodamiento.getStock().setCantidad(0);
-							}
-						}
+						cantidadUsada += rodamiento.getStock().getCantidad();
+						rodamiento.getStock().setCantidad(0);
 					}
 					bulto.agregarRodamientoComprado(rodamiento, cantidadUsada);
 					BultoDAO.saveEntity(bulto);
@@ -120,23 +112,24 @@ public class CCentral
 			
 		}
 		
-		if (cantidad > 0)
-		{
-			rodamiento.getStock().setCantidad(rodamiento.getStock().getCantidad() + cantidad);
-			RodamientoDAO.saveEntity(rodamiento);
-		}
+		RodamientoDAO.saveEntity(rodamiento);
 		return 0;
 	}
 	
 	public void CerrarBultosDeRodamiento()
 	{
-		List<PedVenta> pedidosVentaPendiente = PedVentaDAO.getListaPedVentaPendientes();
-		for (PedVenta pedVenta : pedidosVentaPendiente)
+		List<OVenta> oVentas = OVentaDAO.getAll();
+		for (OVenta oVenta : oVentas)
 		{
-			Bulto bulto = BultoDAO.getBultoAbiertoByOV(pedVenta.getCotizacion().getCliente().getOVenta().getId());
-			bulto.setEstado("Cerrado");
-			BultosXML.GenerarXMLBulto(bulto);
-			BultoDAO.saveEntity(bulto);
+			Bulto bulto = BultoDAO.getBultoAbiertoByOV(oVenta.getId());
+			
+			if (bulto != null)
+			{
+				bulto.setEstado("Cerrado");
+				BultosXML.GenerarXMLBulto(bulto);
+				BultoDAO.saveEntity(bulto);
+				
+			}
 		}
 	}
 	

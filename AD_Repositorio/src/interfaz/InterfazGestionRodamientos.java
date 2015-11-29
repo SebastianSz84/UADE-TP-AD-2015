@@ -17,13 +17,13 @@ public interface InterfazGestionRodamientos extends Remote
 	
 	public List<RodamientoDTO> getListaRodamientos() throws RemoteException;
 	
-	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) throws RemoteException;
+	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista, boolean aceptada) throws RemoteException;
 	
 	public void agregarItem() throws RemoteException;
 	
 	public void armarCotizacones() throws RemoteException;
 	
-	public boolean aceptarCotizacion(int idCotizacion) throws RemoteException;
+	public String aceptarCotizacion(int idCotizacion) throws RemoteException;
 	
 	public void ActualizarStock(String codigoSKF, int cantidad, float precio) throws RemoteException;
 	
