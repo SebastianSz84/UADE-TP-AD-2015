@@ -7,7 +7,6 @@ import Dao.ComparativaPreciosDAO;
 import Entities.Bulto;
 import Entities.ItemProveedor;
 import Entities.OVenta;
-import Helper.BultosXML;
 
 public class TestXMLBulto
 {
@@ -24,6 +23,6 @@ public class TestXMLBulto
 			bu.setOficinaDeVenta(ov);
 			bults.add(bu);
 		}
-		BultosXML.GenerarXMLBultos(bults);
+		// BultosXML.GenerarXMLBultos(bults);
 	}
 }
