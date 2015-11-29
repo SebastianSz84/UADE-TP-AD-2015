@@ -137,4 +137,13 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 		return GestionRodamientos.getInstancia().getForma(id);
 	}
 	
+	public RodamientoDTO getRodamiento(String codigoSKF) throws RemoteException
+	{
+		return GestionRodamientos.getInstancia().getRodamiento(codigoSKF);
+	}
+	
+	public boolean altaRodamiento(RodamientoDTO rodDTO) throws RemoteException
+	{
+		return GestionRodamientos.getInstancia().altaRodamiento(rodDTO);
+	}
 }

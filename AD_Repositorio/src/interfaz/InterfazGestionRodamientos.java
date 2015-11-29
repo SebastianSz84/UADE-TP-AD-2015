@@ -13,7 +13,6 @@ import bean.RodamientoDTO;
 
 public interface InterfazGestionRodamientos extends Remote
 {
-	
 	public static final String url = "localhost/RecursosRMI";
 	
 	public List<RodamientoDTO> getListaRodamientos() throws RemoteException;
@@ -26,21 +25,9 @@ public interface InterfazGestionRodamientos extends Remote
 	
 	public boolean aceptarCotizacion(int idCotizacion) throws RemoteException;
 	
-	// public XML leerXMLCotAceptadas();
-	
-	// public XML leerXMLBultosAEnviar();
-	
-	// public void borrarXMLPedidoCotizacion(XML xml);
-	
-	// public void borrarXMLDeBultoAEnviar(XML xml);
-	
 	public void ActualizarStock(String codigoSKF, int cantidad, float precio) throws RemoteException;
 	
-	// public listasXML generarOrdenesDeCompra();
-	
 	public void PublicarListaDePreciosFinal() throws RemoteException;
-	
-	// public void generarListaDePrecioProveedorAutomatica(XML archivoProveedor, int codigoProveedor);
 	
 	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo) throws RemoteException;
 	
@@ -70,4 +57,7 @@ public interface InterfazGestionRodamientos extends Remote
 	
 	public FormaDePagoDTO getForma(int id) throws RemoteException;
 	
+	public RodamientoDTO getRodamiento(String codigoSKF) throws RemoteException;
+	
+	public boolean altaRodamiento(RodamientoDTO rodDTO) throws RemoteException;
 }

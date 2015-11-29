@@ -5,12 +5,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
-import bean.ClienteDTO;
-import bean.OVentaDTO;
+import bean.RodamientoDTO;
 import controlador.BusinessDelegate;
 
 /**
@@ -19,6 +19,10 @@ import controlador.BusinessDelegate;
  */
 public class AltaRodamiento extends javax.swing.JFrame
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel jLabel1;
 	private JTextField jTextField1;
 	private JLabel jLabel2;
@@ -91,20 +95,26 @@ public class AltaRodamiento extends javax.swing.JFrame
 						
 						if (!codigoSKF.isEmpty() && !tipo.isEmpty())
 						{
-							OVentaDTO oventaDTO = BusinessDelegate.getInstancia().getOV(Integer.parseInt(idOVenta));
-							if (oventaDTO != null)
+							RodamientoDTO rodDTO = BusinessDelegate.getInstancia().getRodamiento(codigoSKF);
+							if (rodDTO != null)
 							{
-								ClienteDTO clienteDTO = new ClienteDTO();
-								clienteDTO.setNombre(nombre);
-								clienteDTO.setDireccion(direccion);
-								clienteDTO.setOVenta(oventaDTO);
-								new ClienteFormaDePago(clienteDTO);
-								dispose();
+								rodDTO = new RodamientoDTO();
+								rodDTO.setCodigoSKF(codigoSKF);
+								rodDTO.setTipo(tipo);
+								if (BusinessDelegate.getInstancia().altaRodamiento(rodDTO))
+								{
+									JOptionPane.showMessageDialog(null, "Se ha dado de alta el rodamiento.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+									dispose();
+								}
+								else
+								{
+									JOptionPane.showMessageDialog(null, "Error al dar de alta el rodamiento.", "Error", JOptionPane.ERROR_MESSAGE);
+								}
 							}
 						}
 						else
 						{
-							
+							JOptionPane.showMessageDialog(null, "Debe completar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
 						}
 					}
 				});
@@ -120,5 +130,4 @@ public class AltaRodamiento extends javax.swing.JFrame
 			e.printStackTrace();
 		}
 	}
-	
 }
