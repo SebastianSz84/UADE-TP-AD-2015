@@ -33,6 +33,9 @@ public class Cliente
 	@Column(nullable = false, length = 50)
 	private String direccion;
 	
+	@Column
+	private boolean inactivo;
+	
 	@ManyToMany
 	@JoinTable(name = "Clientes_Formas", joinColumns = @JoinColumn(name = "idCliente"), inverseJoinColumns = @JoinColumn(name = "idForma"))
 	private List<FormaPago> formas;
