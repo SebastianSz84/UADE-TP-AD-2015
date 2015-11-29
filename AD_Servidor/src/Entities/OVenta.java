@@ -183,7 +183,7 @@ public class OVenta
 	
 	public List<Cotizacion> listCotizacionesPorCliente(int nroCliente)
 	{
-		return CotizacionDAO.getAll(Cotizacion.class, "Cotizacion");
+		return CotizacionDAO.getCotizacionesDeCliente(nroCliente);
 	}
 	
 	public OVentaDTO getDTO()
