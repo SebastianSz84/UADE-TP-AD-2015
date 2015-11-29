@@ -24,39 +24,15 @@ public class PedVenta
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	public int getId()
-	{
-		return id;
-	}
-	
-	public void setId(int id)
-	{
-		this.id = id;
-	}
-	
-	// public OVenta getOficinaDeVenta()
-	// {
-	// return OficinaDeVenta;
-	// }
-	//
-	// public void setOficinaDeVenta(OVenta oficinaDeVenta)
-	// {
-	// OficinaDeVenta = oficinaDeVenta;
-	// }
-	
-	// @ManyToOne
-	// @JoinColumn(name = "idOVenta")
-	// private OVenta OficinaDeVenta;
-	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idPedidoVenta")
-	private List<ItemPedVenta> items;
-	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idCotizacion")
 	private Cotizacion cotizacion;
 	
 	private String estado;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "idPedidoVenta")
+	private List<ItemPedVenta> items;
 	
 	public float getTotal()
 	{
@@ -117,5 +93,15 @@ public class PedVenta
 	public void setEstado(String estado)
 	{
 		this.estado = estado;
+	}
+	
+	public int getId()
+	{
+		return id;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 }

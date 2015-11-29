@@ -12,6 +12,7 @@ import Dao.RodamientoDAO;
 import Helper.BultosXML;
 import Helper.ProveedorListaPreciosXML;
 import bean.ItemProveedorDTO;
+import bean.PedVentaDTO;
 import bean.ProveedorDTO;
 
 public class CCentral
@@ -115,25 +116,25 @@ public class CCentral
 		return 0;
 	}
 	
-	public void generarOrdenesDeCompra(List<PedVenta> pedidos)
+	public void generarOrdenesDeCompra(List<PedVentaDTO> pedidos)
 	{
-		for (PedVenta pedido : pedidos)
-		{
-			for (ItemPedVenta item : pedido.getItems())
-			{
-				OCProveedor ocProv = buscarOC(item.getItCotizacion().getItProveedor().getProveedor().getCodigoProveedor());
-				if (ocProv != null) // && oc.status es "abierta"
-				{
-					ocProv.agregarAOC(item.getItCotizacion().getRod(), item.getItCotizacion().getCantidad());
-				}
-				else
-				{
-					crearOC(item);
-				}
-			}
-		}
+		// List<OCProveedor> listaOCs = new ArrayList<OCProveedor>();
+		// for (PedVentaDTO pedido : pedidos)
+		// {
+		// for (ItemPedVentaDTO item : pedido.getItems())
+		// {
+		// OCProveedor ocProv = buscarOC(listaOCs);
+		// if (ocProv != null) // && oc.status es "abierta"
+		// {
+		// ocProv.agregarAOC(item.getItCotizacion().getRod(), item.getItCotizacion().getCantidad());
+		// }
+		// else
+		// {
+		// crearOC(item);
+		// }
+		// }
+		// }
 		// OCProveedorXML.GenerarXMLOrdenesDeCompra(OCProveedorDAO.getListaOCProveedores());
-		
 	}
 	
 	private OCProveedor buscarOC(int codigoProveedor)

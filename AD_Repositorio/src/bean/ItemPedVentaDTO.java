@@ -1,33 +1,38 @@
 package bean;
 
-public class ItemPedVentaDTO {
-	private RodamientoDTO rodamiento;
-	private ProveedorDTO proveedor;
-	private int cantidad;
-	public float precio;
-
-	public RodamientoDTO getRodamiento() {
-		return rodamiento;
+public class ItemPedVentaDTO
+{
+	private int id;
+	private ItemCotizacionDTO itCotizacion;
+	private int cantRecibida;
+	
+	public int getId()
+	{
+		return id;
 	}
-	public void setRodamiento(RodamientoDTO rodamiento) {
-		this.rodamiento = rodamiento;
+	
+	public void setId(int id)
+	{
+		this.id = id;
 	}
-	public int getCantidad() {
-		return cantidad;
+	
+	public ItemCotizacionDTO getItCotizacion()
+	{
+		return itCotizacion;
 	}
-	public void setCantidad(int cantidad) {
-		this.cantidad = cantidad;
+	
+	public void setItCotizacion(ItemCotizacionDTO itCotizacion)
+	{
+		this.itCotizacion = itCotizacion;
 	}
-	public float getPrecio() {
-		return precio;
+	
+	public int getCantRecibida()
+	{
+		return cantRecibida;
 	}
-	public void setPrecio(float precio) {
-		this.precio = precio;
-	}
-	public ProveedorDTO getProveedor() {
-		return proveedor;
-	}
-	public void setProveedor(ProveedorDTO proveedor) {
-		this.proveedor = proveedor;
+	
+	public void setCantRecibida(int cantRecibida)
+	{
+		this.cantRecibida = cantRecibida;
 	}
 }

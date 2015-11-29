@@ -36,6 +36,9 @@ public class ItemPedVenta
 	public ItemPedVentaDTO getDTO()
 	{
 		ItemPedVentaDTO itemDTO = new ItemPedVentaDTO();
+		itemDTO.setCantRecibida(cantRecibida);
+		itemDTO.setId(id);
+		itemDTO.setItCotizacion(itCotizacion.getDTO());
 		return itemDTO;
 	}
 	

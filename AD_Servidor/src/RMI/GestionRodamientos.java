@@ -12,6 +12,7 @@ import Dao.ClienteDAO;
 import Dao.CotizacionDAO;
 import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
+import Entities.CCentral;
 import Entities.Cliente;
 import Entities.Cotizacion;
 import Entities.ItemCotizacion;
@@ -23,6 +24,7 @@ import bean.ClienteDTO;
 import bean.CotizacionDTO;
 import bean.ItemCotizacionDTO;
 import bean.OVentaDTO;
+import bean.PedVentaDTO;
 import bean.RodamientoDTO;
 
 public class GestionRodamientos implements Serializable
@@ -124,6 +126,7 @@ public class GestionRodamientos implements Serializable
 		File[] files = CotizacionesXML.obtenerXMLCotizacionesAceptadas();
 		if (files != null)
 		{
+			List<PedVentaDTO> listaPedVta = new ArrayList<>();
 			for (int i = 0; i < files.length; i++)
 			{
 				CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionAceptada(files[i]);
@@ -133,11 +136,12 @@ public class GestionRodamientos implements Serializable
 					OVenta ov = OVentaDAO.getOVenta(cot.getCliente().getOVenta().getId());
 					if (ov != null)
 					{
-						ov.crearPedidoVenta(cot);
+						listaPedVta.add(ov.crearPedidoVenta(cot));
 						files[i].delete();
 					}
 				}
 			}
+			CCentral.getInstancia().generarOrdenesDeCompra(listaPedVta);
 		}
 	}
 	
