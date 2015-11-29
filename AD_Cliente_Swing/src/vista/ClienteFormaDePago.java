@@ -7,6 +7,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
@@ -83,6 +84,10 @@ public class ClienteFormaDePago extends javax.swing.JFrame
 							{
 								formas.add(formaDTO);
 							}
+							else
+							{
+								JOptionPane.showMessageDialog(null, "No existe la forma de pago", "Error", JOptionPane.ERROR_MESSAGE);
+							}
 							jTextField1.setText("");
 						}
 					}
@@ -99,6 +104,7 @@ public class ClienteFormaDePago extends javax.swing.JFrame
 					{
 						clienteDTO.setFormasDepago(formas);
 						BusinessDelegate.getInstancia().altaCliente(clienteDTO);
+						JOptionPane.showMessageDialog(null, "Se ha dado de alta el cliente.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 						setVisible(false);
 					}
 				});
