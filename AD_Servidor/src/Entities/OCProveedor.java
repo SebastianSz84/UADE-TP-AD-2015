@@ -3,10 +3,40 @@ package Entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "OCProveedor")
 public class OCProveedor
 {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	
+	@ManyToOne
+	@JoinColumn(name = "codigoProveedor")
 	private Proveedor proveedor;
+	
+	@Column(nullable = false, length = 50)
 	private String codigo;
+	
+	@ManyToOne
+	@JoinColumn(name = "idCondCompra", referencedColumnName = "id")
+	private CondCompra condCompra; // Ver qué onda las condiciones de compra
+	
+	@Column(nullable = false, length = 50)
+	private String estado;
+	
+	@OneToMany
+	@JoinColumn(name = "idOCProveedor")
 	private List<ItemOCProveedor> items;
 	
 	public List<ItemOCProveedor> getItems()
@@ -75,5 +105,35 @@ public class OCProveedor
 	public void setCodigo(String codigo)
 	{
 		this.codigo = codigo;
+	}
+	
+	public int getId()
+	{
+		return id;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
+	}
+	
+	public CondCompra getCondCompra()
+	{
+		return condCompra;
+	}
+	
+	public void setCondCompra(CondCompra condCompra)
+	{
+		this.condCompra = condCompra;
+	}
+	
+	public String getEstado()
+	{
+		return estado;
+	}
+	
+	public void setEstado(String estado)
+	{
+		this.estado = estado;
 	}
 }

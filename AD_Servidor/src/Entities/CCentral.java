@@ -135,12 +135,14 @@ public class CCentral
 				{
 					OCProveedor ocProvNueva = new OCProveedor();
 					ocProvNueva.agregarAOC(RodamientoDAO.getRodamiento(item.getItCotizacion().getRod().getCodigoSKF()), item.getItCotizacion().getCantidad());
+					ocProvNueva.setEstado("Abierta");
 					listaOCs.add(ocProvNueva);
 				}
 			}
 		}
 		for (OCProveedor ocProv : listaOCs)
 		{
+			ocProv.setEstado("Liberada");
 			OCProveedorDAO.saveOCProveedor(ocProv);
 		}
 		OCProveedorXML.GenerarXMLOrdenesDeCompra(listaOCs);
