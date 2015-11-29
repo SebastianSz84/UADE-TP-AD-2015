@@ -236,7 +236,11 @@ public class CCentral
 					proveedor.agregarItem(itemDTO.getCodRodProv(), itemDTO.getPrecio(), itemDTO.getCondiciones(), itemDTO.getDisponible(), rod);
 				}
 			}
-			ProveedorDAO.saveEntity(proveedor);
+			if (ProveedorDAO.saveEntity(proveedor) != null)
+			{
+				publicarListaDePreciosFinal();
+			}
+			
 		}
 	}
 	
