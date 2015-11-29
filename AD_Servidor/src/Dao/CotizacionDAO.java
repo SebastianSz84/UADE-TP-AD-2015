@@ -18,6 +18,7 @@ public class CotizacionDAO extends BaseDAO
 		return saveEntity(cot);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static List<Cotizacion> getCotizacionesDeCliente(int nroCliente)
 	{
 		try
@@ -32,5 +33,18 @@ public class CotizacionDAO extends BaseDAO
 			ex.printStackTrace();
 		}
 		return null;
+	}
+	
+	public static long getCantCotAbiertasXRod(String codigoSKF)
+	{
+		try
+		{
+			return (long) getSession().createQuery("select count(c.id) from Cotizacion c join c.items it join it.rod r where r.codigoSKF = '" + codigoSKF + "' and ( c.estado = 'Pendiente' or c.estado = 'Armada' or c.estado = 'Aceptada' )").uniqueResult();
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		return 0;
 	}
 }

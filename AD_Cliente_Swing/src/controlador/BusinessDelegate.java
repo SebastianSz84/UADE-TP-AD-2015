@@ -264,4 +264,30 @@ public class BusinessDelegate
 		}
 		return false;
 	}
+	
+	public boolean bajaRodamiento(String codigoSKF)
+	{
+		try
+		{
+			return objetoRemoto.bajaRodamiento(codigoSKF);
+		}
+		catch (RemoteException e)
+		{
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public boolean existenCotAbiertasXRod(String codigoSKF)
+	{
+		try
+		{
+			return objetoRemoto.existenCotAbiertasXRod(codigoSKF);
+		}
+		catch (RemoteException e)
+		{
+			e.printStackTrace();
+		}
+		return false;
+	}
 }

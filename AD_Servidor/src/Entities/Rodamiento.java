@@ -7,6 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 import bean.RodamientoDTO;
+import bean.StockDTO;
 
 @Entity
 @Table(name = "Rodamiento")
@@ -18,6 +19,9 @@ public class Rodamiento
 	
 	@Column(nullable = false, length = 50)
 	private String tipo;
+	
+	@Column
+	private boolean inactivo;
 	
 	@Embedded
 	private Stock stock;
@@ -63,6 +67,10 @@ public class Rodamiento
 		RodamientoDTO rodDTO = new RodamientoDTO();
 		rodDTO.setCodigoSKF(this.codigoSKF);
 		rodDTO.setTipo(this.tipo);
+		StockDTO stkDTO = new StockDTO();
+		stkDTO.setCantidad(this.getStock().getCantidad());
+		stkDTO.setPrecio(this.getStock().getPrecio());
+		rodDTO.setStock(stkDTO);
 		return rodDTO;
 	}
 	
@@ -74,5 +82,15 @@ public class Rodamiento
 	public void setStock(Stock stock)
 	{
 		this.stock = stock;
+	}
+	
+	public boolean isInactivo()
+	{
+		return inactivo;
+	}
+	
+	public void setInactivo(boolean inactivo)
+	{
+		this.inactivo = inactivo;
 	}
 }

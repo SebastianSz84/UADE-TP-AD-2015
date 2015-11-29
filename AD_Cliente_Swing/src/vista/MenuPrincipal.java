@@ -219,6 +219,43 @@ public class MenuPrincipal extends javax.swing.JFrame
 							jMenuItem12 = new JMenuItem();
 							jMenu5.add(jMenuItem12);
 							jMenuItem12.setText("Baja");
+							jMenuItem12.addActionListener(new ActionListener()
+							{
+								public void actionPerformed(ActionEvent evt)
+								{
+									String codigoSKF = JOptionPane.showInputDialog(null, "Ingrese el código SKF:", "Modificar Rodamiento", JOptionPane.QUESTION_MESSAGE);
+									if (codigoSKF.isEmpty())
+									{
+										JOptionPane.showMessageDialog(null, "Debe ingresar un código SKF.", "Error", JOptionPane.ERROR_MESSAGE);
+									}
+									else
+									{
+										RodamientoDTO rodDTO = BusinessDelegate.getInstancia().getRodamiento(codigoSKF);
+										if (rodDTO == null)
+										{
+											JOptionPane.showMessageDialog(null, "Rodamiento inexistente.", "Error", JOptionPane.ERROR_MESSAGE);
+										}
+										else
+										{
+											if (BusinessDelegate.getInstancia().existenCotAbiertasXRod(codigoSKF))
+											{
+												JOptionPane.showMessageDialog(null, "Existen Cotizaciones abiertas con el rodamiento ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+											}
+											else
+											{
+												if (BusinessDelegate.getInstancia().bajaRodamiento(codigoSKF))
+												{
+													JOptionPane.showMessageDialog(null, "Se ha dado de baja el rodamiento.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+												}
+												else
+												{
+													JOptionPane.showMessageDialog(null, "Error al dar de baja el rodamiento.", "Error", JOptionPane.ERROR_MESSAGE);
+												}
+											}
+										}
+									}
+								}
+							});
 						}
 						{
 							jMenuItem13 = new JMenuItem();
@@ -236,7 +273,14 @@ public class MenuPrincipal extends javax.swing.JFrame
 									else
 									{
 										RodamientoDTO rodDTO = BusinessDelegate.getInstancia().getRodamiento(codigoSKF);
-										new ModificarRodamiento(rodDTO);
+										if (rodDTO == null)
+										{
+											JOptionPane.showMessageDialog(null, "Rodamiento inexistente.", "Error", JOptionPane.ERROR_MESSAGE);
+										}
+										else
+										{
+											new ModificarRodamiento(rodDTO);
+										}
 									}
 								}
 							});

@@ -319,4 +319,23 @@ public class GestionRodamientos implements Serializable
 		}
 		return false;
 	}
+	
+	public boolean bajaRodamiento(String codigoSKF)
+	{
+		Rodamiento rod = RodamientoDAO.getRodamiento(codigoSKF);
+		if (rod != null)
+		{
+			rod.setInactivo(true);
+			if (RodamientoDAO.saveRodamiento(rod) != null)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean existenCotAbiertasXRod(String codigoSKF)
+	{
+		return CotizacionDAO.getCantCotAbiertasXRod(codigoSKF) != 0;
+	}
 }

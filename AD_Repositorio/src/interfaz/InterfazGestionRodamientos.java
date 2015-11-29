@@ -57,4 +57,8 @@ public interface InterfazGestionRodamientos extends Remote
 	public ClienteDTO getClienteDTO(int id) throws RemoteException;
 	
 	public boolean modificarRodamiento(RodamientoDTO rodDTO) throws RemoteException;
+	
+	public boolean bajaRodamiento(String codigoSKF) throws RemoteException;
+	
+	public boolean existenCotAbiertasXRod(String codigoSKF) throws RemoteException;
 }

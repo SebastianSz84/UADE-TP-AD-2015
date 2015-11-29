@@ -91,13 +91,13 @@ public class ModificarRodamiento extends javax.swing.JFrame
 							float precio = Float.parseFloat(jTextField4.getText());
 							if (cantidad < 0)
 							{
-								JOptionPane.showMessageDialog(null, "Debe ingresar un número entero positivo en Cantidad.", "Error", JOptionPane.ERROR_MESSAGE);
+								JOptionPane.showMessageDialog(null, "Debe ingresar cero o un número entero positivo en Cantidad.", "Error", JOptionPane.ERROR_MESSAGE);
 							}
 							else
 							{
 								if (precio < 0)
 								{
-									JOptionPane.showMessageDialog(null, "Debe ingresar un número entero positivo en Cantidad.", "Error", JOptionPane.ERROR_MESSAGE);
+									JOptionPane.showMessageDialog(null, "Debe ingresar cero o un número positivo en Precio.", "Error", JOptionPane.ERROR_MESSAGE);
 								}
 								else
 								{
@@ -108,17 +108,17 @@ public class ModificarRodamiento extends javax.swing.JFrame
 										rodDTO.getStock().setPrecio(precio);
 										if (BusinessDelegate.getInstancia().modificarRodamiento(rodDTO))
 										{
-											JOptionPane.showMessageDialog(null, "Se ha dado de alta el rodamiento.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+											JOptionPane.showMessageDialog(null, "Se ha modificado el rodamiento.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 											dispose();
 										}
 										else
 										{
-											JOptionPane.showMessageDialog(null, "Error al dar de alta el rodamiento.", "Error", JOptionPane.ERROR_MESSAGE);
+											JOptionPane.showMessageDialog(null, "Error al modificar el rodamiento.", "Error", JOptionPane.ERROR_MESSAGE);
 										}
 									}
 									else
 									{
-										JOptionPane.showMessageDialog(null, "Debe completar todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
+										JOptionPane.showMessageDialog(null, "Debe completar el tipo.", "Error", JOptionPane.ERROR_MESSAGE);
 									}
 								}
 							}
