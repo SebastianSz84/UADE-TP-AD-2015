@@ -14,6 +14,7 @@ import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
 import Entities.Bulto;
 import Entities.ComparativaPrecios;
+import Entities.ItemBulto;
 import Entities.ItemPedVenta;
 import Entities.ItemProveedor;
 import Entities.OCProveedor;
@@ -87,7 +88,8 @@ public class CCentral
 			{
 				if ((rodamiento.getStock().getCantidad() > 0))
 				{
-					Bulto bulto = BultoDAO.getBultoAbiertoByOV(pedVenta.getCotizacion().getCliente().getOVenta().getId());
+					int idOVenta = pedVenta.getCotizacion().getCliente().getOVenta().getId();
+					Bulto bulto = BultoDAO.getBultoAbiertoByOV(idOVenta);
 					if (bulto == null)
 					{
 						bulto = new Bulto();
@@ -104,9 +106,23 @@ public class CCentral
 					else
 					{
 						cantidadUsada += rodamiento.getStock().getCantidad();
+						
 						rodamiento.getStock().setCantidad(0);
 					}
-					bulto.agregarRodamientoComprado(rodamiento, cantidadUsada);
+					if (rodamiento.getStock().getCantidad() == 0)
+					{
+						rodamiento.getStock().setPrecio(0);
+					}
+					
+					ItemBulto itemBulto = bulto.buscarItemParaRodamiento(rodamiento.getCodigoSKF());
+					if (itemBulto != null)
+					{
+						itemBulto.setCantidad(itemBulto.getCantidad() + cantidadUsada);
+					}
+					else
+					{
+						bulto.agregarRodamientoComprado(rodamiento, cantidadUsada);
+					}
 					BultoDAO.saveEntity(bulto);
 				}
 			}
@@ -129,7 +145,6 @@ public class CCentral
 				bulto.setEstado("Cerrado");
 				BultosXML.GenerarXMLBulto(bulto);
 				BultoDAO.saveEntity(bulto);
-				
 			}
 		}
 	}

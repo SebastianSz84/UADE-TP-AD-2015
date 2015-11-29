@@ -85,4 +85,15 @@ public class Bulto
 		this.estado = estado;
 	}
 	
+	public ItemBulto buscarItemParaRodamiento(String codigoSKF)
+	{
+		for (ItemBulto itemBulto : items)
+		{
+			if (itemBulto.getRodamiento().getCodigoSKF().equals(codigoSKF))
+			{
+				return itemBulto;
+			}
+		}
+		return null;
+	}
 }

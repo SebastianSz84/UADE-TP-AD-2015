@@ -6,8 +6,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
+
+import bean.RodamientoDTO;
+import controlador.BusinessDelegate;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer using Jigloo.
@@ -220,6 +224,22 @@ public class MenuPrincipal extends javax.swing.JFrame
 							jMenuItem13 = new JMenuItem();
 							jMenu5.add(jMenuItem13);
 							jMenuItem13.setText("Modificación");
+							jMenuItem13.addActionListener(new ActionListener()
+							{
+								public void actionPerformed(ActionEvent evt)
+								{
+									String codigoSKF = JOptionPane.showInputDialog(null, "Ingrese el código SKF:", "Modificar Rodamiento", JOptionPane.QUESTION_MESSAGE);
+									if (codigoSKF.isEmpty())
+									{
+										JOptionPane.showMessageDialog(null, "Debe ingresar un código SKF.", "Error", JOptionPane.ERROR_MESSAGE);
+									}
+									else
+									{
+										RodamientoDTO rodDTO = BusinessDelegate.getInstancia().getRodamiento(codigoSKF);
+										new ModificarRodamiento(rodDTO);
+									}
+								}
+							});
 						}
 					}
 					{
