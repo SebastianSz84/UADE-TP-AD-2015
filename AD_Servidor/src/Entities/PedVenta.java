@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -23,6 +24,10 @@ public class PedVenta
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@ManyToOne
+	@JoinColumn(name = "idOVenta", referencedColumnName = "id")
+	private OVenta oVenta;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idCotizacion")
@@ -119,5 +124,15 @@ public class PedVenta
 	public PedVenta()
 	{
 		this.items = new ArrayList<>();
+	}
+	
+	public OVenta getoVenta()
+	{
+		return oVenta;
+	}
+	
+	public void setoVenta(OVenta oVenta)
+	{
+		this.oVenta = oVenta;
 	}
 }

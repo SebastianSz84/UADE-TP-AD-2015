@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import Dao.ClienteDAO;
 import Dao.CotizacionDAO;
@@ -25,6 +26,7 @@ import bean.OVentaDTO;
 import bean.PedVentaDTO;
 
 @Entity
+@Table(name = "OVenta")
 public class OVenta
 {
 	
@@ -43,7 +45,7 @@ public class OVenta
 	private List<Cliente> clientes;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id", referencedColumnName = "idOVenta")
+	@JoinColumn(name = "idOVenta")
 	private List<PedVenta> pedidos;
 	
 	public OVenta()
