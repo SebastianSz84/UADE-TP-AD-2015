@@ -33,6 +33,19 @@ public class Proveedor
 	@Column
 	private String nombre;
 	
+	@Column
+	private boolean inactivo;
+	
+	public boolean isInactivo()
+	{
+		return inactivo;
+	}
+	
+	public void setInactivo(boolean inactivo)
+	{
+		this.inactivo = inactivo;
+	}
+	
 	public Proveedor()
 	{
 		items = new ArrayList<ItemProveedor>();

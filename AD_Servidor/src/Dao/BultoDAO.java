@@ -31,6 +31,6 @@ public class BultoDAO extends BaseDAO
 	
 	public static Bulto getBultoAbiertoByOV(int OVid)
 	{
-		return (Bulto) getSession().createQuery("FROM Bulto B WHERE B.estado = :estado and B.OficinaDeVenta.id = :OVid").setParameter("estado", "Abierto").uniqueResult();
+		return (Bulto) getSession().createQuery("FROM Bulto B WHERE B.estado = :estado and B.OficinaDeVenta.id = :OVid").setParameter("estado", "Abierto").setParameter("OVid", OVid).uniqueResult();
 	}
 }

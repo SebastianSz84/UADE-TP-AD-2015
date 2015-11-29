@@ -11,6 +11,7 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 import bean.RodamientoDTO;
+import bean.StockDTO;
 import controlador.BusinessDelegate;
 
 /**
@@ -88,19 +89,21 @@ public class AltaRodamiento extends javax.swing.JFrame
 				{
 					public void actionPerformed(ActionEvent evt)
 					{
-						jTextField1.setText("Nombre1");
-						jTextField2.setText("Direccion1");
 						String codigoSKF = jTextField1.getText();
 						String tipo = jTextField2.getText();
 						
 						if (!codigoSKF.isEmpty() && !tipo.isEmpty())
 						{
 							RodamientoDTO rodDTO = BusinessDelegate.getInstancia().getRodamiento(codigoSKF);
-							if (rodDTO != null)
+							if (rodDTO == null)
 							{
 								rodDTO = new RodamientoDTO();
 								rodDTO.setCodigoSKF(codigoSKF);
 								rodDTO.setTipo(tipo);
+								StockDTO stkDTO = new StockDTO();
+								stkDTO.setCantidad(0);
+								stkDTO.setPrecio(0);
+								rodDTO.setStock(stkDTO);
 								if (BusinessDelegate.getInstancia().altaRodamiento(rodDTO))
 								{
 									JOptionPane.showMessageDialog(null, "Se ha dado de alta el rodamiento.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
@@ -110,6 +113,10 @@ public class AltaRodamiento extends javax.swing.JFrame
 								{
 									JOptionPane.showMessageDialog(null, "Error al dar de alta el rodamiento.", "Error", JOptionPane.ERROR_MESSAGE);
 								}
+							}
+							else
+							{
+								JOptionPane.showMessageDialog(null, "El rodamiento ya existe.", "Error", JOptionPane.ERROR_MESSAGE);
 							}
 						}
 						else

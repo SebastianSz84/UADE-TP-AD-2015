@@ -1,8 +1,9 @@
 package bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class ProveedorDTO
+public class ProveedorDTO implements Serializable
 {
 	private int codigoProveedor;
 	private String direccion;
