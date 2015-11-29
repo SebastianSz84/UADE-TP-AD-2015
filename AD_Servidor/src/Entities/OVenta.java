@@ -125,7 +125,9 @@ public class OVenta
 		pedVta.setCotizacion(cot);
 		pedVta.generarItemsDesdeCotizacion();
 		pedVta.setEstado("Pendiente");
+		pedVta.setoVenta(this);
 		pedidos.add(pedVta);
+		PedVentaDAO.savePedVenta(pedVta);
 		return pedVta.getDTO();
 	}
 	

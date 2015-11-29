@@ -143,8 +143,11 @@ public class GestionRodamientos implements Serializable
 						files[i].delete();
 					}
 				}
-				CCentral.getInstancia().generarOrdenesDeCompra(listaPedVta);
-				listaPedVta.clear();
+				if (!listaPedVta.isEmpty())
+				{
+					CCentral.getInstancia().generarOrdenesDeCompra(listaPedVta);
+					listaPedVta.clear();
+				}
 			}
 		}
 	}
