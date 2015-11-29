@@ -226,6 +226,7 @@ public class OVenta
 						}
 					}
 				}
+				PedVentaDAO.saveEntity(pedido);
 			}
 			
 			if (pedido.estaCompleto())
