@@ -238,29 +238,28 @@ public class BusinessDelegate
 		return false;
 	}
 	
+<<<<<<< 1829d7322cce18cb235cefb389644deb4382c22e
 	public ClienteDTO getClienteDTO(int id)
 	{
 		try
 		{
 			return objetoRemoto.getClienteDTO(id);
-		}
-		catch (RemoteException e)
-		{
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
+=======
 	public boolean modificarRodamiento(RodamientoDTO rodDTO)
 	{
 		try
 		{
 			return objetoRemoto.modificarRodamiento(rodDTO);
+>>>>>>> ModificarRodamiento.
 		}
 		catch (RemoteException e)
 		{
 			e.printStackTrace();
 		}
+<<<<<<< 1829d7322cce18cb235cefb389644deb4382c22e
+		return null;
+=======
 		return false;
+>>>>>>> ModificarRodamiento.
 	}
 }

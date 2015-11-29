@@ -58,4 +58,6 @@ public interface InterfazGestionRodamientos extends Remote
 	public boolean altaRodamiento(RodamientoDTO rodDTO) throws RemoteException;
 	
 	public ClienteDTO getClienteDTO(int id) throws RemoteException;
+	
+	public boolean modificarRodamiento(RodamientoDTO rodDTO) throws RemoteException;
 }

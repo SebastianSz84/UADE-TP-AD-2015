@@ -13,17 +13,15 @@ import bean.ProveedorDTO;
 import controlador.BusinessDelegate;
 
 /**
- * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
- * Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose
- * whatever) then you should purchase a license for each developer using Jigloo.
- * Please visit www.cloudgarden.com for details. Use of Jigloo implies
- * acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN
- * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
- * ANY CORPORATE OR COMMERCIAL PURPOSE.
+ * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer using Jigloo.
+ * Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
 public class ModificarProveedor extends javax.swing.JFrame
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel jLabel1;
 	private JTextField jTextField1;
 	private JLabel jLabel2;
@@ -31,7 +29,7 @@ public class ModificarProveedor extends javax.swing.JFrame
 	private JButton jButton1;
 	private JTextField jTextField3;
 	private JTextField jTextField2;
-
+	
 	/**
 	 * Auto-generated main method to display this JFrame
 	 */
@@ -47,13 +45,13 @@ public class ModificarProveedor extends javax.swing.JFrame
 			}
 		});
 	}
-
+	
 	public ModificarProveedor()
 	{
 		super();
 		initGUI();
 	}
-
+	
 	private void initGUI()
 	{
 		try
@@ -105,7 +103,7 @@ public class ModificarProveedor extends javax.swing.JFrame
 						String codigo = jTextField1.getText();
 						String nombre = jTextField2.getText();
 						String direccion = jTextField3.getText();
-
+						
 						if (!codigo.isEmpty())
 						{
 							ProveedorDTO proveedorDTO = new ProveedorDTO();
@@ -122,11 +120,12 @@ public class ModificarProveedor extends javax.swing.JFrame
 			setSize(400, 300);
 			this.setLocationRelativeTo(null);
 			this.setVisible(true);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// add your error handling code here
 			e.printStackTrace();
 		}
 	}
-
+	
 }

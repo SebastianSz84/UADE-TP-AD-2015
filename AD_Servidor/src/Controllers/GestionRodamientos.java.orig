@@ -306,6 +306,9 @@ public class GestionRodamientos implements Serializable
 		}
 		return false;
 	}
+<<<<<<< 1829d7322cce18cb235cefb389644deb4382c22e
+}
+=======
 	
 	public boolean modificarRodamiento(RodamientoDTO rodDTO)
 	{
@@ -320,3 +323,4 @@ public class GestionRodamientos implements Serializable
 		return false;
 	}
 }
+>>>>>>> ModificarRodamiento.
