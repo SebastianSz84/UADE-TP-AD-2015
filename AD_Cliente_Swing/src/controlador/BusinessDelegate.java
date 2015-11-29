@@ -8,6 +8,7 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 import bean.ClienteDTO;
+import bean.FormaDePagoDTO;
 import bean.OVentaDTO;
 import bean.ProveedorDTO;
 
@@ -157,5 +158,15 @@ public class BusinessDelegate
 		}
 		return null;
 	}
+	
+	public FormaDePagoDTO getForma(int id){
+		try{
+			return objetoRemoto.getForma(id);
+		} catch(RemoteException e){
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 
 }

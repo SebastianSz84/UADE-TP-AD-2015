@@ -5,6 +5,7 @@ import java.rmi.RemoteException;
 import java.util.List;
 
 import bean.ClienteDTO;
+import bean.FormaDePagoDTO;
 import bean.ItemCotizacionDTO;
 import bean.OVentaDTO;
 import bean.ProveedorDTO;
@@ -66,5 +67,7 @@ public interface InterfazGestionRodamientos extends Remote
 	public void modificacionCliente(ClienteDTO clienteDTO) throws RemoteException;
 	
 	public OVentaDTO getOV(int id) throws RemoteException;
+	
+	public FormaDePagoDTO getForma(int id) throws RemoteException;
 	
 }

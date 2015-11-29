@@ -10,16 +10,19 @@ import java.util.Vector;
 
 import Dao.ClienteDAO;
 import Dao.CotizacionDAO;
+import Dao.FormaPagoDAO;
 import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
 import Entities.Cliente;
 import Entities.Cotizacion;
+import Entities.FormaPago;
 import Entities.ItemCotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
 import Helper.CotizacionesXML;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
+import bean.FormaDePagoDTO;
 import bean.ItemCotizacionDTO;
 import bean.OVentaDTO;
 import bean.RodamientoDTO;
@@ -247,6 +250,14 @@ public class GestionRodamientos implements Serializable
 		Cliente cliente = ClienteDAO.getCliente(id);
 		if (cliente != null)
 			return cliente.getDTO();
+		return null;
+	}
+	
+	public FormaDePagoDTO getForma(int id)
+	{
+		FormaPago forma = FormaPagoDAO.getFormaPago(id);
+		if (forma != null)
+			return forma.getDTO();
 		return null;
 	}
 }

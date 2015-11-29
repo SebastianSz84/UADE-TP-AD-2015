@@ -110,7 +110,7 @@ public class AltaCliente extends javax.swing.JFrame {
 								clienteDTO.setNombre(nombre);
 								clienteDTO.setDireccion(direccion);
 								clienteDTO.setOVenta(oventaDTO);
-								BusinessDelegate.getInstancia().altaCliente(clienteDTO);
+								new ClienteFormaDePago(clienteDTO);
 								dispose();
 							}
 						}
