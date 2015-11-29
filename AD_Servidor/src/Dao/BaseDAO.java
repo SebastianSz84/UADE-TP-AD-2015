@@ -20,6 +20,7 @@ import Entities.ItemOCProveedor;
 import Entities.ItemPedVenta;
 import Entities.ItemProveedor;
 import Entities.ListaPrecios;
+import Entities.Mensajes;
 import Entities.OCProveedor;
 import Entities.OVenta;
 import Entities.PedVenta;
@@ -55,6 +56,7 @@ public class BaseDAO
 			cfg.addAnnotatedClass(Proveedor.class);
 			cfg.addAnnotatedClass(Rodamiento.class);
 			cfg.addAnnotatedClass(ComparativaPrecios.class);
+			cfg.addAnnotatedClass(Mensajes.class);
 			
 			cfg.configure("hibernate.cfg.xml");
 			SessionFactory factory = cfg.buildSessionFactory();

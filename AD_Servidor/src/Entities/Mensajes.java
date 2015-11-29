@@ -1,12 +1,16 @@
 package Entities;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "Mensajes")
 public class Mensajes
 {
 	@Id
@@ -18,7 +22,7 @@ public class Mensajes
 	public Cliente cli;
 	
 	@Column
-	public String mensaje;
+	public String texto;
 	
 	public int getId()
 	{
@@ -40,13 +44,13 @@ public class Mensajes
 		this.cli = cli;
 	}
 	
-	public String getMensaje()
+	public String getTexto()
 	{
-		return mensaje;
+		return texto;
 	}
 	
-	public void setMensaje(String mensaje)
+	public void setTexto(String mensaje)
 	{
-		this.mensaje = mensaje;
+		this.texto = mensaje;
 	}
 }

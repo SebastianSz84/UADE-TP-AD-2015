@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import Dao.PedVentaDAO;
 import bean.ItemPedVentaDTO;
 import bean.PedVentaDTO;
 
@@ -117,6 +118,12 @@ public class PedVenta
 		{
 			if (!item.estaCompleto())
 				return false;
+		}
+		
+		if (estado.equals("Pendiente"))
+		{
+			setEstado("Cerrado");
+			PedVentaDAO.savePedVenta(this);
 		}
 		
 		return true;
