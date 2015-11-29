@@ -49,7 +49,7 @@ public class BusinessDelegate {
 
 	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) {
 		try {
-			return objetoRemoto.solicitarCotizacion(nroCliente, itemsCotLista);
+			return objetoRemoto.solicitarCotizacion(nroCliente, itemsCotLista, false);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
@@ -66,13 +66,13 @@ public class BusinessDelegate {
 		return false;
 	}
 
-	public boolean aceptarCotizacion(int idCotizacion) {
+	public String aceptarCotizacion(int idCotizacion) {
 		try {
 			return objetoRemoto.aceptarCotizacion(idCotizacion);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return "Error al aceptar la cotizacion";
 	}
 
 	public List<RodamientoDTO> getListaRodamientos() {
