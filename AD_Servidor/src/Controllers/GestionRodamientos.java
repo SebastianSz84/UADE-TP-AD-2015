@@ -55,14 +55,14 @@ public class GestionRodamientos implements Serializable
 		return listaRodDTO;
 	}
 	
-	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) throws RemoteException
+	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista, boolean aceptada) throws RemoteException
 	{
 		Cliente cli = ClienteDAO.getCliente(nroCliente);
 		if (cli != null)
 		{
 			Cotizacion cot = new Cotizacion();
 			cot.setFecha(Calendar.getInstance().getTime());
-			cot.setEstado("Pendiente");
+			cot.setEstado(aceptada ? "Aceptada" : "Pendiente");
 			cot.setCliente(cli);
 			List<ItemCotizacion> listaItems = new ArrayList<>();
 			for (ItemCotizacionDTO itCotDTO : itemsCotLista)
@@ -86,11 +86,6 @@ public class GestionRodamientos implements Serializable
 		return false;
 	}
 	
-	public void agregarItem() throws RemoteException
-	{
-		
-	}
-	
 	public void armarCotizacones()
 	{
 		List<OVenta> oVentas = OVentaDAO.getAll();
@@ -110,7 +105,7 @@ public class GestionRodamientos implements Serializable
 		}
 	}
 	
-	public boolean aceptarCotizacion(int nroCotizacion) throws RemoteException
+	public String aceptarCotizacion(int nroCotizacion) throws RemoteException
 	{
 		Cotizacion cot = CotizacionDAO.getCotizacion(nroCotizacion);
 		if (cot != null)
@@ -135,21 +130,24 @@ public class GestionRodamientos implements Serializable
 					}
 				}
 				
-				if (esAceptable)
+				if (esAceptable && CotizacionesXML.generarXMLAceptarCotizacion(ov.aceptarCotizacion(cot)))
 				{
-					return CotizacionesXML.generarXMLAceptarCotizacion(ov.aceptarCotizacion(cot));
+					return "Aceptada";
 				}
 				else
 				{
 					ov.rechazarCotizacion(cot);
 					if (itemsCotLista.size() > 0)
 					{
-						solicitarCotizacion(cot.getCliente().getId(), itemsCotLista);
+						if (solicitarCotizacion(cot.getCliente().getId(), itemsCotLista, true))
+						{
+							return "Nueva";
+						}
 					}
 				}
 			}
 		}
-		return false;
+		return "Error";
 	}
 	
 	public void procesarCotAceptadas()
@@ -198,24 +196,6 @@ public class GestionRodamientos implements Serializable
 				}
 			}
 		}
-	}
-	
-	/*
-	 * public XML leerXMLBultosAEnviar() { } public void borrarXMLPedidoCotizacion(XML xml) { } public void borrarXMLDeBultoAEnviar( XML xml) { }
-	 */
-	
-	public void ActualizarStock(String codigoSKF, int cantidad, float precio) throws RemoteException
-	{
-		
-	}
-	
-	/*
-	 * public listasXML generarOrdenesDeCompra() { }
-	 */
-	
-	public void PublicarListaDePreciosFinal() throws RemoteException
-	{
-		
 	}
 	
 	public static GestionRodamientos getInstancia()
