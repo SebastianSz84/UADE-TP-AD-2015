@@ -241,7 +241,7 @@ public class GestionRodamientos implements Serializable
 	{
 		Cliente cliente = ClienteDAO.getCliente(codigoCliente);
 		OVenta oventa = OVentaDAO.getOVenta(cliente.getOVenta().getId());
-		oventa.bajaCliente(codigoCliente);
+		oventa.bajaCliente(cliente);
 	}
 	
 	public void modificacionCliente(ClienteDTO clienteDTO)
