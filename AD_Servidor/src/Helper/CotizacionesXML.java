@@ -247,11 +247,11 @@ public class CotizacionesXML
 		return false;
 	}
 	
-	public static File[] obtenerXMLCotizacionesAceptadas()
+	public static File[] obtenerXMLCotizacionesAceptadas(OVenta ov)
 	{
 		try
 		{
-			File dir = new File(root, aceptadas);
+			File dir = new File(root + Integer.toString(ov.getId()), aceptadas);
 			return dir.listFiles(new XMLFilter());
 		}
 		catch (Exception e)

@@ -14,7 +14,7 @@ public class ThreadCotizaciones extends Thread
 				GestionRodamientos.getInstancia().armarCotizacones();
 				Thread.sleep(1000 * 30); // Esperar 30 segundos
 				
-				GestionRodamientos.getInstancia().leerXMLCotAceptadas();
+				GestionRodamientos.getInstancia().procesarCotAceptadas();
 				Thread.sleep(1000 * 30); // Esperar 30 segundos
 			}
 		}

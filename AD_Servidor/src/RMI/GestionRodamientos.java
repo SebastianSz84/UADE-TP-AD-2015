@@ -125,27 +125,27 @@ public class GestionRodamientos implements Serializable
 		return false;
 	}
 	
-	public void leerXMLCotAceptadas()
+	public void procesarCotAceptadas()
 	{
-		File[] files = CotizacionesXML.obtenerXMLCotizacionesAceptadas();
-		if (files != null)
+		List<OVenta> oVentas = OVentaDAO.getAll();
+		for (OVenta ov : oVentas)
 		{
-			List<PedVentaDTO> listaPedVta = new ArrayList<>();
-			for (int i = 0; i < files.length; i++)
+			File[] files = CotizacionesXML.obtenerXMLCotizacionesAceptadas(ov);
+			if (files != null)
 			{
-				CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionAceptada(files[i]);
-				if (cotDTO != null)
+				List<PedVentaDTO> listaPedVta = new ArrayList<>();
+				for (int i = 0; i < files.length; i++)
 				{
-					Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
-					OVenta ov = OVentaDAO.getOVenta(cot.getCliente().getOVenta().getId());
-					if (ov != null)
+					CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionAceptada(files[i]);
+					if (cotDTO != null)
 					{
+						Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
 						listaPedVta.add(ov.crearPedidoVenta(cot));
 						files[i].delete();
 					}
 				}
+				CCentral.getInstancia().generarOrdenesDeCompra(listaPedVta);
 			}
-			CCentral.getInstancia().generarOrdenesDeCompra(listaPedVta);
 		}
 	}
 	

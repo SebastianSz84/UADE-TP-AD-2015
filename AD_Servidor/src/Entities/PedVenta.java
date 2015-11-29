@@ -17,7 +17,7 @@ import bean.ItemPedVentaDTO;
 import bean.PedVentaDTO;
 
 @Entity
-@Table(name = "PedidosVentas")
+@Table(name = "PedidoVenta")
 public class PedVenta
 {
 	@Id
@@ -114,5 +114,10 @@ public class PedVenta
 		}
 		
 		return true;
+	}
+	
+	public PedVenta()
+	{
+		this.items = new ArrayList<>();
 	}
 }

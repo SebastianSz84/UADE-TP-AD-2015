@@ -42,7 +42,7 @@ public class Cliente
 	private List<FormaPago> formas;
 	
 	@ManyToOne
-	@JoinColumn(name = "idOVenta")
+	@JoinColumn(name = "idOVenta", referencedColumnName = "id")
 	private OVenta oVenta;
 	
 	public int getId()

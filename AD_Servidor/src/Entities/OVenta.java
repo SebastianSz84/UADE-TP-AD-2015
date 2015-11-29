@@ -43,7 +43,7 @@ public class OVenta
 	private List<Cliente> clientes;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "idOVenta")
+	@JoinColumn(name = "id", referencedColumnName = "idOVenta")
 	private List<PedVenta> pedidos;
 	
 	public OVenta()
