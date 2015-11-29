@@ -114,26 +114,12 @@ public class OVenta
 		return null;
 	}
 	
-	public void buscarRodamiento(String codSKF)
-	{
-		
-	}
-	
-	public void addRodamiento(Rodamiento rod)
-	{
-		
-	}
-	
-	public void generarFactura(Cliente cli, PedVenta ped)
-	{
-		
-	}
-	
 	public PedVentaDTO crearPedidoVenta(Cotizacion cot)
 	{
 		PedVenta pedVta = new PedVenta();
 		pedVta.setCotizacion(cot);
 		pedVta.generarItemsDesdeCotizacion();
+		pedVta.setEstado("Pendiente");
 		pedidos.add(pedVta);
 		return pedVta.getDTO();
 	}

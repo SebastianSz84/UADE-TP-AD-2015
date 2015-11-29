@@ -16,6 +16,7 @@ import org.w3c.dom.Element;
 
 import Entities.Bulto;
 import Entities.ItemBulto;
+import Entities.OVenta;
 
 public class BultosXML
 {
@@ -67,5 +68,19 @@ public class BultosXML
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public static File[] obtenerXMLBultos(OVenta ov)
+	{
+		try
+		{
+			File dir = new File(root + Integer.toString(ov.getId()), bultos);
+			return dir.listFiles(new XMLFilter());
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

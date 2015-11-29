@@ -13,18 +13,21 @@ import Dao.CotizacionDAO;
 import Dao.FormaPagoDAO;
 import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
+import Entities.CCentral;
 import Entities.Cliente;
 import Entities.Cotizacion;
 import Entities.FormaPago;
 import Entities.ItemCotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
+import Helper.BultosXML;
 import Helper.CotizacionesXML;
 import bean.ClienteDTO;
 import bean.CotizacionDTO;
 import bean.FormaDePagoDTO;
 import bean.ItemCotizacionDTO;
 import bean.OVentaDTO;
+import bean.PedVentaDTO;
 import bean.RodamientoDTO;
 
 public class GestionRodamientos implements Serializable
@@ -88,8 +91,8 @@ public class GestionRodamientos implements Serializable
 	
 	public void armarCotizacones()
 	{
-		oventas = OVentaDAO.getAll();
-		for (OVenta ov : oventas)
+		List<OVenta> oVentas = OVentaDAO.getAll();
+		for (OVenta ov : oVentas)
 		{
 			File[] files = CotizacionesXML.obtenerXMLCotizacionParaArmar(ov);
 			if (files != null)
@@ -126,6 +129,7 @@ public class GestionRodamientos implements Serializable
 		File[] files = CotizacionesXML.obtenerXMLCotizacionesAceptadas();
 		if (files != null)
 		{
+			List<PedVentaDTO> listaPedVta = new ArrayList<>();
 			for (int i = 0; i < files.length; i++)
 			{
 				CotizacionDTO cotDTO = CotizacionesXML.leerXMLCotizacionAceptada(files[i]);
@@ -135,9 +139,27 @@ public class GestionRodamientos implements Serializable
 					OVenta ov = OVentaDAO.getOVenta(cot.getCliente().getOVenta().getId());
 					if (ov != null)
 					{
-						ov.crearPedidoVenta(cot);
+						listaPedVta.add(ov.crearPedidoVenta(cot));
 						files[i].delete();
 					}
+				}
+			}
+			CCentral.getInstancia().generarOrdenesDeCompra(listaPedVta);
+		}
+	}
+	
+	public void leerXMLBultos()
+	{
+		oventas = OVentaDAO.getAll();
+		for (OVenta ov : oventas)
+		{
+			File[] files = BultosXML.obtenerXMLBultos(ov);
+			if (files != null)
+			{
+				for (int i = 0; i < files.length; i++)
+				{
+					
+					files[i].delete();
 				}
 			}
 		}
@@ -186,15 +208,12 @@ public class GestionRodamientos implements Serializable
 	public List<CotizacionDTO> getSolicitudesConformadasPorCliente(int nroCliente) throws RemoteException
 	{
 		List<CotizacionDTO> cotizacionesDTO = new Vector<CotizacionDTO>();
-		oventas = OVentaDAO.getAll();
-		for (OVenta o : oventas)
+		Cliente cliente = ClienteDAO.getCliente(nroCliente);
+		List<Cotizacion> cotizaciones = cliente.getOVenta().listCotizacionesPorCliente(nroCliente);
+		
+		for (Cotizacion c : cotizaciones)
 		{
-			List<Cotizacion> cotizaciones = o.listCotizacionesPorCliente(nroCliente);
-			
-			for (Cotizacion c : cotizaciones)
-			{
-				cotizacionesDTO.add(c.getDTO());
-			}
+			cotizacionesDTO.add(c.getDTO());
 		}
 		
 		return cotizacionesDTO;
