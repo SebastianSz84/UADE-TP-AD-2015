@@ -14,7 +14,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import controlador.BusinessDelegate;
-import Entities.CCentral;
 
 /**
  * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
