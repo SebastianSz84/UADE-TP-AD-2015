@@ -6,12 +6,13 @@ angular.module('distribuidas')
         $scope.cotizaciones = [];
         $scope.rodamientos = [];
         $scope.armandoCot = false;
-        $scope.datos = { openCot:0};
+        $scope.datos = { cotId:0};
 
         $scope.verCotizaciones = function(){
             $scope.armandoCot = false;
             $scope.msg = '';
             $scope.error = '';
+            $scope.datos.cotId = 0;
             
             /*if ($scope.cotizaciones.length > 0){
             	return;
@@ -88,6 +89,7 @@ angular.module('distribuidas')
         };
         
         $scope.aceptarCotizacion = function(cotId){
+        	console.log(cotId);
         	var data = { 'nroCliente': $rootScope.nroCliente, 'idCotizacion': cotId};
         	$http({
         		'data': data,
@@ -95,7 +97,6 @@ angular.module('distribuidas')
                 'url':'http://localhost:8080/AD_Cliente_Web/ServletAceptarCot'
             })
             .success(function (data) {
-                console.log(data);
                 if (data == 'true'){
                 	$scope.msg = 'Cotizacion Aceptada';
                 	$timeout(function(){
