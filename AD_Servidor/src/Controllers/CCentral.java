@@ -38,7 +38,8 @@ public class CCentral
 	public void bajaProveedor(int codigoProveedor)
 	{
 		Proveedor proveedor = buscarProveedor(codigoProveedor);
-		ProveedorDAO.deleteEntity(proveedor);
+		proveedor.setInactivo(true);
+		ProveedorDAO.saveEntity(proveedor);
 	}
 	
 	public void modificacionProveedor(ProveedorDTO proveedorDTO)
