@@ -19,13 +19,9 @@ public interface InterfazGestionRodamientos extends Remote
 	
 	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista, boolean aceptada) throws RemoteException;
 	
-	public void agregarItem() throws RemoteException;
-	
 	public void armarCotizacones() throws RemoteException;
 	
 	public String aceptarCotizacion(int idCotizacion) throws RemoteException;
-	
-	public void ActualizarStock(String codigoSKF, int cantidad, float precio) throws RemoteException;
 	
 	public void PublicarListaDePreciosFinal() throws RemoteException;
 	

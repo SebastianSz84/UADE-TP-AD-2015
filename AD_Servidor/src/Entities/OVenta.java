@@ -98,16 +98,6 @@ public class OVenta
 		return CotizacionDAO.saveCotizacion(cot);
 	}
 	
-	public void generarXMLCotizacion()
-	{
-		
-	}
-	
-	public void crearEnvio(BultoDTO bultoAEnviarDTO)
-	{
-		
-	}
-	
 	public Cliente buscarCliente(int idCliente)
 	{
 		for (Cliente cli : clientes)
