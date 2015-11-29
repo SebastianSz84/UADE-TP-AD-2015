@@ -139,4 +139,16 @@ public class ComparativaPrecios
 	{
 		this.fecha = fecha;
 	}
+	
+	public boolean rodamientoValido(String codigo)
+	{
+		for (ItemProveedor itPr : items)
+		{
+			if (itPr.getCodigo().equals(codigo))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -243,4 +243,10 @@ public class OVenta
 		}
 		
 	}
+	
+	public Cotizacion rechazarCotizacion(Cotizacion cot)
+	{
+		cot.setEstado("Rechazada");
+		return CotizacionDAO.saveCotizacion(cot);
+	}
 }

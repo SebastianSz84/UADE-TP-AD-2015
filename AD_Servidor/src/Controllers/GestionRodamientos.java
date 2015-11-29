@@ -14,6 +14,7 @@ import Dao.FormaPagoDAO;
 import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
 import Entities.Cliente;
+import Entities.ComparativaPrecios;
 import Entities.Cotizacion;
 import Entities.FormaPago;
 import Entities.ItemCotizacion;
@@ -118,7 +119,33 @@ public class GestionRodamientos implements Serializable
 			if (ov != null)
 			{
 				CotizacionesXML.borrarXMLCotizacionAceptada(cot);
-				return CotizacionesXML.generarXMLAceptarCotizacion(ov.aceptarCotizacion(cot));
+				
+				boolean esAceptable = true;
+				List<ItemCotizacionDTO> itemsCotLista = new ArrayList<>();
+				for (ItemCotizacion item : cot.getItems())
+				{
+					if (!ComparativaPrecios.getInstancia().rodamientoValido(item.getItProveedor().getCodigo()))
+					{
+						esAceptable = false;
+					}
+					else
+					{
+						itemsCotLista.add(item.getDTO());
+					}
+				}
+				
+				if (esAceptable)
+				{
+					return CotizacionesXML.generarXMLAceptarCotizacion(ov.aceptarCotizacion(cot));
+				}
+				else
+				{
+					ov.rechazarCotizacion(cot);
+					if (itemsCotLista.size() > 0)
+					{
+						solicitarCotizacion(cot.getCliente().getId(), itemsCotLista);
+					}
+				}
 			}
 		}
 		return false;
