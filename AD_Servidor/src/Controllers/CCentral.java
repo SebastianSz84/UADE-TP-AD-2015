@@ -179,7 +179,6 @@ public class CCentral
 			OCProveedorDAO.saveOCProveedor(ocProv);
 			i++;
 		}
-		// OCProveedorXML.GenerarXMLOrdenesDeCompra(listaOCs); // Qué hacemos con esto?
 	}
 	
 	private OCProveedor buscarOCPorProveedor(List<OCProveedor> listaOCs, int codigoProveedor)

@@ -115,7 +115,17 @@ public class OVenta
 		PedVenta pedVta = new PedVenta();
 		pedVta.setCotizacion(cot);
 		pedVta.generarItemsDesdeCotizacion();
-		pedVta.setEstado("Pendiente");
+		if (!pedVta.estaCompleto())
+		{
+			pedVta.setEstado("Pendiente");
+		}
+		else
+		{
+			Mensajes mensaje = new Mensajes();
+			mensaje.setMensaje("Pedido " + pedVta.getId() + " esta completo! ");
+			mensaje.setCli(pedVta.getCotizacion().getCliente());
+			MensajesDAO.saveEntity(Mensajes.class);
+		}
 		pedVta.setoVenta(this);
 		pedidos.add(pedVta);
 		PedVentaDAO.savePedVenta(pedVta);
