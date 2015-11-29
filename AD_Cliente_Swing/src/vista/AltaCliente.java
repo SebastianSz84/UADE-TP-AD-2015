@@ -97,9 +97,6 @@ public class AltaCliente extends javax.swing.JFrame {
 				jButton1.setBounds(133, 208, 123, 23);
 				jButton1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
-						jTextField1.setText("Nombre1");
-						jTextField2.setText("Direccion1");
-						jTextField3.setText("1");
 						String nombre = jTextField1.getText();
 						String direccion = jTextField2.getText();
 						String idOVenta = jTextField3.getText();

@@ -60,7 +60,7 @@ public class ClienteFormaDePago extends javax.swing.JFrame {
 				jLabel1 = new JLabel();
 				getContentPane().add(jLabel1);
 				jLabel1.setText(clienteDTO.getNombre());
-				jLabel1.setBounds(12, 12, 84, 16);
+				jLabel1.setBounds(12, 12, 221, 16);
 			}
 			{
 				jTextField1 = new JTextField();
