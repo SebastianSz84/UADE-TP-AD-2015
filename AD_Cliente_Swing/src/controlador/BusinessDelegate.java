@@ -290,4 +290,17 @@ public class BusinessDelegate
 		}
 		return false;
 	}
+	
+	public ProveedorDTO getProveedorDTO(int id)
+	{
+		try
+		{
+			return objetoRemoto.getProveedorDTO(id);
+		}
+		catch (RemoteException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

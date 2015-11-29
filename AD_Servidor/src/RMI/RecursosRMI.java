@@ -142,4 +142,9 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 	{
 		return GestionRodamientos.getInstancia().existenCotAbiertasXRod(codigoSKF);
 	}
+	
+	public ProveedorDTO getProveedorDTO(int id) throws RemoteException
+	{
+		return CCentral.getInstancia().getProveedorDTO(id);
+	}
 }

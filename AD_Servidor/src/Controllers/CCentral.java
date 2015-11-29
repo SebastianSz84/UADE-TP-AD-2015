@@ -287,4 +287,13 @@ public class CCentral
 		}
 		ProveedorDAO.saveEntity(proveedor);
 	}
+	
+	public ProveedorDTO getProveedorDTO(int id)
+	{
+		Proveedor proveedor = ProveedorDAO.getProveedor(id);
+		if (proveedor != null)
+			return proveedor.getDTO();
+		return null;
+		
+	}
 }

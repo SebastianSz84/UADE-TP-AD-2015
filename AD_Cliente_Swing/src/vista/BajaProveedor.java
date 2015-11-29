@@ -5,10 +5,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
+import bean.ProveedorDTO;
 import controlador.BusinessDelegate;
 
 /**
@@ -73,8 +75,18 @@ public class BajaProveedor extends javax.swing.JFrame
 						
 						if (!codigo.isEmpty())
 						{
-							BusinessDelegate.getInstancia().bajaProveedor(Integer.parseInt(codigo));
-							dispose();
+							ProveedorDTO prove = BusinessDelegate.getInstancia().getProveedorDTO(Integer.parseInt(codigo));
+							if (prove != null)
+							{
+								BusinessDelegate.getInstancia().bajaProveedor(Integer.parseInt(codigo));
+								JOptionPane.showMessageDialog(null, "Se ha dado de baja el proveedor.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
+								dispose();
+							}
+							else
+							{
+								JOptionPane.showMessageDialog(null, "No existe el proveedor", "Error", JOptionPane.ERROR_MESSAGE);
+								jTextField1.setText("");
+							}
 						}
 					}
 				});
