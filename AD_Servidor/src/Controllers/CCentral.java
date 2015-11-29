@@ -3,7 +3,6 @@ package Controllers;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Vector;
 
 import Dao.BultoDAO;
 import Dao.ComparativaPreciosDAO;
@@ -229,18 +228,14 @@ public class CCentral
 		if (proveedor != null)
 		{
 			ProveedorDTO dto = ProveedorListaPreciosXML.leerArchivoListaPrecios(archivoProveedor);
-			Vector<ItemProveedor> items = new Vector<>();
 			for (ItemProveedorDTO itemDTO : dto.getRodamientos())
 			{
 				Rodamiento rod = buscarRodamiento(itemDTO.getSKF());
 				if (rod != null)
 				{
-					ItemProveedor itProv = new ItemProveedor(proveedor, itemDTO.getCodRodProv(), itemDTO.getPrecio(), itemDTO.getCondiciones(), itemDTO.getDisponible(), rod);
-					items.addElement(itProv);
+					proveedor.agregarItem(itemDTO.getCodRodProv(), itemDTO.getPrecio(), itemDTO.getCondiciones(), itemDTO.getDisponible(), rod);
 				}
 			}
-			
-			proveedor.setItems(items);
 			ProveedorDAO.saveEntity(proveedor);
 		}
 	}

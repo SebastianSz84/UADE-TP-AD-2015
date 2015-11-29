@@ -13,13 +13,11 @@ import bean.ProveedorDTO;
 
 public class ProveedorListaPreciosXML
 {
-	private static String root = ".";
-	
 	public static ProveedorDTO leerArchivoListaPrecios(String path)
 	{
 		try
 		{
-			File file = new File(root, path);
+			File file = new File(path);
 			final DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 			dbf.setNamespaceAware(false);
 			dbf.setValidating(false);

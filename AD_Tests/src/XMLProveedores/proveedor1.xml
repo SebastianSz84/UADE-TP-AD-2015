@@ -1,5 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Proveedor codigo="1">
-<item skf="SKF001" disp="true" precio="5" cond="Condición Dummy 1 Prov 1"/>
-<item skf="SKF002" disp="false" precio="8" cond="Condición Dummy 2 Prov 1"/>
-</Proveedor>
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?><Proveedor codigo="1"><item cod="abcd1" skf="SKF001" disp="true" precio="5" cond="Condición Dummy 1 Prov 1"/><item cod="abcd2" skf="SKF002" disp="false" precio="8" cond="Condición Dummy 2 Prov 1"/></Proveedor>
