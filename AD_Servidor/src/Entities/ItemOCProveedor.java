@@ -17,12 +17,13 @@ public class ItemOCProveedor
 	private int id;
 	
 	@ManyToOne
-	@JoinColumn(name = "idOCProveedor")
+	@JoinColumn(name = "idOCProveedor", referencedColumnName = "id")
 	private OCProveedor ocProveedor;
 	
 	@ManyToOne
 	@JoinColumn(name = "codigoSKF")
 	private Rodamiento rodamiento;
+	
 	private int cantidad;
 	
 	public Rodamiento getRodamiento()
@@ -68,5 +69,9 @@ public class ItemOCProveedor
 	public void setOcProveedor(OCProveedor ocProveedor)
 	{
 		this.ocProveedor = ocProveedor;
+	}
+	
+	public ItemOCProveedor()
+	{
 	}
 }

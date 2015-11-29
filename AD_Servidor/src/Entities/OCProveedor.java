@@ -3,6 +3,7 @@ package Entities;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,17 +26,13 @@ public class OCProveedor
 	@JoinColumn(name = "codigoProveedor")
 	private Proveedor proveedor;
 	
-	@Column(nullable = false, length = 50)
-	private String codigo;
-	
-	@ManyToOne
-	@JoinColumn(name = "idCondCompra", referencedColumnName = "id")
-	private CondCompra condCompra; // Ver qué onda las condiciones de compra
+	@Column(length = 100)
+	private String condCompra;
 	
 	@Column(nullable = false, length = 50)
 	private String estado;
 	
-	@OneToMany
+	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "idOCProveedor")
 	private List<ItemOCProveedor> items;
 	
@@ -62,17 +59,13 @@ public class OCProveedor
 			item = new ItemOCProveedor();
 			item.setCantidad(cantidad);
 			item.setRodamiento(rodamiento);
+			item.setOcProveedor(this);
 			items.add(item);
 		}
 		else
 		{
 			item.actualizarCantidad(cantidad);
 		}
-		
-		/*
-		 * ItemOCProveedor item = new ItemOCProveedor(); item.setCantidad(cantidad); item.setRodamiento(rodamiento); items.add(item);
-		 */
-		
 	}
 	
 	public ItemOCProveedor buscarRodamientoEnOC(String SKF)
@@ -97,16 +90,6 @@ public class OCProveedor
 		this.proveedor = proveedor;
 	}
 	
-	public String getCodigo()
-	{
-		return codigo;
-	}
-	
-	public void setCodigo(String codigo)
-	{
-		this.codigo = codigo;
-	}
-	
 	public int getId()
 	{
 		return id;
@@ -117,16 +100,6 @@ public class OCProveedor
 		this.id = id;
 	}
 	
-	public CondCompra getCondCompra()
-	{
-		return condCompra;
-	}
-	
-	public void setCondCompra(CondCompra condCompra)
-	{
-		this.condCompra = condCompra;
-	}
-	
 	public String getEstado()
 	{
 		return estado;
@@ -135,5 +108,15 @@ public class OCProveedor
 	public void setEstado(String estado)
 	{
 		this.estado = estado;
+	}
+	
+	public String getCondCompra()
+	{
+		return condCompra;
+	}
+	
+	public void setCondCompra(String condCompra)
+	{
+		this.condCompra = condCompra;
 	}
 }

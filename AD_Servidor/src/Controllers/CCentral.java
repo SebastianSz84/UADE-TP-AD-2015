@@ -19,7 +19,6 @@ import Entities.PedVenta;
 import Entities.Proveedor;
 import Entities.Rodamiento;
 import Helper.BultosXML;
-import Helper.OCProveedorXML;
 import Helper.ProveedorListaPreciosXML;
 import bean.ItemPedVentaDTO;
 import bean.ItemProveedorDTO;
@@ -144,16 +143,20 @@ public class CCentral
 					OCProveedor ocProvNueva = new OCProveedor();
 					ocProvNueva.agregarAOC(RodamientoDAO.getRodamiento(item.getItCotizacion().getRod().getCodigoSKF()), item.getItCotizacion().getCantidad());
 					ocProvNueva.setEstado("Abierta");
+					ocProvNueva.setProveedor(ProveedorDAO.getProveedor(item.getItCotizacion().getItProveedor().getIdProveedor()));
 					listaOCs.add(ocProvNueva);
 				}
 			}
 		}
 		for (OCProveedor ocProv : listaOCs)
 		{
+			int i = 1;
 			ocProv.setEstado("Liberada");
+			ocProv.setCondCompra("Condiciones de Compra " + Integer.toString(i));
 			OCProveedorDAO.saveOCProveedor(ocProv);
+			i++;
 		}
-		OCProveedorXML.GenerarXMLOrdenesDeCompra(listaOCs); // QUé hacemos con esto?
+		// OCProveedorXML.GenerarXMLOrdenesDeCompra(listaOCs); // Qué hacemos con esto?
 	}
 	
 	private OCProveedor buscarOCPorProveedor(List<OCProveedor> listaOCs, int codigoProveedor)

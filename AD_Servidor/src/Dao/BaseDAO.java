@@ -10,7 +10,6 @@ import org.hibernate.cfg.Configuration;
 import Entities.Bulto;
 import Entities.Cliente;
 import Entities.ComparativaPrecios;
-import Entities.CondCompra;
 import Entities.Cotizacion;
 import Entities.Envio;
 import Entities.FormaPago;
@@ -40,7 +39,6 @@ public class BaseDAO
 			Configuration cfg = new Configuration();
 			cfg.addAnnotatedClass(Bulto.class);
 			cfg.addAnnotatedClass(Cliente.class);
-			cfg.addAnnotatedClass(CondCompra.class);
 			cfg.addAnnotatedClass(Cotizacion.class);
 			cfg.addAnnotatedClass(Envio.class);
 			cfg.addAnnotatedClass(FormaPago.class);
