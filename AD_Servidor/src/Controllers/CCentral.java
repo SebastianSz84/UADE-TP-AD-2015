@@ -1,4 +1,4 @@
-package Entities;
+package Controllers;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -10,6 +10,14 @@ import Dao.OCProveedorDAO;
 import Dao.PedVentaDAO;
 import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
+import Entities.Bulto;
+import Entities.ComparativaPrecios;
+import Entities.ItemPedVenta;
+import Entities.ItemProveedor;
+import Entities.OCProveedor;
+import Entities.PedVenta;
+import Entities.Proveedor;
+import Entities.Rodamiento;
 import Helper.BultosXML;
 import Helper.OCProveedorXML;
 import Helper.ProveedorListaPreciosXML;
@@ -145,7 +153,7 @@ public class CCentral
 			ocProv.setEstado("Liberada");
 			OCProveedorDAO.saveOCProveedor(ocProv);
 		}
-		OCProveedorXML.GenerarXMLOrdenesDeCompra(listaOCs);
+		OCProveedorXML.GenerarXMLOrdenesDeCompra(listaOCs); // QUé hacemos con esto?
 	}
 	
 	private OCProveedor buscarOCPorProveedor(List<OCProveedor> listaOCs, int codigoProveedor)

@@ -6,7 +6,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 
-import Entities.CCentral;
+import Controllers.CCentral;
+import Controllers.GestionRodamientos;
 import bean.ClienteDTO;
 import bean.FormaDePagoDTO;
 import bean.ItemCotizacionDTO;
@@ -41,11 +42,6 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 		GestionRodamientos.getInstancia().agregarItem();
 	}
 	
-	public void leerXMLCotizacion() throws RemoteException
-	{
-		GestionRodamientos.getInstancia().leerXMLCotizacion();
-	}
-	
 	public void armarCotizacones() throws RemoteException
 	{
 		GestionRodamientos.getInstancia().armarCotizacones();
@@ -68,7 +64,7 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 	
 	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo) throws RemoteException
 	{
-		GestionRodamientos.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigoItem, precio, condiciones, disponible, codigoSKF, Tipo);
+		CCentral.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigoItem, precio, condiciones, disponible, codigoSKF);// , Tipo);
 	}
 	
 	public boolean checkearSiClienteExiste(int nroCliente) throws RemoteException

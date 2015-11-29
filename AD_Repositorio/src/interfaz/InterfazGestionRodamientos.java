@@ -22,8 +22,6 @@ public interface InterfazGestionRodamientos extends Remote
 	
 	public void agregarItem() throws RemoteException;
 	
-	public void leerXMLCotizacion() throws RemoteException;
-	
 	public void armarCotizacones() throws RemoteException;
 	
 	public boolean aceptarCotizacion(int idCotizacion) throws RemoteException;

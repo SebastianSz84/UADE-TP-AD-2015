@@ -1,4 +1,4 @@
-package RMI;
+package Controllers;
 
 import java.io.File;
 import java.io.Serializable;
@@ -13,7 +13,6 @@ import Dao.CotizacionDAO;
 import Dao.FormaPagoDAO;
 import Dao.OVentaDAO;
 import Dao.RodamientoDAO;
-import Entities.CCentral;
 import Entities.Cliente;
 import Entities.Cotizacion;
 import Entities.FormaPago;
@@ -145,6 +144,7 @@ public class GestionRodamientos implements Serializable
 					}
 				}
 				CCentral.getInstancia().generarOrdenesDeCompra(listaPedVta);
+				listaPedVta.clear();
 			}
 		}
 	}
@@ -187,14 +187,6 @@ public class GestionRodamientos implements Serializable
 		
 	}
 	
-	/*
-	 * public void generarListaDePrecioProveedorAutomatica( XML archivoProveedor, int codigoProveedor) { }
-	 */
-	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo) throws RemoteException
-	{
-		
-	}
-	
 	public static GestionRodamientos getInstancia()
 	{
 		if (instancia == null)
@@ -221,12 +213,6 @@ public class GestionRodamientos implements Serializable
 		}
 		
 		return cotizacionesDTO;
-		
-	}
-	
-	public void leerXMLCotizacion() throws RemoteException
-	{
-		// TODO Auto-generated method stub
 		
 	}
 	

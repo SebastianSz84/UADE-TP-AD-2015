@@ -1,6 +1,6 @@
 package Server;
 
-import RMI.GestionRodamientos;
+import Controllers.GestionRodamientos;
 
 public class ThreadCotizaciones extends Thread
 {
