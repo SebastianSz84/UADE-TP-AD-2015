@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
@@ -26,6 +27,7 @@ public class ModificarCliente extends javax.swing.JFrame
 	private JLabel jLabel1;
 	private JLabel jLabel2;
 	private JLabel jLabel3;
+	private JButton jButton2;
 	private JTextField jTextField4;
 	private JTextField jTextField3;
 	private JTextField jTextField2;
@@ -89,7 +91,8 @@ public class ModificarCliente extends javax.swing.JFrame
 				jButton1 = new JButton();
 				getContentPane().add(jButton1);
 				jButton1.setText("Modificar");
-				jButton1.setBounds(131, 209, 102, 23);
+				jButton1.setVisible(false);
+				jButton1.setBounds(260, 212, 102, 23);
 				jButton1.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent evt)
@@ -112,6 +115,11 @@ public class ModificarCliente extends javax.swing.JFrame
 								BusinessDelegate.getInstancia().modificacionCliente(clienteDTO);
 								dispose();
 							}
+							else
+							{
+								JOptionPane.showMessageDialog(null, "No existe la oficina de venta", "Error", JOptionPane.ERROR_MESSAGE);
+								jTextField4.setText("");
+							}
 						}
 					}
 				});
@@ -124,17 +132,51 @@ public class ModificarCliente extends javax.swing.JFrame
 			{
 				jTextField2 = new JTextField();
 				getContentPane().add(jTextField2);
+				jTextField2.setVisible(false);
 				jTextField2.setBounds(100, 62, 270, 23);
 			}
 			{
 				jTextField3 = new JTextField();
 				getContentPane().add(jTextField3);
+				jTextField3.setVisible(false);
 				jTextField3.setBounds(100, 107, 270, 23);
 			}
 			{
 				jTextField4 = new JTextField();
 				getContentPane().add(jTextField4);
+				jTextField4.setVisible(false);
 				jTextField4.setBounds(182, 161, 188, 23);
+			}
+			{
+				jButton2 = new JButton();
+				getContentPane().add(jButton2);
+				jButton2.setText("Buscar");
+				jButton2.setBounds(41, 212, 85, 23);
+				jButton2.addActionListener(new ActionListener()
+				{
+					public void actionPerformed(ActionEvent evt)
+					{
+						String codigo = jTextField1.getText();
+						ClienteDTO cliente = BusinessDelegate.getInstancia().getClienteDTO(Integer.parseInt(codigo));
+						if (cliente != null)
+						{
+							jTextField1.setEnabled(false);
+							jButton2.setVisible(false);
+							jButton1.setVisible(true);
+							jTextField2.setVisible(true);
+							jTextField3.setVisible(true);
+							jTextField4.setVisible(true);
+							jTextField2.setText(cliente.getNombre());
+							jTextField3.setText(cliente.getDireccion());
+							jTextField4.setText(String.valueOf(cliente.getId()));
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "No existe cliente", "Error", JOptionPane.ERROR_MESSAGE);
+							jTextField1.setText("");
+						}
+					}
+				});
 			}
 			pack();
 			setSize(400, 300);
@@ -147,5 +189,4 @@ public class ModificarCliente extends javax.swing.JFrame
 			e.printStackTrace();
 		}
 	}
-	
 }
