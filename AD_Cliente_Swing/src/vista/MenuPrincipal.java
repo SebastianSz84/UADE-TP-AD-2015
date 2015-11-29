@@ -10,17 +10,15 @@ import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 
 /**
- * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
- * Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose
- * whatever) then you should purchase a license for each developer using Jigloo.
- * Please visit www.cloudgarden.com for details. Use of Jigloo implies
- * acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN
- * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
- * ANY CORPORATE OR COMMERCIAL PURPOSE.
+ * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer using Jigloo.
+ * Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
 public class MenuPrincipal extends javax.swing.JFrame
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JMenuBar jMenuBar1;
 	private JMenuItem jMenuItem1;
 	private JMenuItem jMenuItem8;
@@ -33,10 +31,14 @@ public class MenuPrincipal extends javax.swing.JFrame
 	private JMenu jMenu1;
 	private JMenu jMenu2;
 	private JMenu jMenu3;
+	private JMenu jMenu5;
+	private JMenuItem jMenuItem13;
+	private JMenuItem jMenuItem12;
+	private JMenuItem jMenuItem11;
 	private JMenuItem jMenuItem10;
 	private JMenuItem jMenuItem9;
 	private JMenu jMenu4;
-
+	
 	/**
 	 * Auto-generated main method to display this JFrame
 	 */
@@ -52,18 +54,18 @@ public class MenuPrincipal extends javax.swing.JFrame
 			}
 		});
 	}
-
+	
 	public MenuPrincipal()
 	{
 		super();
 		initGUI();
 	}
-
+	
 	private void initGUI()
 	{
 		try
 		{
-			setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+			setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 			{
 				jMenuBar1 = new JMenuBar();
 				setJMenuBar(jMenuBar1);
@@ -142,7 +144,7 @@ public class MenuPrincipal extends javax.swing.JFrame
 					{
 						jMenuItem5 = new JMenuItem();
 						jMenu3.add(jMenuItem5);
-						jMenuItem5.setText("Modificacion");
+						jMenuItem5.setText("Modificación");
 						jMenuItem5.addActionListener(new ActionListener()
 						{
 							public void actionPerformed(ActionEvent evt)
@@ -159,8 +161,10 @@ public class MenuPrincipal extends javax.swing.JFrame
 							jMenuItem8 = new JMenuItem();
 							jMenu4.add(jMenuItem8);
 							jMenuItem8.setText("Alta");
-							jMenuItem8.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent evt) {
+							jMenuItem8.addActionListener(new ActionListener()
+							{
+								public void actionPerformed(ActionEvent evt)
+								{
 									new AltaCliente();
 								}
 							});
@@ -169,8 +173,10 @@ public class MenuPrincipal extends javax.swing.JFrame
 							jMenuItem9 = new JMenuItem();
 							jMenu4.add(jMenuItem9);
 							jMenuItem9.setText("Baja");
-							jMenuItem9.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent evt) {
+							jMenuItem9.addActionListener(new ActionListener()
+							{
+								public void actionPerformed(ActionEvent evt)
+								{
 									new BajaCliente();
 								}
 							});
@@ -178,12 +184,42 @@ public class MenuPrincipal extends javax.swing.JFrame
 						{
 							jMenuItem10 = new JMenuItem();
 							jMenu4.add(jMenuItem10);
-							jMenuItem10.setText("Modificacion");
-							jMenuItem10.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent evt) {
+							jMenuItem10.setText("Modificación");
+							jMenuItem10.addActionListener(new ActionListener()
+							{
+								public void actionPerformed(ActionEvent evt)
+								{
 									new ModificarCliente();
 								}
 							});
+						}
+					}
+					{
+						jMenu5 = new JMenu();
+						jMenuBar1.add(jMenu5);
+						jMenu5.setText("Rodamiento");
+						jMenu5.setBounds(27, 0, 81, 25);
+						{
+							jMenuItem11 = new JMenuItem();
+							jMenu5.add(jMenuItem11);
+							jMenuItem11.setText("Alta");
+							jMenuItem11.addActionListener(new ActionListener()
+							{
+								public void actionPerformed(ActionEvent evt)
+								{
+									new AltaRodamiento();
+								}
+							});
+						}
+						{
+							jMenuItem12 = new JMenuItem();
+							jMenu5.add(jMenuItem12);
+							jMenuItem12.setText("Baja");
+						}
+						{
+							jMenuItem13 = new JMenuItem();
+							jMenu5.add(jMenuItem13);
+							jMenuItem13.setText("Modificación");
 						}
 					}
 					{
@@ -202,7 +238,8 @@ public class MenuPrincipal extends javax.swing.JFrame
 			}
 			pack();
 			this.setSize(679, 407);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// add your error handling code here
 			e.printStackTrace();

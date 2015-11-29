@@ -318,7 +318,7 @@ public class GestionRodamientos implements Serializable
 		rod.setTipo(rodDTO.getTipo());
 		Stock stk = new Stock();
 		stk.setCantidad(rodDTO.getStock().getCantidad());
-		stk.setPrecio(0);
+		stk.setPrecio(rodDTO.getStock().getPrecio());
 		rod.setStock(stk);
 		if (RodamientoDAO.saveRodamiento(rod) != null)
 		{
