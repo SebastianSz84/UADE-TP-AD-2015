@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinColumns;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -24,6 +25,10 @@ public class ItemBulto
 	@OneToOne
 	@JoinColumns(@JoinColumn(name = "codigoSKF"))
 	private Rodamiento rodamiento;
+	
+	@ManyToOne
+	@JoinColumn(name = "idBulto", referencedColumnName = "id")
+	private Bulto bulto;
 	
 	public ItemBulto()
 	{
@@ -64,6 +69,16 @@ public class ItemBulto
 	public void setRodamiento(Rodamiento rodamiento)
 	{
 		this.rodamiento = rodamiento;
+	}
+	
+	public Bulto getBulto()
+	{
+		return bulto;
+	}
+	
+	public void setBulto(Bulto bulto)
+	{
+		this.bulto = bulto;
 	}
 	
 }
