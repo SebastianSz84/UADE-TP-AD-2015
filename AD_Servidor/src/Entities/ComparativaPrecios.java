@@ -10,8 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import Dao.ComparativaPreciosDAO;
@@ -28,22 +27,19 @@ public class ComparativaPrecios
 	@Column(nullable = false)
 	private Date fecha;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "ItemsComparativa", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns =
-	{
-		@JoinColumn(name = "idItemProveedor", referencedColumnName = "id")
-	})
-	private List<ItemProveedor> items;
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "id")
+	private List<ItemComparativa> items;
 	
 	private static ComparativaPrecios instancia;
 	
 	public ItemProveedor getMejorPrecio(ItemCotizacionDTO itCotDTO)
 	{
-		for (ItemProveedor itPro : this.items)
+		for (ItemComparativa itPro : this.items)
 		{
 			if (itPro.getRodamiento().getCodigoSKF().equals(itCotDTO.getRod().getCodigoSKF()))
 			{
-				return itPro;
+				return itPro.getItemProveedor();
 			}
 		}
 		return null;
@@ -51,11 +47,11 @@ public class ComparativaPrecios
 	
 	public ItemProveedor buscarRodamiento(String codigoSKF)
 	{
-		for (ItemProveedor item : items)
+		for (ItemComparativa item : items)
 		{
 			if (item.getRodamiento().getCodigoSKF().equals(codigoSKF))
 			{
-				return item;
+				return item.getItemProveedor();
 			}
 		}
 		return null;
@@ -66,13 +62,20 @@ public class ComparativaPrecios
 		ItemProveedor item = buscarRodamiento(itemProveedorFinal.getRodamiento().getCodigoSKF());
 		if (item != null)
 		{
-			items.remove(item);
-			items.add(itemProveedorFinal);
+			for (ItemComparativa itemComp : items)
+			{
+				if (itemComp.getItemProveedor().getRodamiento().getCodigoSKF() == itemProveedorFinal.getRodamiento().getCodigoSKF())
+				{
+					items.remove(itemComp);
+					break;
+				}
+			}
 		}
-		else
-		{
-			items.add(itemProveedorFinal);
-		}
+		ItemComparativa nuevo = new ItemComparativa();
+		nuevo.setComparativa(this);
+		nuevo.setItemProveedor(itemProveedorFinal);
+		nuevo.setRodamiento(itemProveedorFinal.getRodamiento());
+		items.add(nuevo);
 	}
 	
 	public static ComparativaPrecios getInstancia()
@@ -89,23 +92,23 @@ public class ComparativaPrecios
 		ComparativaPrecios.instancia = instancia;
 	}
 	
-	public List<ItemProveedor> getItems()
+	public List<ItemComparativa> getItems()
 	{
 		return items;
 	}
 	
-	public void setItems(List<ItemProveedor> items)
+	public void setItems(List<ItemComparativa> items)
 	{
 		this.items = items;
 	}
 	
 	public ItemProveedor getItemSKF(String codigoSKF)
 	{
-		for (ItemProveedor itPr : items)
+		for (ItemComparativa itPr : items)
 		{
 			if (itPr.getRodamiento().getCodigoSKF().equals(codigoSKF))
 			{
-				return itPr;
+				return itPr.getItemProveedor();
 			}
 		}
 		return null;
@@ -142,9 +145,9 @@ public class ComparativaPrecios
 	
 	public boolean rodamientoValido(String codigo)
 	{
-		for (ItemProveedor itPr : items)
+		for (ItemComparativa itPr : items)
 		{
-			if (itPr.getCodigo().equals(codigo))
+			if (itPr.getItemProveedor().getCodigo().equals(codigo))
 			{
 				return true;
 			}
