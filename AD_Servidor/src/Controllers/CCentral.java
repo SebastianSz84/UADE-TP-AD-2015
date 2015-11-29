@@ -103,6 +103,7 @@ public class CCentral
 					else
 					{
 						cantidadUsada += rodamiento.getStock().getCantidad();
+						rodamiento.getStock().setPrecio(0);
 						rodamiento.getStock().setCantidad(0);
 					}
 					bulto.agregarRodamientoComprado(rodamiento, cantidadUsada);
@@ -128,7 +129,6 @@ public class CCentral
 				bulto.setEstado("Cerrado");
 				BultosXML.GenerarXMLBulto(bulto);
 				BultoDAO.saveEntity(bulto);
-				
 			}
 		}
 	}
