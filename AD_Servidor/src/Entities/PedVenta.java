@@ -62,6 +62,7 @@ public class PedVenta
 			{
 				ItemPedVenta itPedVta = new ItemPedVenta();
 				itPedVta.setItCotizacion(itCot);
+				itPedVta.setPedVenta(this);
 				items.add(itPedVta);
 			}
 		}

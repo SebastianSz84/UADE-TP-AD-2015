@@ -57,4 +57,9 @@ public class PedVentaDAO extends BaseDAO
 	{
 		return getSession().createQuery("from PedVenta pv join cotizacion c join c.cliente cli where pv.estado = :est and cli.oVenta = :idOventa").setParameter("est", "Pendiente").setParameter("idOVenta", idOVenta).list();
 	}
+	
+	public static PedVenta savePedVenta(PedVenta pedVta)
+	{
+		return saveEntity(pedVta);
+	}
 }

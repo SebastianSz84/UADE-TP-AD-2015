@@ -107,7 +107,7 @@ public class MenuPrincipal extends javax.swing.JFrame
 							{
 								public void actionPerformed(ActionEvent evt)
 								{
-									new ActualizarListaPreciosPorXml();
+									new EntradaDeMercaderiaManual();
 								}
 							});
 						}

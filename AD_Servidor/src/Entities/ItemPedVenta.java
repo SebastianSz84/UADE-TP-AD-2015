@@ -7,22 +7,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import bean.ItemPedVentaDTO;
 
 @Entity
-@Table(name = "ItemsPedidoVenta")
+@Table(name = "ItemPedVenta")
 public class ItemPedVenta
 {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@ManyToOne
+	@JoinColumn(name = "idPedidoVenta")
+	private PedVenta pedVenta;
+	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinTable(name = "ItemPedVenta", joinColumns = @JoinColumn(name = "idPedidoVenta"), inverseJoinColumns = @JoinColumn(name = "idItemCotizacion"))
+	@JoinColumn(name = "idItemCotizacion")
+	// @JoinColumn(name = "idPedidoVenta", inverseJoinColumns = @JoinColumn(name = "idItemCotizacion"))
 	private ItemCotizacion itCotizacion;
 	
 	@Column
@@ -70,5 +75,15 @@ public class ItemPedVenta
 	public boolean estaCompleto()
 	{
 		return this.getItCotizacion().getCantidad() == cantRecibida;
+	}
+	
+	public PedVenta getPedVenta()
+	{
+		return pedVenta;
+	}
+	
+	public void setPedVenta(PedVenta pedVenta)
+	{
+		this.pedVenta = pedVenta;
 	}
 }
