@@ -1,7 +1,11 @@
 package bean;
 
-public class ItemProveedorDTO
+import java.io.Serializable;
+
+public class ItemProveedorDTO implements Serializable
 {
+	private static final long serialVersionUID = 1L;
+	
 	private int id;
 	private String skf;
 	private String codRodProv;
