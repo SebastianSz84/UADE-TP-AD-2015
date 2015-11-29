@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import Dao.PedVentaDAO;
 import bean.ItemPedVentaDTO;
 import bean.PedVentaDTO;
 
@@ -63,6 +64,19 @@ public class PedVenta
 				ItemPedVenta itPedVta = new ItemPedVenta();
 				itPedVta.setItCotizacion(itCot);
 				itPedVta.setPedVenta(this);
+				if (itCot.getRod().getStock().getCantidad() != 0)
+				{
+					if (itCot.getRod().getStock().getCantidad() >= itCot.getCantidad())
+					{
+						itCot.getRod().getStock().setCantidad(itCot.getRod().getStock().getCantidad() - itCot.getCantidad());
+						itPedVta.setCantRecibida(itCot.getCantidad());
+					}
+					else
+					{
+						itPedVta.setCantRecibida(itCot.getRod().getStock().getCantidad());
+						itCot.getRod().getStock().setCantidad(0);
+					}
+				}
 				items.add(itPedVta);
 			}
 		}
@@ -117,6 +131,12 @@ public class PedVenta
 		{
 			if (!item.estaCompleto())
 				return false;
+		}
+		
+		if (estado.equals("Pendiente"))
+		{
+			setEstado("Cerrado");
+			PedVentaDAO.savePedVenta(this);
 		}
 		
 		return true;

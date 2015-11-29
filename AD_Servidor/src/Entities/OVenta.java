@@ -115,7 +115,17 @@ public class OVenta
 		PedVenta pedVta = new PedVenta();
 		pedVta.setCotizacion(cot);
 		pedVta.generarItemsDesdeCotizacion();
-		pedVta.setEstado("Pendiente");
+		if (!pedVta.estaCompleto())
+		{
+			pedVta.setEstado("Pendiente");
+		}
+		else
+		{
+			Mensajes mensaje = new Mensajes();
+			mensaje.setTexto("Pedido " + pedVta.getId() + " esta completo! ");
+			mensaje.setCli(pedVta.getCotizacion().getCliente());
+			MensajesDAO.saveEntity(Mensajes.class);
+		}
 		pedVta.setoVenta(this);
 		pedidos.add(pedVta);
 		PedVentaDAO.savePedVenta(pedVta);
@@ -213,7 +223,7 @@ public class OVenta
 								item.setCantRecibida(item.getItCotizacion().getCantidad());
 								itemBultoDTO.setCantidad(itemBultoDTO.getCantidad() - pendiente);
 							}
-							if (itemBultoDTO.getCantidad() < pendiente)
+							else
 							{
 								item.setCantRecibida(item.getCantRecibida() + itemBultoDTO.getCantidad());
 								itemBultoDTO.setCantidad(0);
@@ -227,9 +237,9 @@ public class OVenta
 			if (pedido.estaCompleto())
 			{
 				Mensajes mensaje = new Mensajes();
-				mensaje.setMensaje("Pedido " + pedido.getId() + " esta completo! ");
+				mensaje.setTexto("Pedido " + pedido.getId() + " esta completo! ");
 				mensaje.setCli(pedido.getCotizacion().getCliente());
-				MensajesDAO.saveEntity(Mensajes.class);
+				MensajesDAO.saveEntity(mensaje);
 			}
 		}
 		
