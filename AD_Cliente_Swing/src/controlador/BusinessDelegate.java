@@ -93,6 +93,18 @@ public class BusinessDelegate
 
 		return 0;
 	}
+	
+	public void CerrarBultosDeRodamiento()
+	{
+		try
+		{
+			objetoRemoto.CerrarBultosDeRodamiento();
+		} catch (RemoteException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public void altaProveedor(ProveedorDTO proveedorDTO)
 	{

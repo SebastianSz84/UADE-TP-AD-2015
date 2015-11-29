@@ -87,6 +87,11 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 		return CCentral.getInstancia().GenerarBultosDeRodamiento(codigoSKF, cantidad);
 	}
 	
+	public void CerrarBultosDeRodamiento() throws RemoteException
+	{
+		CCentral.getInstancia().CerrarBultosDeRodamiento();
+	}
+	
 	public void altaProveedor(ProveedorDTO proveedorDTO) throws RemoteException
 	{
 		CCentral.getInstancia().altaProveedor(proveedorDTO);

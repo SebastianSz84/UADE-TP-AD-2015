@@ -29,19 +29,8 @@ public class BultoDAO extends BaseDAO
 		return getAll(Bulto.class, "Bultos");
 	}
 	
-	public static Bulto getBultoByOV(int OVid)
+	public static Bulto getBultoAbiertoByOV(int OVid)
 	{
-		Transaction tx = getSession().beginTransaction();
-		try
-		{
-			Bulto bulto = (Bulto) getSession().createQuery("FROM Bulto B WHERE B.OficinaDeVenta.id = " + OVid).uniqueResult();
-			tx.commit();
-			return bulto;
-		}
-		catch (Exception ex)
-		{
-			tx.rollback();
-		}
-		return null;
+		return (Bulto) getSession().createQuery("FROM Bulto B WHERE B.estado = :estado and B.OficinaDeVenta.id = :OVid").setParameter("estado", "Abierto").uniqueResult();
 	}
 }

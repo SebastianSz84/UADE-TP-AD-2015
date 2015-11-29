@@ -129,8 +129,8 @@ public class EntradaDeMercaderiaManual extends javax.swing.JFrame
 								JOptionPane.showMessageDialog(null, "Codigo SKF " + SKF + " no encontrado!");
 							}
 						}
-
 						
+						BusinessDelegate.getInstancia().CerrarBultosDeRodamiento();
 					}
 				});
 			}

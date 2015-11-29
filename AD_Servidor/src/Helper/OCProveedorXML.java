@@ -34,8 +34,8 @@ public class OCProveedorXML
 				doc.appendChild(rootElement);
 				Element orden = doc.createElement("orden");
 				rootElement.appendChild(orden);
-				Attr attr = doc.createAttribute("codigo");
-				attr.setValue(oc.getCodigo());
+				Attr attr = doc.createAttribute("id");
+				attr.setValue(String.valueOf(oc.getId()));
 				orden.setAttributeNode(attr);
 				for (ItemOCProveedor iocp : oc.getItems())
 				{

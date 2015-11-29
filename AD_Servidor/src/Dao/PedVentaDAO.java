@@ -30,20 +30,10 @@ public class PedVentaDAO extends BaseDAO
 		return getAll(PedVenta.class, "PedidoVenta");
 	}
 	
-	public static ItemPedVenta getItemPedVentaByRodamiento(int idPedVenta, String codigoSKF)
+	@SuppressWarnings("unchecked")
+	public static List<ItemPedVenta> listItemPedVentaByRodamiento(int idPedVenta, String codigoSKF)
 	{
-		Transaction tx = getSession().beginTransaction();
-		try
-		{
-			ItemPedVenta itempedVenta = (ItemPedVenta) getSession().createQuery("FROM ItemPedVenta I WHERE I.PedidoVenta.id = " + idPedVenta + " AND I.rodamiento.codigoSKF = " + codigoSKF).uniqueResult();
-			tx.commit();
-			return itempedVenta;
-		}
-		catch (Exception ex)
-		{
-			tx.rollback();
-		}
-		return null;
+		return getSession().createQuery("FROM ItemPedVenta I WHERE I.pedVenta.id = :idPedVenta and I.itCotizacion.rod.codigoSKF = :codigoSKF").setParameter("idPedVenta", idPedVenta).setParameter("codigoSKF", codigoSKF).list();
 	}
 	
 	@SuppressWarnings("unchecked")

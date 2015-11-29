@@ -52,6 +52,8 @@ public interface InterfazGestionRodamientos extends Remote
 	
 	public int GenerarBultosDeRodamiento(String codigoSKF, int cantidad) throws RemoteException;
 	
+	public void CerrarBultosDeRodamiento() throws RemoteException;
+	
 	public void altaProveedor(ProveedorDTO proveedorDTO) throws RemoteException;
 	
 	public void bajaProveedor(int codigoProveedor) throws RemoteException;

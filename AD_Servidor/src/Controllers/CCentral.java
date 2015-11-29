@@ -73,57 +73,71 @@ public class CCentral
 		Rodamiento rodamiento = RodamientoDAO.getRodamiento(codigoSKF);
 		if (rodamiento == null)
 			return -1;
-		// float precio = 0;
-		for (PedVenta pedVenta : PedVentaDAO.getListaPedVentaPendientes())
+		List<PedVenta> pedidosVentaPendiente = PedVentaDAO.getListaPedVentaPendientes();
+		for (PedVenta pedVenta : pedidosVentaPendiente)
 		{
-			ItemPedVenta itemPedVenta = PedVentaDAO.getItemPedVentaByRodamiento(pedVenta.getId(), rodamiento.getCodigoSKF());
-			if ((cantidad > 0 || rodamiento.getStock().getCantidad() > 0) && itemPedVenta != null)
+			List<ItemPedVenta> itemsPedVenta = PedVentaDAO.listItemPedVentaByRodamiento(pedVenta.getId(), rodamiento.getCodigoSKF());
+			for (ItemPedVenta itemPedVenta : itemsPedVenta)
 			{
-				Bulto bulto = BultoDAO.getBultoByOV(pedVenta.getCotizacion().getCliente().getOVenta().getId());
-				if (bulto == null)
+				if ((cantidad > 0 || rodamiento.getStock().getCantidad() > 0))
 				{
-					bulto = new Bulto();
-					bulto.setOficinaDeVenta(pedVenta.getCotizacion().getCliente().getOVenta());
-				}
-				int cantidadUsada = 0;
-				if (cantidad >= itemPedVenta.getItCotizacion().getCantidad())
-				{
-					cantidadUsada = itemPedVenta.getItCotizacion().getCantidad();
-					cantidad -= cantidadUsada;
-				}
-				else
-				{
-					cantidadUsada = cantidad;
-					cantidad = 0;
-					if (rodamiento.getStock().getCantidad() > 0)
+					Bulto bulto = BultoDAO.getBultoAbiertoByOV(pedVenta.getCotizacion().getCliente().getOVenta().getId());
+					if (bulto == null)
 					{
-						int cantidadRestante = itemPedVenta.getItCotizacion().getCantidad() - cantidadUsada;
-						if (rodamiento.getStock().getCantidad() >= cantidadRestante)
+						bulto = new Bulto();
+						bulto.setEstado("Abierto");
+						bulto.setOficinaDeVenta(pedVenta.getCotizacion().getCliente().getOVenta());
+					}
+					int cantidadUsada = 0;
+					if (cantidad >= itemPedVenta.getItCotizacion().getCantidad())
+					{
+						cantidadUsada = itemPedVenta.getItCotizacion().getCantidad();
+						cantidad -= cantidadUsada;
+					}
+					else
+					{
+						cantidadUsada = cantidad;
+						cantidad = 0;
+						if (rodamiento.getStock().getCantidad() > 0)
 						{
-							cantidadUsada = itemPedVenta.getItCotizacion().getCantidad();
-							rodamiento.getStock().setCantidad(rodamiento.getStock().getCantidad() - cantidadRestante);
-						}
-						else
-						{
-							cantidadUsada += rodamiento.getStock().getCantidad();
-							rodamiento.getStock().setCantidad(0);
+							int cantidadRestante = itemPedVenta.getItCotizacion().getCantidad() - cantidadUsada;
+							if (rodamiento.getStock().getCantidad() >= cantidadRestante)
+							{
+								cantidadUsada = itemPedVenta.getItCotizacion().getCantidad();
+								rodamiento.getStock().setCantidad(rodamiento.getStock().getCantidad() - cantidadRestante);
+							}
+							else
+							{
+								cantidadUsada += rodamiento.getStock().getCantidad();
+								rodamiento.getStock().setCantidad(0);
+							}
 						}
 					}
+					bulto.agregarRodamientoComprado(rodamiento, cantidadUsada);
+					BultoDAO.saveEntity(bulto);
 				}
-				bulto.agregarRodamientoComprado(rodamiento, cantidadUsada);
-				BultoDAO.saveEntity(bulto);
-				BultosXML.GenerarXMLBulto(bulto);
-				// precio = itemPedVenta.getPrecio();
 			}
+			
 		}
 		
 		if (cantidad > 0)
 		{
 			rodamiento.getStock().setCantidad(rodamiento.getStock().getCantidad() + cantidad);
-			// rodamiento.getStock().setPrecio(precio);
 			RodamientoDAO.saveEntity(rodamiento);
 		}
 		return 0;
+	}
+	
+	public void CerrarBultosDeRodamiento()
+	{
+		List<PedVenta> pedidosVentaPendiente = PedVentaDAO.getListaPedVentaPendientes();
+		for (PedVenta pedVenta : pedidosVentaPendiente)
+		{
+			Bulto bulto = BultoDAO.getBultoAbiertoByOV(pedVenta.getCotizacion().getCliente().getOVenta().getId());
+			bulto.setEstado("Cerrado");
+			BultosXML.GenerarXMLBulto(bulto);
+			BultoDAO.saveEntity(bulto);
+		}
 	}
 	
 	public void generarOrdenesDeCompra(List<PedVentaDTO> pedidos)

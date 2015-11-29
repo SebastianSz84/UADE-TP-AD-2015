@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -29,6 +30,9 @@ public class Bulto
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "ItemsBulto", joinColumns = @JoinColumn(name = "id"))
 	private List<ItemBulto> items;
+	
+	@Column
+	private String estado;
 	
 	public Bulto()
 	{
@@ -70,4 +74,15 @@ public class Bulto
 	{
 		OficinaDeVenta = oficinaDeVenta;
 	}
+	
+	public String getEstado()
+	{
+		return estado;
+	}
+	
+	public void setEstado(String estado)
+	{
+		this.estado = estado;
+	}
+	
 }
