@@ -1,6 +1,8 @@
 package bean;
 
-public class FormaDePagoDTO
+import java.io.Serializable;
+
+public class FormaDePagoDTO implements Serializable
 {
 	private int id;
 	private String descripcion;
@@ -62,6 +64,11 @@ public class FormaDePagoDTO
 	public int getId()
 	{
 		return id;
+	}
+	
+	public void setId(int id)
+	{
+		this.id = id;
 	}
 	
 }

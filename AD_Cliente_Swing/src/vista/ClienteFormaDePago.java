@@ -65,13 +65,13 @@ public class ClienteFormaDePago extends javax.swing.JFrame {
 			{
 				jTextField1 = new JTextField();
 				getContentPane().add(jTextField1);
-				jTextField1.setBounds(96, 82, 137, 23);
+				jTextField1.setBounds(79, 82, 190, 23);
 			}
 			{
 				jButton1 = new JButton();
 				getContentPane().add(jButton1);
 				jButton1.setText("Agregar forma de pago");
-				jButton1.setBounds(42, 144, 137, 23);
+				jButton1.setBounds(16, 144, 172, 23);
 				jButton1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						String codigoForma = jTextField1.getText();
@@ -89,7 +89,7 @@ public class ClienteFormaDePago extends javax.swing.JFrame {
 				jButton2 = new JButton();
 				getContentPane().add(jButton2);
 				jButton2.setText("Listo!");
-				jButton2.setBounds(233, 144, 54, 23);
+				jButton2.setBounds(233, 144, 87, 23);
 				jButton2.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						clienteDTO.setFormasDepago(formas);
@@ -99,6 +99,8 @@ public class ClienteFormaDePago extends javax.swing.JFrame {
 			}
 			pack();
 			this.setSize(370, 235);
+			this.setLocationRelativeTo(null);
+			this.setVisible(true);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();

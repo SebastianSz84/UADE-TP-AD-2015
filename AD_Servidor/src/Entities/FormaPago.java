@@ -34,6 +34,20 @@ public class FormaPago
 	@JoinTable(name = "Clientes_Formas", joinColumns = @JoinColumn(name = "idForma"), inverseJoinColumns = @JoinColumn(name = "id"))
 	private List<Cliente> clientes;
 	
+	public FormaPago(FormaDePagoDTO forma)
+	{
+		this.id = forma.getId();
+		this.descripcion = forma.getDescripcion();
+		this.porcentaje = forma.getPorcentaje();
+		this.cuotas = forma.getCuotas();
+		this.dias = forma.getDias();
+		this.activa = forma.isActiva();
+	}
+	
+	public FormaPago()
+	{
+	}
+	
 	public String getDescripcion()
 	{
 		return descripcion;
@@ -97,7 +111,7 @@ public class FormaPago
 	public FormaDePagoDTO getDTO()
 	{
 		FormaDePagoDTO forma = new FormaDePagoDTO();
-		
+		forma.setId(this.id);
 		forma.setActiva(this.activa);
 		forma.setCuotas(this.cuotas);
 		forma.setDescripcion(this.descripcion);

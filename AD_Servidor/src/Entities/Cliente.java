@@ -1,5 +1,6 @@
 package Entities;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -14,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import Dao.FormaPagoDAO;
 import bean.ClienteDTO;
 import bean.FormaDePagoDTO;
 
@@ -22,10 +22,6 @@ import bean.FormaDePagoDTO;
 @Table(name = "Cliente")
 public class Cliente
 {
-	Cliente()
-	{
-		
-	}
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +40,11 @@ public class Cliente
 	@ManyToOne
 	@JoinColumn(name = "idOVenta", referencedColumnName = "id")
 	private OVenta oVenta;
+	
+	Cliente()
+	{
+		formas = new ArrayList<>();
+	}
 	
 	public int getId()
 	{
@@ -105,6 +106,7 @@ public class Cliente
 	
 	public Cliente(OVenta oventa, ClienteDTO clienteDTO)
 	{
+		formas = new ArrayList<>();
 		modificar(oventa, clienteDTO);
 	}
 	
@@ -116,7 +118,7 @@ public class Cliente
 		
 		for (FormaDePagoDTO forma : clienteDTO.getFormasDepago())
 		{
-			formas.add(FormaPagoDAO.getFormaPago(forma.getId()));
+			formas.add(new FormaPago(forma));
 		}
 	}
 }

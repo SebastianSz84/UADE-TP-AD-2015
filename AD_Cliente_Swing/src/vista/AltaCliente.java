@@ -61,7 +61,7 @@ public class AltaCliente extends javax.swing.JFrame {
 				jLabel1 = new JLabel();
 				getContentPane().add(jLabel1);
 				jLabel1.setText("Nombre");
-				jLabel1.setBounds(23, 36, 44, 16);
+				jLabel1.setBounds(7, 36, 60, 16);
 			}
 			{
 				jTextField1 = new JTextField();
@@ -72,7 +72,7 @@ public class AltaCliente extends javax.swing.JFrame {
 				jLabel2 = new JLabel();
 				getContentPane().add(jLabel2);
 				jLabel2.setText("Direccion");
-				jLabel2.setBounds(23, 95, 50, 16);
+				jLabel2.setBounds(12, 95, 61, 16);
 			}
 			{
 				jTextField2 = new JTextField();
@@ -83,7 +83,7 @@ public class AltaCliente extends javax.swing.JFrame {
 				jLabel3 = new JLabel();
 				getContentPane().add(jLabel3);
 				jLabel3.setText("Oficina de Venta Nro");
-				jLabel3.setBounds(23, 152, 110, 16);
+				jLabel3.setBounds(7, 152, 126, 16);
 			}
 			{
 				jTextField3 = new JTextField();
@@ -94,9 +94,12 @@ public class AltaCliente extends javax.swing.JFrame {
 				jButton1 = new JButton();
 				getContentPane().add(jButton1);
 				jButton1.setText("Crear Usuario");
-				jButton1.setBounds(160, 208, 85, 23);
+				jButton1.setBounds(133, 208, 123, 23);
 				jButton1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
+						jTextField1.setText("Nombre1");
+						jTextField2.setText("Direccion1");
+						jTextField3.setText("1");
 						String nombre = jTextField1.getText();
 						String direccion = jTextField2.getText();
 						String idOVenta = jTextField3.getText();
