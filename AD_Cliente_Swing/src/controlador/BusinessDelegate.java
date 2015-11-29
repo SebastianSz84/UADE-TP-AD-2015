@@ -162,11 +162,11 @@ public class BusinessDelegate
 		}
 	}
 	
-	public void bajaCliente(int codigoCliente)
+	public void bajaCliente(int id)
 	{
 		try
 		{
-			objetoRemoto.bajaCliente(codigoCliente);
+			objetoRemoto.bajaCliente(id);
 		}
 		catch (RemoteException e)
 		{
@@ -236,5 +236,18 @@ public class BusinessDelegate
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	public ClienteDTO getClienteDTO(int id)
+	{
+		try
+		{
+			return objetoRemoto.getClienteDTO(id);
+		}
+		catch (RemoteException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 }
