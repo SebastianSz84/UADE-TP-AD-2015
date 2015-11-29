@@ -20,6 +20,7 @@ import Entities.FormaPago;
 import Entities.ItemCotizacion;
 import Entities.OVenta;
 import Entities.Rodamiento;
+import Entities.Stock;
 import Helper.BultosXML;
 import Helper.CotizacionesXML;
 import bean.BultoDTO;
@@ -267,7 +268,7 @@ public class GestionRodamientos implements Serializable
 	{
 		Cliente cliente = ClienteDAO.getCliente(codigoCliente);
 		OVenta oventa = OVentaDAO.getOVenta(cliente.getOVenta().getId());
-		oventa.bajaCliente(codigoCliente);
+		oventa.bajaCliente(cliente);
 	}
 	
 	public void modificacionCliente(ClienteDTO clienteDTO)
@@ -298,5 +299,31 @@ public class GestionRodamientos implements Serializable
 		if (forma != null)
 			return forma.getDTO();
 		return null;
+	}
+	
+	public RodamientoDTO getRodamiento(String codigoSKF)
+	{
+		Rodamiento rod = RodamientoDAO.getRodamiento(codigoSKF);
+		if (rod != null)
+		{
+			return rod.getDTO();
+		}
+		return null;
+	}
+	
+	public boolean altaRodamiento(RodamientoDTO rodDTO)
+	{
+		Rodamiento rod = new Rodamiento();
+		rod.setCodigoSKF(rodDTO.getCodigoSKF());
+		rod.setTipo(rodDTO.getTipo());
+		Stock stk = new Stock();
+		stk.setCantidad(rodDTO.getStock().getCantidad());
+		stk.setPrecio(0);
+		rod.setStock(stk);
+		if (RodamientoDAO.saveRodamiento(rod) != null)
+		{
+			return true;
+		}
+		return false;
 	}
 }
