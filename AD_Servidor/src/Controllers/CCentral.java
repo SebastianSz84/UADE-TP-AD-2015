@@ -199,27 +199,25 @@ public class CCentral
 	
 	public void publicarListaDePreciosFinal()
 	{
-		if (ComparativaPrecios.getInstancia().deleteItems())
+		ComparativaPrecios.getInstancia().deleteItems();
+		ComparativaPrecios.getInstancia().setFecha(Calendar.getInstance().getTime());
+		for (Rodamiento rod : RodamientoDAO.getListaRodamientos())
 		{
-			ComparativaPrecios.getInstancia().setFecha(Calendar.getInstance().getTime());
-			for (Rodamiento rod : RodamientoDAO.getListaRodamientos())
+			ItemProveedor mejorPrecio = null;
+			Proveedor mejorProveedor = null;
+			for (Proveedor prov : ProveedorDAO.getListaProveedores())
 			{
-				ItemProveedor mejorPrecio = null;
-				Proveedor mejorProveedor = null;
-				for (Proveedor prov : ProveedorDAO.getListaProveedores())
+				ItemProveedor itemProv = prov.getItemProveedor(rod);
+				if (itemProv != null && (mejorPrecio == null || mejorPrecio.getPrecio() < itemProv.getPrecio()))
 				{
-					ItemProveedor itemProv = prov.getItemProveedor(rod);
-					if (itemProv != null && (mejorPrecio == null || mejorPrecio.getPrecio() < itemProv.getPrecio()))
-					{
-						mejorPrecio = itemProv;
-						mejorProveedor = prov;
-					}
+					mejorPrecio = itemProv;
+					mejorProveedor = prov;
 				}
-				
-				if (mejorPrecio != null && mejorProveedor != null)
-				{
-					ComparativaPrecios.getInstancia().ActualizarPrecio(mejorPrecio);
-				}
+			}
+			
+			if (mejorPrecio != null && mejorProveedor != null)
+			{
+				ComparativaPrecios.getInstancia().ActualizarPrecio(mejorPrecio);
 			}
 		}
 		ComparativaPreciosDAO.saveComparativa(ComparativaPrecios.getInstancia());
@@ -286,6 +284,8 @@ public class CCentral
 			}
 		}
 		ProveedorDAO.saveEntity(proveedor);
+		
+		publicarListaDePreciosFinal();
 	}
 	
 	public ProveedorDTO getProveedorDTO(int id)
