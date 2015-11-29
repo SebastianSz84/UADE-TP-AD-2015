@@ -16,25 +16,19 @@ import javax.swing.table.TableModel;
 import controlador.BusinessDelegate;
 
 /**
- * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
- * Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose
- * whatever) then you should purchase a license for each developer using Jigloo.
- * Please visit www.cloudgarden.com for details. Use of Jigloo implies
- * acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN
- * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
- * ANY CORPORATE OR COMMERCIAL PURPOSE.
+ * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer using Jigloo.
+ * Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
 public class EntradaDeMercaderiaManual extends javax.swing.JFrame
 {
-
+	
 	private JLabel jLabel1;
 	private JScrollPane jScrollPane1;
 	private JButton jButton1;
 	private JScrollPane jScrollPane2;
 	private JTable jTable1;
 	private TableModel jTable1Model;
-
+	
 	/**
 	 * Auto-generated main method to display this JFrame
 	 */
@@ -50,13 +44,13 @@ public class EntradaDeMercaderiaManual extends javax.swing.JFrame
 			}
 		});
 	}
-
+	
 	public EntradaDeMercaderiaManual()
 	{
 		super();
 		initGUI();
 	}
-
+	
 	private void initGUI()
 	{
 		try
@@ -80,17 +74,51 @@ public class EntradaDeMercaderiaManual extends javax.swing.JFrame
 					{
 						jTable1Model = new DefaultTableModel(new String[][]
 						{
-						{ "", "" },
-						{ "", "" },
-						{ "", "" },
-						{ "", "" },
-						{ "", "" },
-						{ "", "" },
-						{ "", "" },
-						{ "", "" },
-						{ "", "" },
-						{ "", "" } }, new String[]
-						{ "SKF", "Cantidad" });
+							{
+								"",
+								""
+							},
+							{
+								"",
+								""
+							},
+							{
+								"",
+								""
+							},
+							{
+								"",
+								""
+							},
+							{
+								"",
+								""
+							},
+							{
+								"",
+								""
+							},
+							{
+								"",
+								""
+							},
+							{
+								"",
+								""
+							},
+							{
+								"",
+								""
+							},
+							{
+								"",
+								""
+							}
+						}, new String[]
+						{
+							"SKF",
+							"Cantidad"
+						});
 						jTable1 = new JTable();
 						jScrollPane2.setViewportView(jTable1);
 						jTable1.setModel(jTable1Model);
@@ -124,13 +152,16 @@ public class EntradaDeMercaderiaManual extends javax.swing.JFrame
 							}
 							String SKF = (String) jTable1Model.getValueAt(i, 0);
 							int cantidad = Integer.parseInt((String) jTable1Model.getValueAt(i, 1));
-
-							if (BusinessDelegate.getInstancia().GenerarBultosDeRodamiento(SKF, cantidad) ==  -1) {
+							
+							if (BusinessDelegate.getInstancia().GenerarBultosDeRodamiento(SKF, cantidad) == -1)
+							{
 								JOptionPane.showMessageDialog(null, "Codigo SKF " + SKF + " no encontrado!");
 							}
 						}
 						
 						BusinessDelegate.getInstancia().CerrarBultosDeRodamiento();
+						JOptionPane.showMessageDialog(null, "Ingreso Manuel de mercaderia, terminado!");
+						dispose();
 					}
 				});
 			}
@@ -138,11 +169,12 @@ public class EntradaDeMercaderiaManual extends javax.swing.JFrame
 			this.setSize(724, 360);
 			this.setLocationRelativeTo(null);
 			this.setVisible(true);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// add your error handling code here
 			e.printStackTrace();
 		}
 	}
-
+	
 }
