@@ -61,14 +61,13 @@ public class OVenta
 	
 	public void modificacionCliente(ClienteDTO clienteDTO)
 	{
-		Cliente cliente = buscarCliente(clienteDTO.getId());
+		Cliente cliente = ClienteDAO.getCliente(clienteDTO.getId());
 		cliente.modificar(this, clienteDTO);
 		ClienteDAO.saveEntity(cliente);
 	}
 	
 	public void bajaCliente(Cliente cliente)
 	{
-		// Cliente cliente = buscarCliente(idCliente);
 		cliente.setInactivo(true);
 		ClienteDAO.saveEntity(cliente);
 	}
