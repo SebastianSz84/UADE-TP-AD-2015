@@ -66,7 +66,7 @@ public class BajaCliente extends javax.swing.JFrame {
 				jButton1 = new JButton();
 				getContentPane().add(jButton1);
 				jButton1.setText("Borrar cliente");
-				jButton1.setBounds(143, 153, 95, 23);
+				jButton1.setBounds(117, 155, 143, 23);
 				jButton1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent evt) {
 						String codigo = jTextField1.getText();
