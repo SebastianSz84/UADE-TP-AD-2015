@@ -81,6 +81,8 @@ public class BajaCliente extends javax.swing.JFrame {
 			}
 			pack();
 			setSize(400, 300);
+			this.setLocationRelativeTo(null);
+			this.setVisible(true);
 		} catch (Exception e) {
 		    //add your error handling code here
 			e.printStackTrace();
