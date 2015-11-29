@@ -66,10 +66,11 @@ public class OVenta
 		ClienteDAO.saveEntity(cliente);
 	}
 	
-	public void bajaCliente(int idCliente)
+	public void bajaCliente(Cliente cliente)
 	{
-		Cliente cliente = buscarCliente(idCliente);
-		ClienteDAO.deleteEntity(cliente);
+		// Cliente cliente = buscarCliente(idCliente);
+		cliente.setInactivo(true);
+		ClienteDAO.saveEntity(cliente);
 	}
 	
 	public void generarCotizacion(CotizacionDTO cotDTO)

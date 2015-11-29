@@ -124,4 +124,34 @@ public class Cliente
 			formas.add(new FormaPago(forma));
 		}
 	}
+	
+	public boolean isInactivo()
+	{
+		return inactivo;
+	}
+	
+	public void setInactivo(boolean inactivo)
+	{
+		this.inactivo = inactivo;
+	}
+	
+	public List<FormaPago> getFormas()
+	{
+		return formas;
+	}
+	
+	public void setFormas(List<FormaPago> formas)
+	{
+		this.formas = formas;
+	}
+	
+	public OVenta getoVenta()
+	{
+		return oVenta;
+	}
+	
+	public void setoVenta(OVenta oVenta)
+	{
+		this.oVenta = oVenta;
+	}
 }
