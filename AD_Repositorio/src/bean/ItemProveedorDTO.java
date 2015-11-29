@@ -21,6 +21,16 @@ public class ItemProveedorDTO
 		this.condiciones = condiciones;
 	}
 	
+	public ItemProveedorDTO(String skf, String codRodProv, int idProveedor, float precio, boolean disponible, String condiciones)
+	{
+		this.skf = skf;
+		this.codRodProv = codRodProv;
+		this.idProveedor = idProveedor;
+		this.precio = precio;
+		this.disponible = disponible;
+		this.condiciones = condiciones;
+	}
+	
 	public String getSKF()
 	{
 		return skf;
@@ -41,11 +51,6 @@ public class ItemProveedorDTO
 		return disponible;
 	}
 	
-	public String getCondciones()
-	{
-		return condiciones;
-	}
-	
 	public boolean sosElRodamiento(String codigoSKF)
 	{
 		return this.skf.equals(codigoSKF);
@@ -59,16 +64,6 @@ public class ItemProveedorDTO
 	public void setId(int id)
 	{
 		this.id = id;
-	}
-	
-	public String getSkf()
-	{
-		return skf;
-	}
-	
-	public void setSkf(String skf)
-	{
-		this.skf = skf;
 	}
 	
 	public String getCondiciones()

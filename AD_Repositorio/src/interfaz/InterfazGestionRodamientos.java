@@ -7,6 +7,7 @@ import java.util.List;
 import bean.ClienteDTO;
 import bean.FormaDePagoDTO;
 import bean.ItemCotizacionDTO;
+import bean.ItemProveedorDTO;
 import bean.OVentaDTO;
 import bean.ProveedorDTO;
 import bean.RodamientoDTO;
@@ -23,15 +24,11 @@ public interface InterfazGestionRodamientos extends Remote
 	
 	public String aceptarCotizacion(int idCotizacion) throws RemoteException;
 	
-	public void PublicarListaDePreciosFinal() throws RemoteException;
-	
-	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo) throws RemoteException;
-	
 	public boolean checkearSiClienteExiste(int nroCliente) throws RemoteException;
 	
 	public void generarListaDePrecioProveedorAutomatica(String archivoProveedor, int codigoProveedor) throws RemoteException;
 	
-	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF) throws RemoteException;
+	public void agregarItemAListaProveedor(ItemProveedorDTO itemProveedorDTO) throws RemoteException;
 	
 	public int GenerarBultosDeRodamiento(String codigoSKF, int cantidad) throws RemoteException;
 	

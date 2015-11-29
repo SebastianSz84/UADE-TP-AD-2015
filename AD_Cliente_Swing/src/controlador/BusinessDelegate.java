@@ -9,6 +9,7 @@ import java.rmi.RemoteException;
 
 import bean.ClienteDTO;
 import bean.FormaDePagoDTO;
+import bean.ItemProveedorDTO;
 import bean.OVentaDTO;
 import bean.ProveedorDTO;
 import bean.RodamientoDTO;
@@ -73,11 +74,11 @@ public class BusinessDelegate
 		}
 	}
 	
-	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF)
+	public void agregarItemAListaProveedor(ItemProveedorDTO itemProveedorDTO)
 	{
 		try
 		{
-			objetoRemoto.agregarItemAListaProveedor(codigoProveedor, codigoItem, precio, condiciones, disponible, codigoSKF);
+			objetoRemoto.agregarItemAListaProveedor(itemProveedorDTO);
 		}
 		catch (RemoteException e)
 		{

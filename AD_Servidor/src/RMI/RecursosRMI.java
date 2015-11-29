@@ -11,6 +11,7 @@ import Controllers.GestionRodamientos;
 import bean.ClienteDTO;
 import bean.FormaDePagoDTO;
 import bean.ItemCotizacionDTO;
+import bean.ItemProveedorDTO;
 import bean.OVentaDTO;
 import bean.ProveedorDTO;
 import bean.RodamientoDTO;
@@ -47,16 +48,6 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 		return GestionRodamientos.getInstancia().aceptarCotizacion(idCotizacion);
 	}
 	
-	public void PublicarListaDePreciosFinal() throws RemoteException
-	{
-		
-	}
-	
-	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF, String Tipo) throws RemoteException
-	{
-		CCentral.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigoItem, precio, condiciones, disponible, codigoSKF);// , Tipo);
-	}
-	
 	public boolean checkearSiClienteExiste(int nroCliente) throws RemoteException
 	{
 		return GestionRodamientos.getInstancia().checkearSiClienteExiste(nroCliente);
@@ -67,9 +58,9 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 		CCentral.getInstancia().generarListaDePrecioProveedorAutomatica(archivoProveedor, codigoProveedor);
 	}
 	
-	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF) throws RemoteException
+	public void agregarItemAListaProveedor(ItemProveedorDTO itemProveedorDTO) throws RemoteException
 	{
-		CCentral.getInstancia().agregarItemAListaProveedor(codigoProveedor, codigoItem, precio, condiciones, disponible, codigoSKF);
+		CCentral.getInstancia().agregarItemAListaProveedor(itemProveedorDTO);
 	}
 	
 	public int GenerarBultosDeRodamiento(String codigoSKF, int cantidad) throws RemoteException

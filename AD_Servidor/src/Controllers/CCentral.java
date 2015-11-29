@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Vector;
 
 import Dao.BultoDAO;
+import Dao.ComparativaPreciosDAO;
 import Dao.OCProveedorDAO;
 import Dao.OVentaDAO;
 import Dao.PedVentaDAO;
@@ -203,6 +204,7 @@ public class CCentral
 				}
 			}
 		}
+		ComparativaPreciosDAO.saveComparativa(ComparativaPrecios.getInstancia());
 	}
 	
 	public void generarListaDePrecioProveedorAutomatica(String archivoProveedor, int codigoProveedor)
@@ -217,7 +219,7 @@ public class CCentral
 				Rodamiento rod = buscarRodamiento(itemDTO.getSKF());
 				if (rod != null)
 				{
-					ItemProveedor itProv = new ItemProveedor(proveedor, itemDTO.getCodRodProv(), itemDTO.getPrecio(), itemDTO.getCondciones(), itemDTO.getDisponible(), rod);
+					ItemProveedor itProv = new ItemProveedor(proveedor, itemDTO.getCodRodProv(), itemDTO.getPrecio(), itemDTO.getCondiciones(), itemDTO.getDisponible(), rod);
 					items.addElement(itProv);
 				}
 			}
@@ -246,22 +248,22 @@ public class CCentral
 		CCentral.instancia = instancia;
 	}
 	
-	public void agregarItemAListaProveedor(int codigoProveedor, String codigoItem, float precio, String condiciones, boolean disponible, String codigoSKF)
+	public void agregarItemAListaProveedor(ItemProveedorDTO itemProveedorDTO)
 	{
-		Proveedor proveedor = buscarProveedor(codigoProveedor);
+		Proveedor proveedor = buscarProveedor(itemProveedorDTO.getIdProveedor());
 		if (proveedor != null)
 		{
-			Rodamiento rod = buscarRodamiento(codigoSKF);
+			Rodamiento rod = buscarRodamiento(itemProveedorDTO.getSKF());
 			if (rod != null)
 			{
-				ItemProveedor item = proveedor.buscarItem(codigoItem);
+				ItemProveedor item = proveedor.buscarItem(itemProveedorDTO.getCodRodProv());
 				if (item == null)
 				{
-					proveedor.agregarItem(codigoItem, precio, condiciones, disponible, rod);
+					proveedor.agregarItem(itemProveedorDTO.getCodRodProv(), itemProveedorDTO.getPrecio(), itemProveedorDTO.getCondiciones(), itemProveedorDTO.getDisponible(), rod);
 				}
 				else
 				{
-					item.actualizar(precio, condiciones, disponible, rod);
+					item.actualizar(itemProveedorDTO.getPrecio(), itemProveedorDTO.getCondiciones(), itemProveedorDTO.getDisponible(), rod);
 				}
 			}
 		}
