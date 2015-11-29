@@ -122,7 +122,7 @@ public class OVenta
 		else
 		{
 			Mensajes mensaje = new Mensajes();
-			mensaje.setMensaje("Pedido " + pedVta.getId() + " esta completo! ");
+			mensaje.setTexto("Pedido " + pedVta.getId() + " esta completo! ");
 			mensaje.setCli(pedVta.getCotizacion().getCliente());
 			MensajesDAO.saveEntity(Mensajes.class);
 		}
