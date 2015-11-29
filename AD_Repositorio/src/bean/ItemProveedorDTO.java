@@ -5,15 +5,17 @@ public class ItemProveedorDTO
 	private int id;
 	private String skf;
 	private String codRodProv;
+	private int idProveedor;
 	private float precio;
 	private boolean disponible;
 	private String condiciones;
 	
-	public ItemProveedorDTO(int id, String skf, String codRodProv, float precio, boolean disponible, String condiciones)
+	public ItemProveedorDTO(int id, String skf, String codRodProv, int idProveedor, float precio, boolean disponible, String condiciones)
 	{
 		this.id = id;
 		this.skf = skf;
 		this.codRodProv = codRodProv;
+		this.idProveedor = idProveedor;
 		this.precio = precio;
 		this.disponible = disponible;
 		this.condiciones = condiciones;
@@ -92,5 +94,15 @@ public class ItemProveedorDTO
 	public void setDisponible(boolean disponible)
 	{
 		this.disponible = disponible;
+	}
+	
+	public int getIdProveedor()
+	{
+		return idProveedor;
+	}
+	
+	public void setIdProveedor(int idProveedor)
+	{
+		this.idProveedor = idProveedor;
 	}
 }

@@ -41,7 +41,7 @@ public class ProveedorDTO
 	
 	public void agregarItem(int id, String skf, String codRodProv, float precio, boolean disponible, String condiciones)
 	{
-		rodamientos.add(new ItemProveedorDTO(id, skf, codRodProv, precio, disponible, condiciones));
+		rodamientos.add(new ItemProveedorDTO(id, skf, codRodProv, this.codigoProveedor, precio, disponible, condiciones));
 	}
 	
 	public ArrayList<ItemProveedorDTO> getRodamientos()

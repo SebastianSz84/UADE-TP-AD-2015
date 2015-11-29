@@ -115,7 +115,7 @@ public class ItemProveedor
 	
 	public ItemProveedorDTO getDTO()
 	{
-		ItemProveedorDTO itPrDTO = new ItemProveedorDTO(this.getId(), this.getRodamiento().getCodigoSKF(), this.getCodigo(), this.getPrecio(), this.isDisponible(), this.getCondiciones());
+		ItemProveedorDTO itPrDTO = new ItemProveedorDTO(this.getId(), this.getRodamiento().getCodigoSKF(), this.getCodigo(), this.proveedor.getCodigoProveedor(), this.getPrecio(), this.isDisponible(), this.getCondiciones());
 		return itPrDTO;
 	}
 	

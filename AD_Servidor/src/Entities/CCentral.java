@@ -1,5 +1,6 @@
 package Entities;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Vector;
@@ -10,7 +11,9 @@ import Dao.PedVentaDAO;
 import Dao.ProveedorDAO;
 import Dao.RodamientoDAO;
 import Helper.BultosXML;
+import Helper.OCProveedorXML;
 import Helper.ProveedorListaPreciosXML;
+import bean.ItemPedVentaDTO;
 import bean.ItemProveedorDTO;
 import bean.PedVentaDTO;
 import bean.ProveedorDTO;
@@ -118,28 +121,41 @@ public class CCentral
 	
 	public void generarOrdenesDeCompra(List<PedVentaDTO> pedidos)
 	{
-		// List<OCProveedor> listaOCs = new ArrayList<OCProveedor>();
-		// for (PedVentaDTO pedido : pedidos)
-		// {
-		// for (ItemPedVentaDTO item : pedido.getItems())
-		// {
-		// OCProveedor ocProv = buscarOC(listaOCs);
-		// if (ocProv != null) // && oc.status es "abierta"
-		// {
-		// ocProv.agregarAOC(item.getItCotizacion().getRod(), item.getItCotizacion().getCantidad());
-		// }
-		// else
-		// {
-		// crearOC(item);
-		// }
-		// }
-		// }
-		// OCProveedorXML.GenerarXMLOrdenesDeCompra(OCProveedorDAO.getListaOCProveedores());
+		List<OCProveedor> listaOCs = new ArrayList<OCProveedor>();
+		for (PedVentaDTO pedido : pedidos)
+		{
+			for (ItemPedVentaDTO item : pedido.getItems())
+			{
+				OCProveedor ocProv = buscarOCPorProveedor(listaOCs, item.getItCotizacion().getItProveedor().getIdProveedor());
+				if (ocProv != null)
+				{
+					ocProv.agregarAOC(RodamientoDAO.getRodamiento(item.getItCotizacion().getRod().getCodigoSKF()), item.getItCotizacion().getCantidad());
+				}
+				else
+				{
+					OCProveedor ocProvNueva = new OCProveedor();
+					ocProvNueva.agregarAOC(RodamientoDAO.getRodamiento(item.getItCotizacion().getRod().getCodigoSKF()), item.getItCotizacion().getCantidad());
+					listaOCs.add(ocProvNueva);
+				}
+			}
+		}
+		for (OCProveedor ocProv : listaOCs)
+		{
+			OCProveedorDAO.saveOCProveedor(ocProv);
+		}
+		OCProveedorXML.GenerarXMLOrdenesDeCompra(listaOCs);
 	}
 	
-	private OCProveedor buscarOC(int codigoProveedor)
+	private OCProveedor buscarOCPorProveedor(List<OCProveedor> listaOCs, int codigoProveedor)
 	{
-		return OCProveedorDAO.getOCProveedor(codigoProveedor);
+		for (OCProveedor ocProv : listaOCs)
+		{
+			if (ocProv.getProveedor().getCodigoProveedor() == codigoProveedor)
+			{
+				return ocProv;
+			}
+		}
+		return null;
 	}
 	
 	public void publicarListaDePreciosFinal()
@@ -230,6 +246,5 @@ public class CCentral
 			}
 		}
 		ProveedorDAO.saveEntity(proveedor);
-		
 	}
 }
