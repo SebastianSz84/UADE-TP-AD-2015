@@ -86,11 +86,6 @@ public class GestionRodamientos implements Serializable
 		return false;
 	}
 	
-	public void agregarItem() throws RemoteException
-	{
-		
-	}
-	
 	public void armarCotizacones()
 	{
 		List<OVenta> oVentas = OVentaDAO.getAll();
@@ -198,24 +193,6 @@ public class GestionRodamientos implements Serializable
 				}
 			}
 		}
-	}
-	
-	/*
-	 * public XML leerXMLBultosAEnviar() { } public void borrarXMLPedidoCotizacion(XML xml) { } public void borrarXMLDeBultoAEnviar( XML xml) { }
-	 */
-	
-	public void ActualizarStock(String codigoSKF, int cantidad, float precio) throws RemoteException
-	{
-		
-	}
-	
-	/*
-	 * public listasXML generarOrdenesDeCompra() { }
-	 */
-	
-	public void PublicarListaDePreciosFinal() throws RemoteException
-	{
-		
 	}
 	
 	public static GestionRodamientos getInstancia()
