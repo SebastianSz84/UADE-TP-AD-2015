@@ -156,18 +156,22 @@ public class CCentral
 		{
 			for (ItemPedVentaDTO item : pedido.getItems())
 			{
-				OCProveedor ocProv = buscarOCPorProveedor(listaOCs, item.getItCotizacion().getItProveedor().getIdProveedor());
-				if (ocProv != null)
+				if (item.getCantRecibida() != item.getItCotizacion().getCantidad())
 				{
-					ocProv.agregarAOC(RodamientoDAO.getRodamiento(item.getItCotizacion().getRod().getCodigoSKF()), item.getItCotizacion().getCantidad());
-				}
-				else
-				{
-					OCProveedor ocProvNueva = new OCProveedor();
-					ocProvNueva.agregarAOC(RodamientoDAO.getRodamiento(item.getItCotizacion().getRod().getCodigoSKF()), item.getItCotizacion().getCantidad());
-					ocProvNueva.setEstado("Abierta");
-					ocProvNueva.setProveedor(ProveedorDAO.getProveedor(item.getItCotizacion().getItProveedor().getIdProveedor()));
-					listaOCs.add(ocProvNueva);
+					int cantidad = item.getItCotizacion().getCantidad() - item.getCantRecibida();
+					OCProveedor ocProv = buscarOCPorProveedor(listaOCs, item.getItCotizacion().getItProveedor().getIdProveedor());
+					if (ocProv != null)
+					{
+						ocProv.agregarAOC(RodamientoDAO.getRodamiento(item.getItCotizacion().getRod().getCodigoSKF()), cantidad);
+					}
+					else
+					{
+						OCProveedor ocProvNueva = new OCProveedor();
+						ocProvNueva.agregarAOC(RodamientoDAO.getRodamiento(item.getItCotizacion().getRod().getCodigoSKF()), cantidad);
+						ocProvNueva.setEstado("Abierta");
+						ocProvNueva.setProveedor(ProveedorDAO.getProveedor(item.getItCotizacion().getItProveedor().getIdProveedor()));
+						listaOCs.add(ocProvNueva);
+					}
 				}
 			}
 		}
