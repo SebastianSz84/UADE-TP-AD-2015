@@ -165,6 +165,7 @@ public class GestionRodamientos implements Serializable
 					if (cotDTO != null)
 					{
 						Cotizacion cot = CotizacionDAO.getCotizacion(cotDTO.getId());
+						cot.setEstado("Procesada");
 						listaPedVta.add(ov.crearPedidoVenta(cot));
 						files[i].delete();
 					}
