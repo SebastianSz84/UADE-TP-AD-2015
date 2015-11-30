@@ -99,13 +99,16 @@ public class OVenta
 			if (men == null)
 			{
 				cot.setEstado("Armada");
+				men = new Mensajes();
+				men.setCli(cot.getCliente());
+				men.setTexto("La Cotización " + Integer.toString(cot.getId()) + " ha sido armada. Por favor, ingrese a la web para aceptarla o rechazarla.");
 				CotizacionesXML.generarXMLArmarCotizacion(CotizacionDAO.saveCotizacion(cot));
 			}
 			else
 			{
 				cot.setEstado("Rechazada");
-				MensajesDAO.saveEntity(men);
 			}
+			MensajesDAO.saveEntity(men);
 		}
 	}
 	
