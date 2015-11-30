@@ -174,13 +174,13 @@ public class CCentral
 				}
 			}
 		}
+		int i = 0;
 		for (OCProveedor ocProv : listaOCs)
 		{
-			int i = 1;
+			i++;
 			ocProv.setEstado("Liberada");
 			ocProv.setCondCompra("Condiciones de Compra " + Integer.toString(i));
 			OCProveedorDAO.saveOCProveedor(ocProv);
-			i++;
 		}
 	}
 	
