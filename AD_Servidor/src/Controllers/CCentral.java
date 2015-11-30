@@ -207,7 +207,7 @@ public class CCentral
 			for (Proveedor prov : ProveedorDAO.getListaProveedores())
 			{
 				ItemProveedor itemProv = prov.getItemProveedor(rod);
-				if (itemProv != null && (mejorPrecio == null || mejorPrecio.getPrecio() < itemProv.getPrecio()))
+				if ((itemProv != null && itemProv.isDisponible()) && (mejorPrecio == null || mejorPrecio.getPrecio() < itemProv.getPrecio()))
 				{
 					mejorPrecio = itemProv;
 					mejorProveedor = prov;
