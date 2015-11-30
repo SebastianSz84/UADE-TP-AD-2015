@@ -84,7 +84,7 @@ public class AltaRodamiento extends javax.swing.JFrame
 				jButton1 = new JButton();
 				getContentPane().add(jButton1);
 				jButton1.setText("Crear Rodamiento");
-				jButton1.setBounds(133, 208, 123, 23);
+				jButton1.setBounds(108, 208, 171, 23);
 				jButton1.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent evt)
