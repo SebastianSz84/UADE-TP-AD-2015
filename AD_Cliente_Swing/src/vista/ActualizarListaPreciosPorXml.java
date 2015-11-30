@@ -13,14 +13,8 @@ import javax.swing.WindowConstants;
 import controlador.BusinessDelegate;
 
 /**
- * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI
- * Builder, which is free for non-commercial use. If Jigloo is being used
- * commercially (ie, by a corporation, company or business for any purpose
- * whatever) then you should purchase a license for each developer using Jigloo.
- * Please visit www.cloudgarden.com for details. Use of Jigloo implies
- * acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN
- * PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR
- * ANY CORPORATE OR COMMERCIAL PURPOSE.
+ * This code was edited or generated using CloudGarden's Jigloo SWT/Swing GUI Builder, which is free for non-commercial use. If Jigloo is being used commercially (ie, by a corporation, company or business for any purpose whatever) then you should purchase a license for each developer using Jigloo.
+ * Please visit www.cloudgarden.com for details. Use of Jigloo implies acceptance of these licensing terms. A COMMERCIAL LICENSE HAS NOT BEEN PURCHASED FOR THIS MACHINE, SO JIGLOO OR THIS CODE CANNOT BE USED LEGALLY FOR ANY CORPORATE OR COMMERCIAL PURPOSE.
  */
 public class ActualizarListaPreciosPorXml extends javax.swing.JFrame
 {
@@ -30,7 +24,7 @@ public class ActualizarListaPreciosPorXml extends javax.swing.JFrame
 	private JTextField jTextField2;
 	private JLabel jLabel3;
 	private JTextField jTextField1;
-
+	
 	/**
 	 * Auto-generated main method to display this JFrame
 	 */
@@ -46,13 +40,13 @@ public class ActualizarListaPreciosPorXml extends javax.swing.JFrame
 			}
 		});
 	}
-
+	
 	public ActualizarListaPreciosPorXml()
 	{
 		super();
 		initGUI();
 	}
-
+	
 	private void initGUI()
 	{
 		try
@@ -80,7 +74,7 @@ public class ActualizarListaPreciosPorXml extends javax.swing.JFrame
 				jButton1 = new JButton();
 				getContentPane().add(jButton1);
 				jButton1.setText("Actualizar");
-				jButton1.setBounds(139, 145, 80, 28);
+				jButton1.setBounds(139, 145, 154, 28);
 				jButton1.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent evt)
@@ -90,7 +84,8 @@ public class ActualizarListaPreciosPorXml extends javax.swing.JFrame
 							int codigoProveedor = Integer.parseInt(jTextField2.getText());
 							BusinessDelegate.getInstancia().generarListaDePrecioProveedorAutomatica(jTextField1.getText().toString(), codigoProveedor);
 							dispose();
-						} else
+						}
+						else
 						{
 							JOptionPane.showMessageDialog(null, "Error al actualizar precios.", "Error", JOptionPane.ERROR_MESSAGE);
 						}
@@ -112,11 +107,12 @@ public class ActualizarListaPreciosPorXml extends javax.swing.JFrame
 			this.setSize(416, 300);
 			this.setLocationRelativeTo(null);
 			this.setVisible(true);
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			// add your error handling code here
 			e.printStackTrace();
 		}
 	}
-
+	
 }

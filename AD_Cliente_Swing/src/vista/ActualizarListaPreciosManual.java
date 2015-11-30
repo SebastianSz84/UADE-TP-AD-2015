@@ -173,7 +173,7 @@ public class ActualizarListaPreciosManual extends javax.swing.JFrame
 				jButton1 = new JButton();
 				getContentPane().add(jButton1);
 				jButton1.setText("Actualizar");
-				jButton1.setBounds(301, 263, 80, 28);
+				jButton1.setBounds(301, 263, 150, 28);
 				jButton1.addActionListener(new ActionListener()
 				{
 					public void actionPerformed(ActionEvent evt)

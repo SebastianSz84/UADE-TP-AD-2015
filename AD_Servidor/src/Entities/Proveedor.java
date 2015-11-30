@@ -154,18 +154,6 @@ public class Proveedor
 		return null;
 	}
 	
-	public ItemProveedor buscarItem(String codigoItem, String skf)
-	{
-		for (ItemProveedor item : items)
-		{
-			if (item.getCodigo().equals(codigoItem) && item.getRodamiento().getCodigoSKF().equals(skf))
-			{
-				return item;
-			}
-		}
-		return null;
-	}
-	
 	public ProveedorDTO getDTO()
 	{
 		ProveedorDTO provDTO = new ProveedorDTO();
@@ -173,7 +161,4 @@ public class Proveedor
 		return provDTO;
 	}
 	
-	/*
-	 * public void XMLToList( XML archivoProveedor, Vector<Rodamiento> rodamientos) { } public DataSet convertToDataSet( XML archivoProveedor) { }
-	 */
 }
