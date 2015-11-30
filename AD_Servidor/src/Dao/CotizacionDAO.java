@@ -22,23 +22,18 @@ public class CotizacionDAO extends BaseDAO
 	@SuppressWarnings("unchecked")
 	public static List<Cotizacion> getCotizacionesDeCliente(int nroCliente)
 	{
-		Session session = getSession();
-		session.flush();
-		Session newSession = getNewSession();
 		try
 		{
+			// Session session = getSession();
+			// Query query = session.createQuery("FROM Cotizacion cot WHERE cot.cliente.id = " + nroCliente);
+			Session newSession = getNewSession();
 			Query query = newSession.createQuery("FROM Cotizacion cot WHERE cot.cliente.id = " + nroCliente);
-			query.setCacheable(false);
 			List<Cotizacion> list = query.list();
 			return list;
 		}
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
-		}
-		finally
-		{
-			newSession.close();
 		}
 		return null;
 	}
