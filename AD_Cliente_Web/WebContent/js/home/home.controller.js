@@ -11,6 +11,7 @@ angular.module('distribuidas')
         $scope.verCotizaciones = function(){
             $scope.armandoCot = false;
             $scope.datos.cotId = 0;
+            $scope.cotizaciones = [];
             
             /*if ($scope.cotizaciones.length > 0){
             	return;
@@ -22,7 +23,6 @@ angular.module('distribuidas')
             })
             .success(function (data) {
                 console.log(data);
-                $scope.cotizaciones = [];
                 $scope.cotizaciones = data;
             }).
             error(function (data, status) {
