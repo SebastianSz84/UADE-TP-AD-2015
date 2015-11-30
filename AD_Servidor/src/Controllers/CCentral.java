@@ -63,8 +63,11 @@ public class CCentral
 	public void ActualizarStock(String codigoSKF, int cantidad, float precio)
 	{
 		Rodamiento rod = buscarRodamiento(codigoSKF);
-		rod.ActualizarStock(cantidad, precio);
-		RodamientoDAO.saveEntity(rod);
+		if (rod != null)
+		{
+			rod.ActualizarStock(cantidad, precio);
+			RodamientoDAO.saveEntity(rod);
+		}
 	}
 	
 	private Rodamiento buscarRodamiento(String codigoSKF)
