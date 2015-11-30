@@ -3,6 +3,7 @@ package Dao;
 import java.util.List;
 
 import org.hibernate.Query;
+import org.hibernate.Session;
 
 import Entities.Cotizacion;
 
@@ -21,9 +22,12 @@ public class CotizacionDAO extends BaseDAO
 	@SuppressWarnings("unchecked")
 	public static List<Cotizacion> getCotizacionesDeCliente(int nroCliente)
 	{
+		Session session = getSession();
+		session.flush();
+		Session newSession = getNewSession();
 		try
 		{
-			Query query = getSession().createQuery("FROM Cotizacion cot WHERE cot.cliente.id = " + nroCliente);
+			Query query = newSession.createQuery("FROM Cotizacion cot WHERE cot.cliente.id = " + nroCliente);
 			query.setCacheable(false);
 			List<Cotizacion> list = query.list();
 			return list;
@@ -31,6 +35,10 @@ public class CotizacionDAO extends BaseDAO
 		catch (Exception ex)
 		{
 			ex.printStackTrace();
+		}
+		finally
+		{
+			newSession.close();
 		}
 		return null;
 	}

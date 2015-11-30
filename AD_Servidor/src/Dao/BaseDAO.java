@@ -29,7 +29,7 @@ import Entities.Rodamiento;
 
 public class BaseDAO
 {
-	
+	private static SessionFactory _factory;
 	private static Session _session;
 	
 	public static Session getSession()
@@ -59,10 +59,15 @@ public class BaseDAO
 			cfg.addAnnotatedClass(ItemComparativa.class);
 			
 			cfg.configure("hibernate.cfg.xml");
-			SessionFactory factory = cfg.buildSessionFactory();
-			_session = factory.openSession();
+			_factory = cfg.buildSessionFactory();
+			_session = _factory.openSession();
 		}
 		return _session;
+	}
+	
+	public static Session getNewSession()
+	{
+		return _factory.openSession();
 	}
 	
 	public static <T> T getEntity(Class<T> cls, int id)
