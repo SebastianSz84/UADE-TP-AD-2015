@@ -245,11 +245,11 @@ public class CCentral
 					{
 						item.actualizar(itemDTO.getPrecio(), itemDTO.getCondiciones(), itemDTO.getDisponible(), rod);
 					}
+					ProveedorDAO.saveEntity(proveedor);
+					publicarListaDePreciosFinal();
+					
 				}
 			}
-			ProveedorDAO.saveEntity(proveedor);
-			publicarListaDePreciosFinal();
-			
 		}
 	}
 	
