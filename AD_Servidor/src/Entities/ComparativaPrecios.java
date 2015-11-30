@@ -28,7 +28,7 @@ public class ComparativaPrecios
 	private Date fecha;
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "idComparativa")
 	private List<ItemComparativa> items;
 	
 	private static ComparativaPrecios instancia;

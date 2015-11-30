@@ -14,6 +14,7 @@ import Entities.Cotizacion;
 import Entities.Envio;
 import Entities.FormaPago;
 import Entities.ItemBulto;
+import Entities.ItemComparativa;
 import Entities.ItemCotizacion;
 import Entities.ItemEnvio;
 import Entities.ItemOCProveedor;
@@ -55,6 +56,7 @@ public class BaseDAO
 			cfg.addAnnotatedClass(Rodamiento.class);
 			cfg.addAnnotatedClass(ComparativaPrecios.class);
 			cfg.addAnnotatedClass(Mensajes.class);
+			cfg.addAnnotatedClass(ItemComparativa.class);
 			
 			cfg.configure("hibernate.cfg.xml");
 			SessionFactory factory = cfg.buildSessionFactory();
@@ -143,7 +145,7 @@ public class BaseDAO
 		String hql = String.format("delete from %s", tabla);
 		try
 		{
-			getSession().createQuery(hql);
+			getSession().createQuery(hql).executeUpdate();
 			tx.commit();
 			return true;
 		}
