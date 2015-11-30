@@ -33,9 +33,9 @@ public class RecursosRMI extends UnicastRemoteObject implements InterfazGestionR
 		return GestionRodamientos.getInstancia().getListaRodamientos();
 	}
 	
-	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista, boolean aceptada) throws RemoteException
+	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) throws RemoteException
 	{
-		return GestionRodamientos.getInstancia().solicitarCotizacion(nroCliente, itemsCotLista, aceptada);
+		return GestionRodamientos.getInstancia().solicitarCotizacion(nroCliente, itemsCotLista);
 	}
 	
 	public void armarCotizacones() throws RemoteException

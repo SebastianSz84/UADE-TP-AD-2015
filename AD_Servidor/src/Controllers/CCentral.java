@@ -207,7 +207,7 @@ public class CCentral
 			for (Proveedor prov : ProveedorDAO.getListaProveedores())
 			{
 				ItemProveedor itemProv = prov.getItemProveedor(rod);
-				if (itemProv != null && (mejorPrecio == null || mejorPrecio.getPrecio() < itemProv.getPrecio()))
+				if ((itemProv != null && itemProv.isDisponible()) && (mejorPrecio == null || mejorPrecio.getPrecio() < itemProv.getPrecio()))
 				{
 					mejorPrecio = itemProv;
 					mejorProveedor = prov;
@@ -271,7 +271,7 @@ public class CCentral
 			Rodamiento rod = buscarRodamiento(itemProveedorDTO.getSKF());
 			if (rod != null)
 			{
-				ItemProveedor item = proveedor.buscarItem(itemProveedorDTO.getCodRodProv());
+				ItemProveedor item = proveedor.buscarItem(itemProveedorDTO.getCodRodProv(), itemProveedorDTO.getSKF());
 				if (item == null)
 				{
 					proveedor.agregarItem(itemProveedorDTO.getCodRodProv(), itemProveedorDTO.getPrecio(), itemProveedorDTO.getCondiciones(), itemProveedorDTO.getDisponible(), rod);

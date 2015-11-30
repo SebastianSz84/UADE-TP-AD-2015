@@ -55,14 +55,14 @@ public class GestionRodamientos implements Serializable
 		return listaRodDTO;
 	}
 	
-	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista, boolean aceptada) throws RemoteException
+	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) throws RemoteException
 	{
 		Cliente cli = ClienteDAO.getCliente(nroCliente);
 		if (cli != null)
 		{
 			Cotizacion cot = new Cotizacion();
 			cot.setFecha(Calendar.getInstance().getTime());
-			cot.setEstado(aceptada ? "Aceptada" : "Pendiente");
+			cot.setEstado("Pendiente");
 			cot.setCliente(cli);
 			List<ItemCotizacion> listaItems = new ArrayList<>();
 			for (ItemCotizacionDTO itCotDTO : itemsCotLista)
@@ -139,7 +139,7 @@ public class GestionRodamientos implements Serializable
 					ov.rechazarCotizacion(cot);
 					if (itemsCotLista.size() > 0)
 					{
-						if (solicitarCotizacion(cot.getCliente().getId(), itemsCotLista, true))
+						if (solicitarCotizacion(cot.getCliente().getId(), itemsCotLista))
 						{
 							return "Nueva";
 						}

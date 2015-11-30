@@ -49,7 +49,7 @@ public class BusinessDelegate {
 
 	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) {
 		try {
-			return objetoRemoto.solicitarCotizacion(nroCliente, itemsCotLista, false);
+			return objetoRemoto.solicitarCotizacion(nroCliente, itemsCotLista);
 		} catch (RemoteException e) {
 			e.printStackTrace();
 		}

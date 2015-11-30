@@ -18,7 +18,7 @@ public interface InterfazGestionRodamientos extends Remote
 	
 	public List<RodamientoDTO> getListaRodamientos() throws RemoteException;
 	
-	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista, boolean aceptada) throws RemoteException;
+	public boolean solicitarCotizacion(int nroCliente, List<ItemCotizacionDTO> itemsCotLista) throws RemoteException;
 	
 	public void armarCotizacones() throws RemoteException;
 	

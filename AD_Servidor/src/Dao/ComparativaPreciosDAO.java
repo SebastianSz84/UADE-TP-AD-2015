@@ -16,6 +16,6 @@ public class ComparativaPreciosDAO extends BaseDAO
 	
 	public static boolean deleteItems()
 	{
-		return deleteAll("ItemsComparativa");
+		return deleteAll("ItemComparativa");
 	}
 }
